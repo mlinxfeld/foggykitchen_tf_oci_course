@@ -23,19 +23,19 @@ Resolving deltas: 100% (142/142), done.
 Martin-MacBook-Pro:~ martinlinxfeld$ cd foggykitchen_tf_oci_course/
 Martin-MacBook-Pro:foggykitchen_tf_oci_course martinlinxfeld$ ls -latr
 total 16
-drwxr-xr-x   7 lukaszfeldman  staff   224  9 gru 17:47 ..
-drwxr-xr-x  14 lukaszfeldman  staff   448  9 gru 17:47 LESSON1_single_webserver
-drwxr-xr-x  16 lukaszfeldman  staff   512  9 gru 17:47 LESSON2_second_webserver_in_other_AD
-drwxr-xr-x  17 lukaszfeldman  staff   544  9 gru 17:47 LESSON3_load_balancer
-drwxr-xr-x  23 lukaszfeldman  staff   736  9 gru 17:47 LESSON4_load_balancer_NAT_bastion
-drwxr-xr-x  25 lukaszfeldman  staff   800  9 gru 17:47 LESSON4a_load_balancer_NAT_bastion_security_groups
-drwxr-xr-x  26 lukaszfeldman  staff   832  9 gru 17:47 LESSON5_shared_filesystem
-drwxr-xr-x  26 lukaszfeldman  staff   832  9 gru 17:47 LESSON6_local_block_volumes
-drwxr-xr-x  30 lukaszfeldman  staff   960  9 gru 17:47 LESSON7_dbsystem
-drwxr-xr-x  38 lukaszfeldman  staff  1216  9 gru 17:47 LESSON8_vcn_local_peering
-drwxr-xr-x  13 lukaszfeldman  staff   416  9 gru 17:47 .
--rw-r--r--   1 lukaszfeldman  staff  8122  9 gru 17:47 README.md
-drwxr-xr-x  12 lukaszfeldman  staff   384  9 gru 17:47 .git
+drwxr-xr-x   7 martinlinxfeld  staff   224  9 gru 17:47 ..
+drwxr-xr-x  14 martinlinxfeld  staff   448  9 gru 17:47 LESSON1_single_webserver
+drwxr-xr-x  16 martinlinxfeld  staff   512  9 gru 17:47 LESSON2_second_webserver_in_other_AD
+drwxr-xr-x  17 martinlinxfeld  staff   544  9 gru 17:47 LESSON3_load_balancer
+drwxr-xr-x  23 martinlinxfeld  staff   736  9 gru 17:47 LESSON4_load_balancer_NAT_bastion
+drwxr-xr-x  25 martinlinxfeld  staff   800  9 gru 17:47 LESSON4a_load_balancer_NAT_bastion_security_groups
+drwxr-xr-x  26 martinlinxfeld  staff   832  9 gru 17:47 LESSON5_shared_filesystem
+drwxr-xr-x  26 martinlinxfeld  staff   832  9 gru 17:47 LESSON6_local_block_volumes
+drwxr-xr-x  30 martinlinxfeld  staff   960  9 gru 17:47 LESSON7_dbsystem
+drwxr-xr-x  38 martinlinxfeld  staff  1216  9 gru 17:47 LESSON8_vcn_local_peering
+drwxr-xr-x  13 martinlinxfeld  staff   416  9 gru 17:47 .
+-rw-r--r--   1 martinlinxfeld  staff  8122  9 gru 17:47 README.md
+drwxr-xr-x  12 martinlinxfeld  staff   384  9 gru 17:47 .git
 ```
 
 ### STEP 2.
