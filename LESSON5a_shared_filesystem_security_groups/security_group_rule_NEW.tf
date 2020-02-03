@@ -1,7 +1,7 @@
 resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurityEgressUDPGroupRules" {
     for_each = toset(var.fss_udp_ports)
 
-    network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
+    network_security_group_id = oci_core_network_security_group.FoggyKitchenFSSSecurityGroup.id
     direction = "EGRESS"
     protocol = "17"
     destination = var.websubnet-CIDR
@@ -17,7 +17,7 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurit
 resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurityEgressTCPGroupRules" {
     for_each = toset(var.fss_tcp_ports)
 
-    network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
+    network_security_group_id = oci_core_network_security_group.FoggyKitchenFSSSecurityGroup.id
     direction = "EGRESS"
     protocol = "6"
     destination = var.websubnet-CIDR
@@ -33,7 +33,7 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurit
 resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurityIngressUDPGroupRules" {
     for_each = toset(var.fss_udp_ports)
 
-    network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
+    network_security_group_id = oci_core_network_security_group.FoggyKitchenFSSSecurityGroup.id
     direction = "INGRESS"
     protocol = "17"
     source = var.websubnet-CIDR
@@ -49,7 +49,7 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurit
 resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurityIngressTCPGroupRules" {
     for_each = toset(var.fss_tcp_ports)
 
-    network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
+    network_security_group_id = oci_core_network_security_group.FoggyKitchenFSSSecurityGroup.id
     direction = "INGRESS"
     protocol = "6"
     source = var.websubnet-CIDR
