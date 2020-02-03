@@ -280,6 +280,13 @@ In this lesson, we will modify the configuration a little bit. It means we will 
 
 ![](LESSON5_shared_filesystem/LESSON5_shared_filesystem.jpg)
 
+### LESSON 5a - Shared Filesystem (+ Network Security Groups) 
+
+In this lesson, we will modify the configuration a little bit. Shared filesystem will be moved to additonal
+subnet and NSG will be used instead of SecurityList. This is not obligatory lesson, but it good to understand how to make your configuration more secured.
+
+![](LESSON5a_shared_filesystem_security_groups/LESSON5a_shared_filesystem_security_groups.jpg)
+
 ### LESSON 6 - Local Block Volume
 
 In this lesson, we will add only one additional OCI resource. It will be 100G block volume (*oci_core_volume*), which will be then associated with the first web server VM. With the usage of *Null Provider* we will execute the script to discover iscsi disk on Webserver1, configure partition there, format as ext4 filesystem and finally mount it as /u01 (entries added to /etc/fstab). This kind of block volume can be used for example for installation of Glassfish or any other Application Container software which requires a lot of space. 
