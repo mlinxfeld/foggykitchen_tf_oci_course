@@ -51,7 +51,7 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurit
 
     network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
     direction = "INGRESS"
-    protocol = "17"
+    protocol = "6"
     source = var.websubnet-CIDR
     source_type = "CIDR_BLOCK"
     tcp_options {
