@@ -4,7 +4,7 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurit
     network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
     direction = "EGRESS"
     protocol = "17"
-    destination = "10.0.1.0/24"
+    destination = var.websubnet-CIDR
     destination_type = "CIDR_BLOCK"
     udp_options {
         destination_port_range {
@@ -20,7 +20,7 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurit
     network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
     direction = "EGRESS"
     protocol = "6"
-    destination = "10.0.1.0/24"
+    destination = var.websubnet-CIDR
     destination_type = "CIDR_BLOCK"
     tcp_options {
         destination_port_range {
@@ -36,7 +36,7 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurit
     network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
     direction = "INGRESS"
     protocol = "17"
-    source = "10.0.1.0/24"
+    source = var.websubnet-CIDR
     source_type = "CIDR_BLOCK"
     udp_options {
         destination_port_range {
@@ -52,25 +52,9 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurit
     network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
     direction = "INGRESS"
     protocol = "17"
-    source = "10.0.1.0/24"
+    source = var.websubnet-CIDR
     source_type = "CIDR_BLOCK"
     tcp_options {
-        destination_port_range {
-            max = each.value
-            min = each.value
-        }
-    }
-}
-
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurityEgressTCPGroupRules" {
-    for_each = toset(var.fss_tcp_ports)
-
-    network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
-    direction = "EGRESS"
-    protocol = "6"
-    destination = "10.0.1.0/24"
-    destination_type = "CIDR_BLOCK"
-    udp_options {
         destination_port_range {
             max = each.value
             min = each.value
