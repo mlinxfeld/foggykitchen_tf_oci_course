@@ -1,6 +1,7 @@
 resource "oci_core_drg" "FoggyKitchenDRG1" {
   depends_on     = [oci_identity_policy.FoggyKitchenRequestorPolicy, oci_identity_user_group_membership.FoggyKitchenRequestorUserGroupMembership]
   provider       = oci.requestor
+  display_name   = "FoggyKitchenDRG1"
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
 }
 
