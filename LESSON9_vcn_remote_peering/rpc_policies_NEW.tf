@@ -31,7 +31,7 @@ resource "oci_identity_group" "FoggyKitchenAcceptorGroup" {
 
 resource "oci_identity_user_group_membership" "FoggyKitchenAcceptorUserGroupMembership" {
   provider = "oci.admin"
-  group_id = "${oci_identity_group.FoggyKitchenAcceptorGroup.id}"
+  group_id = oci_identity_group.FoggyKitchenAcceptorGroup.id
   user_id  = var.user_ocid
 }
 

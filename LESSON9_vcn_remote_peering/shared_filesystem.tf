@@ -1,6 +1,6 @@
 resource "oci_file_storage_mount_target" "FoggyKitchenMountTarget" {
   provider = "oci.requestor"
-  availability_domain = var.ADs[1]
+  availability_domain = var.ADs1[1]
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   subnet_id = oci_core_subnet.FoggyKitchenWebSubnet.id
   ip_address = "10.0.1.25"
@@ -15,7 +15,7 @@ resource "oci_file_storage_export_set" "FoggyKitchenExportset" {
 
 resource "oci_file_storage_file_system" "FoggyKitchenFilesystem" {
   provider = "oci.requestor"
-  availability_domain = var.ADs[1]
+  availability_domain = var.ADs1[1]
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name = "FoggyKitchenFilesystem"
 }

@@ -19,7 +19,7 @@ resource "oci_core_instance" "FoggyKitchenBackendserver1" {
 }
 
 data "oci_core_vnic_attachments" "FoggyKitchenBackendserver1_VNIC1_attach" {
-  availability_domain = var.ADs[0]
+  availability_domain = var.ADs2[0]
   compartment_id = oci_identity_compartment.ExternalCompartment.id
   instance_id = oci_core_instance.FoggyKitchenBackendserver1.id
 }
