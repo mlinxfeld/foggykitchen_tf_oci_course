@@ -301,7 +301,14 @@ In this lesson, we will introduce the database component which is based on addit
 
 ### LESSON 8 - VCN local peering
 
-This is the last lesson within this course and it is the most complex so far. Besides the current pair of Compartment and VCN we would like to setup up a completely separated island. It will be a new Compartment there called *ExternalCompartment*. It this compartment we will create brand new VCN (*FoggyKitchenVCN2*) with completely different CIDR (192.168.0.0/16). Inside this VCN we will create a new regional private subnet and the Backend server will be nested there. So far this is the isolated island from original cloud infrastructure, so to interconnect them we need to create local peering with LPGs. Finally, we need to apply LPG policies there. If everything goes good we should be able to access Backend Server from Database server with SSH protocol. Let's roll with *terraform apply*.
+This lesson is the most complex so far. Besides the current pair of Compartment and VCN we would like to setup up a completely separated island. It will be a new Compartment there called *ExternalCompartment*. It this compartment we will create brand new VCN (*FoggyKitchenVCN2*) with completely different CIDR (192.168.0.0/16). Inside this VCN we will create a new regional private subnet and the Backend server will be nested there. So far this is the isolated island from original cloud infrastructure, so to interconnect them we need to create local peering with LPGs. Finally, we need to apply LPG policies there. If everything goes good we should be able to access Backend Server from Database server with SSH protocol. Let's roll with *terraform apply*.
 
 
 ![](LESSON8_vcn_local_peering/LESSON8_vcn_local_peering.jpg)
+
+### LESSON 9 - VCN remote peering
+
+This is the last lesson I will move *FoggyKitchenVCN2* content (including subnet and BackendServer to another region (eu-amsterdam-1). In this case we need to build Dynamic Routing Gateways (DRG) for both VCNs and interconnect them with Remote Peering Connection (RPC). We also need to established some additional policies to let this interconnection work. From functional perspective cross-region connection will work as the local one from the lesson 8. We will be able to access Backend server with SSH from DBSystem server or webservers.
+
+
+![](LESSON9_vcn_remote_peering/LESSON9_vcn_remote_peering.jpg)
