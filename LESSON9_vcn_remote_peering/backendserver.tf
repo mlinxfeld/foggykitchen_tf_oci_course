@@ -26,6 +26,7 @@ data "oci_core_vnic_attachments" "FoggyKitchenBackendserver1_VNIC1_attach" {
 }
 
 data "oci_core_vnic" "FoggyKitchenBackendserver1_VNIC1" {
+  provider = oci.acceptor
   vnic_id = data.oci_core_vnic_attachments.FoggyKitchenBackendserver1_VNIC1_attach.vnic_attachments.0.vnic_id
 }
 
