@@ -8,7 +8,7 @@ resource "oci_core_drg_attachment" "FoggyKitchenDRG1Attachment" {
   depends_on = ["oci_identity_policy.FoggyKitchenRequestorPolicy", "oci_identity_user_group_membership.FoggyKitchenRequestorUserGroupMembership"]
   provider   = "oci.requestor"
   drg_id     = oci_core_drg.FoggyKitchenDRG1.id
-  vcn_id     = oci_core_vcn.FoggyKitchenVCN.id
+  vcn_id     = oci_core_virtual_network.FoggyKitchenVCN.id
 }
 
 resource "oci_core_remote_peering_connection" "FoggyKitchenRPC1" {
