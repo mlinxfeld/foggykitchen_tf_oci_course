@@ -1,5 +1,5 @@
 resource "oci_core_volume" "FoggyKitchenWebserver1BlockVolume100G" {
-  provider = "oci.requestor"
+  provider = oci.requestor
   availability_domain = var.ADs1[2]
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name = "FoggyKitchenWebserver1 BlockVolume 100G"
@@ -7,7 +7,7 @@ resource "oci_core_volume" "FoggyKitchenWebserver1BlockVolume100G" {
 }
 
 resource "oci_core_volume_attachment" "FoggyKitchenWebserver1BlockVolume100G_attach" {
-    provider = "oci.requestor"
+    provider = oci.requestor
     attachment_type = "iscsi"
     compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
     instance_id = oci_core_instance.FoggyKitchenWebserver1.id

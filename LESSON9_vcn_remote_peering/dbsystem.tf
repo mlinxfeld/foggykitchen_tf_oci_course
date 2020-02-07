@@ -1,5 +1,5 @@
 /*resource "oci_database_db_system" "FoggyKitchenDBSystem" {
-  provider = "oci.requestor"
+  provider = oci.requestor
   availability_domain = var.ADs1[1]
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   cpu_core_count = var.CPUCoreCount

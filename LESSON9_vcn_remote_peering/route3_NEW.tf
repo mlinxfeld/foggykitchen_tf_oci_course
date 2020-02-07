@@ -1,5 +1,5 @@
 resource "oci_core_route_table" "FoggyKitchenRouteTableViaDRG2" {
-    provider = "oci.acceptor"
+    provider = oci.acceptor
     compartment_id = oci_identity_compartment.ExternalCompartment.id
     vcn_id = oci_core_virtual_network.FoggyKitchenVCN2.id
     display_name = "FoggyKitchenRouteTableViaDRG2"

@@ -1,5 +1,5 @@
 resource "oci_core_security_list" "FoggyKitchenSSHSecurityList" {
-    provider = "oci.requestor"
+    provider = oci.requestor
     compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
     display_name = "FoggyKitchenSSHSecurityList"
     vcn_id = oci_core_virtual_network.FoggyKitchenVCN.id

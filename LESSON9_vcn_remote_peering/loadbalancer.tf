@@ -1,5 +1,5 @@
 resource "oci_load_balancer" "FoggyKitchenPublicLoadBalancer" {
-  provider       = "oci.requestor"
+  provider       = oci.requestor
   shape          = "100Mbps"
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id 
   subnet_ids     = [
@@ -9,7 +9,7 @@ resource "oci_load_balancer" "FoggyKitchenPublicLoadBalancer" {
 }
 
 resource "oci_load_balancer_backendset" "FoggyKitchenPublicLoadBalancerBackendset" {
-  provider         = "oci.requestor"
+  provider         = oci.requestor
   name             = "FoggyKitchenPublicLBBackendset"
   load_balancer_id = oci_load_balancer.FoggyKitchenPublicLoadBalancer.id
   policy           = "ROUND_ROBIN"
@@ -25,7 +25,7 @@ resource "oci_load_balancer_backendset" "FoggyKitchenPublicLoadBalancerBackendse
 
 
 resource "oci_load_balancer_listener" "FoggyKitchenPublicLoadBalancerListener" {
-  provider                 = "oci.requestor"
+  provider                 = oci.requestor
   load_balancer_id         = oci_load_balancer.FoggyKitchenPublicLoadBalancer.id
   name                     = "FoggyKitchenPublicLoadBalancerListener"
   default_backend_set_name = oci_load_balancer_backendset.FoggyKitchenPublicLoadBalancerBackendset.name
@@ -35,7 +35,7 @@ resource "oci_load_balancer_listener" "FoggyKitchenPublicLoadBalancerListener" {
 
 
 resource "oci_load_balancer_backend" "FoggyKitchenPublicLoadBalancerBackend1" {
-  provider         = "oci.requestor"
+  provider         = oci.requestor
   load_balancer_id = oci_load_balancer.FoggyKitchenPublicLoadBalancer.id
   backendset_name  = oci_load_balancer_backendset.FoggyKitchenPublicLoadBalancerBackendset.name
   ip_address       = oci_core_instance.FoggyKitchenWebserver1.private_ip
@@ -47,7 +47,7 @@ resource "oci_load_balancer_backend" "FoggyKitchenPublicLoadBalancerBackend1" {
 }
 
 resource "oci_load_balancer_backend" "FoggyKitchenPublicLoadBalancerBackend2" {
-  provider         = "oci.requestor"
+  provider         = oci.requestor
   load_balancer_id = oci_load_balancer.FoggyKitchenPublicLoadBalancer.id
   backendset_name  = oci_load_balancer_backendset.FoggyKitchenPublicLoadBalancerBackendset.name
   ip_address       = oci_core_instance.FoggyKitchenWebserver2.private_ip

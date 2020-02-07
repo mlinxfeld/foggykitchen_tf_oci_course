@@ -7,7 +7,7 @@ resource "oci_core_instance" "FoggyKitchenBackendserver1" {
   subnet_id = oci_core_subnet.FoggyKitchenBackendSubnet.id
   source_details {
     source_type = "image"
-    source_id   = var.Images[0]
+    source_id   = var.Images2[0]
   }
   metadata = {
       ssh_authorized_keys = file(var.public_key_oci)
@@ -19,6 +19,7 @@ resource "oci_core_instance" "FoggyKitchenBackendserver1" {
 }
 
 data "oci_core_vnic_attachments" "FoggyKitchenBackendserver1_VNIC1_attach" {
+  provider = oci.acceptor
   availability_domain = var.ADs2[0]
   compartment_id = oci_identity_compartment.ExternalCompartment.id
   instance_id = oci_core_instance.FoggyKitchenBackendserver1.id

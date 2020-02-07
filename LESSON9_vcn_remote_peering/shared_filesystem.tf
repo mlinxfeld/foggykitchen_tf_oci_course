@@ -1,5 +1,5 @@
 resource "oci_file_storage_mount_target" "FoggyKitchenMountTarget" {
-  provider = "oci.requestor"
+  provider = oci.requestor
   availability_domain = var.ADs1[1]
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   subnet_id = oci_core_subnet.FoggyKitchenWebSubnet.id
@@ -8,20 +8,20 @@ resource "oci_file_storage_mount_target" "FoggyKitchenMountTarget" {
 }
 
 resource "oci_file_storage_export_set" "FoggyKitchenExportset" {
-  provider = "oci.requestor"
+  provider = oci.requestor
   mount_target_id = oci_file_storage_mount_target.FoggyKitchenMountTarget.id
   display_name = "FoggyKitchenExportset"
 }
 
 resource "oci_file_storage_file_system" "FoggyKitchenFilesystem" {
-  provider = "oci.requestor"
+  provider = oci.requestor
   availability_domain = var.ADs1[1]
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name = "FoggyKitchenFilesystem"
 }
 
 resource "oci_file_storage_export" "FoggyKitchenExport" {
-  provider = "oci.requestor"
+  provider = oci.requestor
   export_set_id = oci_file_storage_mount_target.FoggyKitchenMountTarget.export_set_id
   file_system_id = oci_file_storage_file_system.FoggyKitchenFilesystem.id
   path = "/sharedfs"

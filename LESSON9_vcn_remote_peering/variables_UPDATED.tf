@@ -35,9 +35,14 @@ variable "Shapes" {
  default = ["VM.Standard.E2.1","VM.Standard.E2.1.Micro","VM.Standard2.1","VM.Standard.E2.1","VM.Standard.E2.2"]
 }
 
-variable "Images" {
- # Oracle-Linux-7.7-2019.11.12-0 in Frankfurt
- default = ["ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa3bu75jht762mfvwroa2gdck6boqwyktztyu5dfhftcycucyp63ma"]
+variable "Images1" {
+ # Oracle-Linux-7.7-2020.01.28-0 in Frankfurt
+ default = ["ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa4xluwijh66fts4g42iw7gnixntcmns73ei3hwt2j7lihmswkrada"]
+}
+
+variable "Images2" {
+ # Oracle-Linux-7.7-2020.01.28-0 in Amsterdam
+ default = ["ocid1.image.oc1.eu-amsterdam-1.aaaaaaaan5tbzuvtyd5lwxj66zxc7vzmpvs5axpcxyhoicbr6yxgw2s7nqvq"]
 }
 
 variable "webservice_ports" {

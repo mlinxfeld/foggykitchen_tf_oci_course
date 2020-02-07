@@ -1,5 +1,5 @@
 resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions1" {
-  provider  = "oci.acceptor"
+  provider  = oci.acceptor
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   vcn_id = oci_core_virtual_network.FoggyKitchenVCN.id
   display_name = "FoggyKitchenDHCPOptions1"

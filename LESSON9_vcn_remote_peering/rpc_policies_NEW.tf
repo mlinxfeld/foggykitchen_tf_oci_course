@@ -1,17 +1,17 @@
 resource "oci_identity_group" "FoggyKitchenRequestorGroup" {
-  provider    = "oci.admin"
+  provider    = oci.admin
   name        = "FoggyKitchenRequestorGroup"
   description = "FoggyKitchenRequestorGroup"
 }
 
 resource "oci_identity_user_group_membership" "FoggyKitchenRequestorUserGroupMembership" {
-  provider = "oci.admin"
+  provider = oci.admin
   group_id = oci_identity_group.FoggyKitchenRequestorGroup.id
   user_id  = var.user_ocid
 }
 
 resource "oci_identity_policy" "FoggyKitchenRequestorPolicy" {
-  provider       = "oci.admin"
+  provider       = oci.admin
   name           = "FoggyKitchenRequestorPolicy"
   description    = "FoggyKitchenRequestorPolicy"
   compartment_id = var.tenancy_ocid
@@ -24,19 +24,19 @@ resource "oci_identity_policy" "FoggyKitchenRequestorPolicy" {
 
 
 resource "oci_identity_group" "FoggyKitchenAcceptorGroup" {
-  provider    = "oci.admin"
+  provider    = oci.admin
   name        = "FoggyKitchenAcceptorGroup"
   description = "FoggyKitchenAcceptorGroup"
 }
 
 resource "oci_identity_user_group_membership" "FoggyKitchenAcceptorUserGroupMembership" {
-  provider = "oci.admin"
+  provider = oci.admin
   group_id = oci_identity_group.FoggyKitchenAcceptorGroup.id
   user_id  = var.user_ocid
 }
 
 resource "oci_identity_policy" "FoggyKitchenAcceptorPolicy" {
-  provider       = "oci.admin"
+  provider       = oci.admin
   name           = "FoggyKitchenAcceptorPolicy"
   description    = "FoggyKitchenAcceptorPolicy"
   compartment_id = var.tenancy_ocid

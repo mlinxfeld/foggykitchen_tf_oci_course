@@ -1,5 +1,5 @@
 resource "oci_core_subnet" "FoggyKitchenDBSubnet" {
-  provider = "oci.requestor"
+  provider = oci.requestor
   cidr_block = "10.0.4.0/24"
   display_name = "FoggyKitchenDBSubnet"
   dns_label = "FoggyKitchenN4"
