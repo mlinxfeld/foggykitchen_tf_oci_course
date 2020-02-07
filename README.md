@@ -308,7 +308,7 @@ This lesson is the most complex so far. Besides the current pair of Compartment 
 
 ### LESSON 9 - VCN remote peering
 
-This is the last lesson I will move *FoggyKitchenVCN2* content (including subnet and BackendServer to another region (eu-amsterdam-1). In this case we need to build Dynamic Routing Gateways (DRG) for both VCNs and interconnect them with Remote Peering Connection (RPC). We also need to established some additional policies to let this interconnection work. From functional perspective cross-region connection will work as the local one from the lesson 8. We will be able to access Backend server with SSH from DBSystem server or webservers.
+This is the last lesson in this course. In this lesson I will move *FoggyKitchenVCN2* content, including subnet and BackendServer to another region (eu-amsterdam-1). In this case I need to build Dynamic Routing Gateways (DRGs) for both VCNs and interconnect them with Remote Peering Connections (RPCs). I also need to establish some additional policies to let this interconnection work. From functional perspective cross-region connection will work as the local one from the lesson 8. We will be able to access Backend server with SSH from DBSystem server and additonally from webservers.
 
 
 ![](LESSON9_vcn_remote_peering/LESSON9_vcn_remote_peering.jpg)
