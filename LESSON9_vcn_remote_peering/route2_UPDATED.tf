@@ -1,8 +1,8 @@
-resource "oci_core_route_table" "FoggyKitchenRouteTableViaNAT" {
+resource "oci_core_route_table" "FoggyKitchenRouteTableViaNATandDRG1" {
     provider = oci.requestor
     compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
     vcn_id = oci_core_virtual_network.FoggyKitchenVCN.id
-    display_name = "FoggyKitchenRouteTableViaNAT"
+    display_name = "FoggyKitchenRouteTableViaNATandDRG1"
     
     route_rules {
         destination = "0.0.0.0/0"
