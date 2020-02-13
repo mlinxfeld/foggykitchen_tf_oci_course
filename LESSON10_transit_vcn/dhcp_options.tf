@@ -20,7 +20,7 @@ resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions1" {
 resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions2" {
   provider  = oci.acceptor
   compartment_id = oci_identity_compartment.ExternalCompartment.id
-  vcn_id = oci_core_virtual_network.FoggyKitchenVCN2.id
+  vcn_id = oci_core_virtual_network.FoggyKitchenHUBVCN2.id
   display_name = "FoggyKitchenDHCPOptions1"
 
   // required

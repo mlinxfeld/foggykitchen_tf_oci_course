@@ -23,7 +23,7 @@ resource "oci_core_local_peering_gateway" "FoggyKitchenHUBLPG2" {
 resource "oci_core_local_peering_gateway" "FoggyKitchenSPOKELPG2" {
   provider = oci.acceptor
   compartment_id = oci_identity_compartment.ExternalCompartment.id
-  vcn_id = oci_core_virtual_network.FoggyKitchenVCN4.id
+  vcn_id = oci_core_virtual_network.FoggyKitchenSpokeVCN4.id
   display_name = "FoggyKitchenSPOKELPG2"
   peer_id = oci_core_local_peering_gateway.FoggyKitchenHUBLPG2.id
 }
