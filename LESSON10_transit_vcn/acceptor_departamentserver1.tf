@@ -33,3 +33,7 @@ data "oci_core_vnic" "FoggyKitchenDepartamentServer1_VNIC1" {
 output "FoggyKitchenDepartamentServer1_PrivateIP" {
   value = [data.oci_core_vnic.FoggyKitchenDepartamentServer1_VNIC1.private_ip_address]
 }
+
+output "FoggyKitchenDepartamentServer1_PublicIP" {
+  value = [data.oci_core_vnic.FoggyKitchenDepartamentServer1_VNIC1.public_ip_address]
+}
