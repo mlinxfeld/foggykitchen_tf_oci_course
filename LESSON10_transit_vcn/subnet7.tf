@@ -19,6 +19,6 @@ resource "oci_core_subnet" "FoggyKitchenSpokeSubnet2" {
   vcn_id = oci_core_virtual_network.FoggyKitchenSpokeVCN4.id
   route_table_id = oci_core_route_table.FoggyKitchenSPOKELPG2RouteTable.id
   dhcp_options_id = oci_core_dhcp_options.FoggyKitchenDhcpOptions4.id
-  security_list_ids = [oci_core_security_list.FoggyKitchenSSHSecurityList2.id,oci_core_security_list.FoggyKitchenICMPecurityList2.id]
+  security_list_ids = [oci_core_security_list.FoggyKitchenSSHSecurityList4.id,oci_core_security_list.FoggyKitchenICMPecurityList4.id]
 }
 
