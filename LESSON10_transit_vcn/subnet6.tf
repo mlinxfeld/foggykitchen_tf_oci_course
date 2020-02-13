@@ -1,7 +1,7 @@
 resource "oci_core_route_table" "FoggyKitchenSPOKELPG1RouteTable" {
   provider = oci.acceptor
   compartment_id = oci_identity_compartment.ExternalCompartment.id 
-  vcn_id = oci_core_virtual_network.FoggyKitchenVCN3.id
+  vcn_id = oci_core_virtual_network.FoggyKitchenSpokeVCN3.id
   display_name = "FoggyKitchenSPOKELPG1RouteTable"
   route_rules {
     cidr_block = var.VCN-CIDR2 # to HUBVCN
