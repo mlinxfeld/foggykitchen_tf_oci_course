@@ -3,6 +3,7 @@ resource "oci_core_local_peering_gateway" "FoggyKitchenHUBLPG1" {
   compartment_id = oci_identity_compartment.ExternalCompartment.id
   vcn_id = oci_core_virtual_network.FoggyKitchenHUBVCN2.id
   display_name = "FoggyKitchenHUBLPG1"
+  route_table_id = oci_core_route_table.FoggyKitchenDRG2toRequestorRouteTable.id
 }
 
 
