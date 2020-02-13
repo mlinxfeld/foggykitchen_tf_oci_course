@@ -14,7 +14,7 @@ resource "oci_core_instance" "FoggyKitchenDepartamentServer1" {
   }
   create_vnic_details {
      subnet_id = oci_core_subnet.FoggyKitchenSpokeSubnet1.id
-     assign_public_ip = false 
+ #    assign_public_ip = false 
   }
 }
 
