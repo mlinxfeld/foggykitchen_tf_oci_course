@@ -1,6 +1,6 @@
-/*
+
 resource "oci_identity_policy" "FoggyKitchenLPGPolicy1" {
-  depends_on     = [oci_identity_compartment.FoggyKitchenCompartment,oci_identity_compartment.ExternalCompartment]
+  depends_on     = [oci_identity_compartment.ExternalCompartment]
   provider       = oci.admin
   name           = "FoggyKitchenLPGPolicy"
   description    = "FoggyKitchenLocalPeeringPolicy1"
@@ -10,7 +10,7 @@ resource "oci_identity_policy" "FoggyKitchenLPGPolicy1" {
 }
 
 resource "oci_identity_policy" "FoggyKitchenLPGPolicy2" {
-  depends_on     = [oci_identity_compartment.FoggyKitchenCompartment,oci_identity_compartment.ExternalCompartment]
+  depends_on     = [oci_identity_compartment.ExternalCompartment]
   provider       = oci.admin
   name           = "FoggyKitchenLPGPolicy"
   description    = "FoggyKitchen LocalPeeringPolicy2"
@@ -20,4 +20,4 @@ resource "oci_identity_policy" "FoggyKitchenLPGPolicy2" {
                 "Allow group Administrators to inspect vcns in compartment ${oci_identity_compartment.ExternalCompartment.name}",
                 "Allow group Administrators to inspect local-peering-gateways in compartment ${oci_identity_compartment.ExternalCompartment.name}"
   ]
-}*/
+}
