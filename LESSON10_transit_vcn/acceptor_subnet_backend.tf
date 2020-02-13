@@ -3,7 +3,7 @@ resource "oci_core_subnet" "FoggyKitchenBackendSubnet" {
   cidr_block = "192.168.1.0/24"
   display_name = "FoggyKitchenBackendSubnet"
   dns_label = "FoggyKitchenN5"
-  prohibit_public_ip_on_vnic = true
+#  prohibit_public_ip_on_vnic = true
   compartment_id = oci_identity_compartment.ExternalCompartment.id
   vcn_id = oci_core_virtual_network.FoggyKitchenHUBVCN2.id
   route_table_id = oci_core_route_table.FoggyKitchenRouteTableViaHUPLPGSandDRG2.id
