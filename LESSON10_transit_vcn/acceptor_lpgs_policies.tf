@@ -4,7 +4,7 @@ resource "oci_identity_policy" "FoggyKitchenLPGPolicy1" {
   provider       = oci.admin
   name           = "FoggyKitchenLPGPolicy"
   description    = "FoggyKitchenLocalPeeringPolicy1"
-  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  compartment_id = oci_identity_compartment.ExternalCompartment.id
   statements     = ["Allow group Administrators to manage local-peering-from in compartment ${oci_identity_compartment.ExternalCompartment.name}"
   ]
 }
