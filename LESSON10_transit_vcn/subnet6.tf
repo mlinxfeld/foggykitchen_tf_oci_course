@@ -13,7 +13,7 @@ resource "oci_core_subnet" "FoggyKitchenSpokeSubnet1" {
   provider = oci.acceptor
   cidr_block = "172.16.1.0/24"
   display_name = "FoggyKitchenSpokeSubnet1"
-  dns_label = "FoggyKitchenN6"
+  dns_label = "FoggyKitcheN6"
   prohibit_public_ip_on_vnic = true
   compartment_id = oci_identity_compartment.ExternalCompartment.id
   vcn_id = oci_core_virtual_network.FoggyKitchenSpokeVCN3.id
