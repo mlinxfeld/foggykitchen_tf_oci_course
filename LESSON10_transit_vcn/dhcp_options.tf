@@ -39,7 +39,7 @@ resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions2" {
 resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions3" {
   provider  = oci.acceptor
   compartment_id = oci_identity_compartment.ExternalCompartment.id
-  vcn_id = oci_core_virtual_network.FoggyKitchenSpokeVCN1.id
+  vcn_id = oci_core_virtual_network.FoggyKitchenSpokeVCN3.id
   display_name = "FoggyKitchenDHCPOptions3"
 
   // required
@@ -58,7 +58,7 @@ resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions3" {
 resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions4" {
   provider  = oci.acceptor
   compartment_id = oci_identity_compartment.ExternalCompartment.id
-  vcn_id = oci_core_virtual_network.FoggyKitchenSpokeVCN2.id
+  vcn_id = oci_core_virtual_network.FoggyKitchenSpokeVCN4.id
   display_name = "FoggyKitchenDHCPOptions4"
 
   // required
