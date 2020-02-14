@@ -27,4 +27,17 @@ resource "oci_core_route_table" "FoggyKitchenRouteTableViaNATandDRG1" {
         destination_type  = "CIDR_BLOCK"
         network_entity_id = oci_core_drg.FoggyKitchenDRG1.id
     }
+
+    route_rules {
+        destination       = var.VCN-CIDR3
+        destination_type  = "CIDR_BLOCK"
+        network_entity_id = oci_core_drg.FoggyKitchenDRG1.id
+    }
+
+    route_rules {
+        destination       = var.VCN-CIDR4
+        destination_type  = "CIDR_BLOCK"
+        network_entity_id = oci_core_drg.FoggyKitchenDRG1.id
+    }
+
 }
