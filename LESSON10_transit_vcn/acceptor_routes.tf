@@ -1,8 +1,8 @@
-resource "oci_core_route_table" "FoggyKitchenRouteTableViaHUPLPGSandDRG2" {
+resource "oci_core_route_table" "FoggyKitchenRouteTableHUBVCN2" {
     provider = oci.acceptor
     compartment_id = oci_identity_compartment.ExternalCompartment.id
     vcn_id = oci_core_virtual_network.FoggyKitchenHUBVCN2.id
-    display_name = "FoggyKitchenRouteTableViaDRG2"
+    display_name = "FoggyKitchenRouteTableHUBVCN2"
 
     route_rules {
         destination       = var.VCN-CIDR
@@ -43,11 +43,11 @@ resource "oci_core_route_table" "FoggyKitchenDRG2RouteTable" {
 
 }
 
-resource "oci_core_route_table" "FoggyKitchenDRG2toRequestorRouteTable" {
+resource "oci_core_route_table" "FoggyKitchenHUBLPGRouteTable" {
   provider       = oci.acceptor
   compartment_id = oci_identity_compartment.ExternalCompartment.id
   vcn_id         = oci_core_virtual_network.FoggyKitchenHUBVCN2.id
-  display_name = "FoggyKitchenDRG2toRequestorRouteTable"
+  display_name = "FoggyKitchenHUBLPGRouteTable"
 
   route_rules {
     destination       = var.VCN-CIDR
