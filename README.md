@@ -2,7 +2,7 @@
 
 ## Course description
 
-In this course, you can find 9 lessons (+ 2 extra lessons) with the Terraform's HCL version 0.12 code examples for the deployment of OCI resources. Our course starts with the simple example of one webserver in one regional public subnet, nested in one VCN in particular availability domain (AD). Incrementally next lessons will show you how to implement multiplied webservers, spread between ADs, located under load balancer umbrella. Further, we will make this setup even more secure by the introduction of private subnets and bastion-host to jump over. We will also explore storage options for the servers (local block volumes and shared filesystems). Besides the web tier, we will introduce VM based OCI DBSystem deployed in the fully separated private subnet. The last lesson will introduce VCN local peering for the integration of private DBSystem and external VCN with backend server (local VCN peering).  
+In this course, you can find 10 lessons (+ 2 extra lessons) with the Terraform's HCL version 0.12 code examples for the deployment of OCI resources. Our course starts with the simple example of one webserver in one regional public subnet, nested in one VCN in particular availability domain (AD). Incrementally next lessons will show you how to implement multiplied webservers, spread between ADs, located under load balancer umbrella. Further, we will make this setup even more secure by the introduction of private subnets and bastion-host to jump over. We will also explore storage options for the servers (local block volumes and shared filesystems). Besides the web tier, we will introduce VM based OCI DBSystem deployed in the fully separated private subnet. The last lesson will introduce VCN local peering for the integration of private DBSystem and external VCN with backend server (local VCN peering).  
 
 ## How to use code from the lessons
 
@@ -308,7 +308,13 @@ This lesson is the most complex so far. Besides the current pair of Compartment 
 
 ### LESSON 9 - VCN remote peering
 
-This is the last lesson in this course. In this lesson I will move *FoggyKitchenVCN2* content, including subnet and BackendServer to another region (eu-amsterdam-1). In this case I need to build Dynamic Routing Gateways (DRGs) for both VCNs and interconnect them with Remote Peering Connections (RPCs). I also need to establish some additional policies to let this interconnection work. From functional perspective cross-region connection will work as the local one from the lesson 8. We will be able to access Backend server with SSH from DBSystem server and additonally from webservers.
+In this lesson I will move *FoggyKitchenVCN2* content, including subnet and BackendServer to another region (eu-amsterdam-1). In this case I need to build Dynamic Routing Gateways (DRGs) for both VCNs and interconnect them with Remote Peering Connections (RPCs). I also need to establish some additional policies to let this interconnection work. From functional perspective cross-region connection will work as the local one from the lesson 8. We will be able to access Backend server with SSH from DBSystem server and additonally from webservers.
 
 
 ![](LESSON9_vcn_remote_peering/LESSON9_vcn_remote_peering.jpg)
+
+### LESSON 10 - Transit VCN
+
+This lesson will be based on Lesson9. VCN2 located in another region (eu-amsterdam-1) will be transformed into *Hub VCN*. Additionally I will create two *Spoke VCNs* in this region. *Spoke VCNs* will be interconnected with this *Hub VCN* with the usage of LPGs (local VCN peering). In the code I will also add two route tables: (1) on DRG attach and (2) on *Hub VCN* LPGs' side. As a consequence it will be possible to start connection from departamental servers located in a *Spoke VCNs / Spoke subnets* to the infrastructure in first original region (eu-frankfurt-1). *Hub VCN* will play a role of Transit Routing VCN.
+
+![](LESSON10_transit_vcn/LESSON10_transit_vcn.jpg) 
