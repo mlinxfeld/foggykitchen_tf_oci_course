@@ -315,6 +315,6 @@ In this lesson I will move *FoggyKitchenVCN2* content, including subnet and Back
 
 ### LESSON 10 - Transit VCN
 
-This lesson will be based on Lesson9. VCN2 located in another region (eu-amsterdam-1) will be transformed into *Hub VCN*. Additionally we will create two *Spoke VCNs* in this region. *Spoke VCNs* will be interconnected with this *Hub VCN* with the usage of LPGs (local VCN peering). In the code we will also add two route tables: (1) on DRG attach and (2) on *Hub VCN* LPGs' side. As a consequence it will be possible to start connection from departamental servers located in a *Spoke VCNs / Spoke subnets* to the infrastructure in first original region (eu-frankfurt-1). *Hub VCN* will play a role of Transit Routing VCN.
+This lesson will be based on Lesson9. VCN2 located in another region (eu-amsterdam-1) will be transformed into *Hub VCN*. Additionally we will create two *Spoke VCNs* in this region. *Spoke VCNs* will be interconnected with this *Hub VCN* with the usage of LPGs (local VCN peering). In the code we will also add two route tables: (1) on DRG attach and (2) on *Hub VCN* LPGs' side. As a consequence it will be possible to start connection from departamental servers located in a *Spoke VCNs / Spoke subnets* to the infrastructure in the first original region (eu-frankfurt-1). It means *Hub VCN* will play a role of Transit Routing VCN for *Spoke VCNs*.
 
 ![](LESSON10_transit_vcn/LESSON10_transit_vcn.jpg) 
