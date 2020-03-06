@@ -18,7 +18,7 @@ resource "oci_core_instance" "FoggyKitchenBastionServer" {
 }
 
 data "oci_core_vnic_attachments" "FoggyKitchenBastionServer_VNIC1_attach" {
-  availability_domain = var.ADs[2]
+  availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[2], "name")
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   instance_id = oci_core_instance.FoggyKitchenBastionServer.id
 }
