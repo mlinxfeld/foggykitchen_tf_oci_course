@@ -19,9 +19,9 @@ variable "VCNname" {
 #  default = ["unja:EU-FRANKFURT-1-AD-1", "unja:EU-FRANKFURT-1-AD-2", "unja:EU-FRANKFURT-1-AD-3"]
 #}
 
-#variable "Shapes" {
-# default = ["VM.Standard.E2.1","VM.Standard.E2.1.Micro","VM.Standard2.1","VM.Standard.E2.1","VM.Standard.E2.2"]
-#}
+variable "Shapes" {
+ default = ["VM.Standard.E2.1","VM.Standard.E2.1.Micro","VM.Standard2.1","VM.Standard.E2.1","VM.Standard.E2.2"]
+}
 
 variable "OsImage" {
   # Oracle-Linux-7.7-2020.02.21-0 in Frankfurt
