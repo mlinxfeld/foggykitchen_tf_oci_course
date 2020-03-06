@@ -51,7 +51,7 @@ variable "DBNodeShape" {
 }
 
 variable "CPUCoreCount" {
-    default = "4"
+    default = "1"
 }
 
 variable "DBEdition" {
