@@ -90,12 +90,15 @@ resource "null_resource" "FoggyKitchenWebserver1_oci_u01_fstab" {
                 bastion_user = "opc"
                 bastion_private_key = file(var.private_key_oci)
         }
-  inline = ["sudo -u root parted /dev/sdb --script -- mklabel gpt",
+  inline = ["echo '== Start of null_resource.FoggyKitchenWebserver1_oci_u01_fstab'",
+            "sudo -u root parted /dev/sdb --script -- mklabel gpt",
             "sudo -u root parted /dev/sdb --script -- mkpart primary ext4 0% 100%",
             "sudo -u root mkfs.ext4 /dev/sdb1",
             "sudo -u root mkdir /u01",
             "sudo -u root mount /dev/sdb1 /u01",
-            "sudo /bin/su -c \"echo '/dev/sdb1              /u01  ext4    defaults,noatime,_netdev    0   0' >> /etc/fstab\""
+            "sudo /bin/su -c \"echo '/dev/sdb1              /u01  ext4    defaults,noatime,_netdev    0   0' >> /etc/fstab\"",
+            "sudo -u root mount | grep sdb1",
+            "echo '== End of null_resource.FoggyKitchenWebserver1_oci_u01_fstab'",
            ]
   }
 
