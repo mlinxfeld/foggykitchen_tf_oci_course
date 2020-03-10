@@ -1,5 +1,5 @@
 resource "oci_core_instance" "FoggyKitchenWebserver2" {
-  availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[1], "name")
+  availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[2], "name")
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name = "FoggyKitchenWebServer2"
   shape = var.Shapes[0]
@@ -18,7 +18,7 @@ resource "oci_core_instance" "FoggyKitchenWebserver2" {
 }
 
 data "oci_core_vnic_attachments" "FoggyKitchenWebserver2_VNIC1_attach" {
-  availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[1], "name")
+  availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[2], "name")
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   instance_id = oci_core_instance.FoggyKitchenWebserver2.id
 }
