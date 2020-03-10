@@ -1,6 +1,6 @@
 resource "oci_database_db_system" "FoggyKitchenDBSystem" {
   provider = oci.requestor
-  availability_domain = var.ADs1[1]
+  availability_domain = lookup(data.oci_identity_availability_domains.R-ADs.availability_domains[1], "name")
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   cpu_core_count = var.CPUCoreCount
   database_edition = var.DBEdition

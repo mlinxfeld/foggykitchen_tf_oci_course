@@ -1,13 +1,13 @@
 resource "oci_core_instance" "FoggyKitchenWebserver2" {
   provider = oci.requestor
-  availability_domain = var.ADs1[1]
+  availability_domain = lookup(data.oci_identity_availability_domains.R-ADs.availability_domains[1], "name")
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name = "FoggyKitchenWebServer2"
   shape = var.Shapes[0]
   subnet_id = oci_core_subnet.FoggyKitchenWebSubnet.id
   source_details {
     source_type = "image"
-    source_id   = var.Images1[0]
+    source_id   = lookup(data.oci_core_images.R-OSImageLocal.images[0], "id")
   }
   metadata = {
       ssh_authorized_keys = file(var.public_key_oci)
@@ -20,7 +20,7 @@ resource "oci_core_instance" "FoggyKitchenWebserver2" {
 
 data "oci_core_vnic_attachments" "FoggyKitchenWebserver2_VNIC1_attach" {
   provider = oci.requestor
-  availability_domain = var.ADs1[1]
+  availability_domain = lookup(data.oci_identity_availability_domains.R-ADs.availability_domains[1], "name")
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   instance_id = oci_core_instance.FoggyKitchenWebserver2.id
 }
