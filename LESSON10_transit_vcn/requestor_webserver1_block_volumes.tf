@@ -1,6 +1,6 @@
 resource "oci_core_volume" "FoggyKitchenWebserver1BlockVolume100G" {
   provider = oci.requestor
-  availability_domain = var.ADs1[2]
+  availability_domain = lookup(data.oci_identity_availability_domains.R-ADs.availability_domains[1], "name")
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name = "FoggyKitchenWebserver1 BlockVolume 100G"
   size_in_gbs = "100"
