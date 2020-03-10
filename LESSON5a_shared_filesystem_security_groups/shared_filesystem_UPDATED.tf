@@ -43,10 +43,12 @@ resource "null_resource" "FoggyKitchenWebserver1SharedFilesystem" {
                 bastion_private_key = file(var.private_key_oci)
         }
   inline = [
+            "echo '== Start of null_resource.FoggyKitchenWebserver1SharedFilesystem'", 
             "sudo /bin/su -c \"yum install -y -q nfs-utils\"",
             "sudo /bin/su -c \"mkdir -p /sharedfs\"",
             "sudo /bin/su -c \"echo '10.0.5.25:/sharedfs /sharedfs nfs rsize=8192,wsize=8192,timeo=14,intr 0 0' >> /etc/fstab\"",
-            "sudo /bin/su -c \"mount /sharedfs\""
+            "sudo /bin/su -c \"mount /sharedfs\"",
+            "echo '== End of null_resource.FoggyKitchenWebserver2SharedFilesystem'"
             ]
   }
 
@@ -70,10 +72,12 @@ resource "null_resource" "FoggyKitchenWebserver2SharedFilesystem" {
                 bastion_private_key = file(var.private_key_oci)
         }
   inline = [
+            "echo '== Start of null_resource.FoggyKitchenWebserver2SharedFilesystem'", 
             "sudo /bin/su -c \"yum install -y -q nfs-utils\"",
             "sudo /bin/su -c \"mkdir -p /sharedfs\"",
             "sudo /bin/su -c \"echo '10.0.5.25:/sharedfs /sharedfs nfs rsize=8192,wsize=8192,timeo=14,intr 0 0' >> /etc/fstab\"",
-            "sudo /bin/su -c \"mount /sharedfs\""
+            "sudo /bin/su -c \"mount /sharedfs\"",
+            "echo '== Start of null_resource.FoggyKitchenWebserver2SharedFilesystem'" 
             ]
   }
 
