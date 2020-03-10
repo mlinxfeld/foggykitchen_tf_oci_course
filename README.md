@@ -22,20 +22,23 @@ Resolving deltas: 100% (142/142), done.
 
 Martin-MacBook-Pro:~ martinlinxfeld$ cd foggykitchen_tf_oci_course/
 Martin-MacBook-Pro:foggykitchen_tf_oci_course martinlinxfeld$ ls -latr
-total 16
-drwxr-xr-x   7 martinlinxfeld  staff   224  9 gru 17:47 ..
-drwxr-xr-x  14 martinlinxfeld  staff   448  9 gru 17:47 LESSON1_single_webserver
-drwxr-xr-x  16 martinlinxfeld  staff   512  9 gru 17:47 LESSON2_second_webserver_in_other_AD
-drwxr-xr-x  17 martinlinxfeld  staff   544  9 gru 17:47 LESSON3_load_balancer
-drwxr-xr-x  23 martinlinxfeld  staff   736  9 gru 17:47 LESSON4_load_balancer_NAT_bastion
-drwxr-xr-x  25 martinlinxfeld  staff   800  9 gru 17:47 LESSON4a_load_balancer_NAT_bastion_security_groups
-drwxr-xr-x  26 martinlinxfeld  staff   832  9 gru 17:47 LESSON5_shared_filesystem
-drwxr-xr-x  26 martinlinxfeld  staff   832  9 gru 17:47 LESSON6_local_block_volumes
-drwxr-xr-x  30 martinlinxfeld  staff   960  9 gru 17:47 LESSON7_dbsystem
-drwxr-xr-x  38 martinlinxfeld  staff  1216  9 gru 17:47 LESSON8_vcn_local_peering
-drwxr-xr-x  13 martinlinxfeld  staff   416  9 gru 17:47 .
--rw-r--r--   1 martinlinxfeld  staff  8122  9 gru 17:47 README.md
-drwxr-xr-x  12 martinlinxfeld  staff   384  9 gru 17:47 .git
+total 48
+drwxr-xr-x  14 martinlinxfeld  staff    448 13 lut 23:23 LESSON1_single_webserver
+drwxr-xr-x  16 martinlinxfeld  staff    512 13 lut 23:23 LESSON2_second_webserver_in_other_AD
+drwxr-xr-x  17 martinlinxfeld  staff    544 13 lut 23:23 LESSON3_load_balancer
+drwxr-xr-x  23 martinlinxfeld  staff    736 13 lut 23:23 LESSON4_load_balancer_NAT_bastion
+drwxr-xr-x  25 martinlinxfeld  staff    800 13 lut 23:23 LESSON4a_load_balancer_NAT_bastion_security_groups
+drwxr-xr-x  24 martinlinxfeld  staff    768 13 lut 23:23 LESSON5_shared_filesystem
+drwxr-xr-x  27 martinlinxfeld  staff    864 13 lut 23:23 LESSON5a_shared_filesystem_security_groups
+drwxr-xr-x  26 martinlinxfeld  staff    832 13 lut 23:23 LESSON6_local_block_volumes
+drwxr-xr-x  29 martinlinxfeld  staff    928 13 lut 23:23 LESSON7_dbsystem
+drwxr-xr-x  38 martinlinxfeld  staff   1216 13 lut 23:23 LESSON8_vcn_local_peering
+drwxr-xr-x  39 martinlinxfeld  staff   1248 13 lut 23:23 LESSON9_vcn_remote_peering
+drwxr-xr-x   3 martinlinxfeld  staff     96 13 lut 23:38 ..
+drwxr-xr-x  49 martinlinxfeld  staff   1568  6 mar 09:47 LESSON10_transit_vcn
+drwxr-xr-x  16 martinlinxfeld  staff    512  6 mar 09:47 .
+-rw-r--r--   1 martinlinxfeld  staff  21236  6 mar 09:47 README.md
+drwxr-xr-x  14 martinlinxfeld  staff    448 10 mar 16:23 .git
 ```
 
 ### STEP 2.
@@ -54,7 +57,7 @@ is 0.12.17. You can update by downloading from https://www.terraform.io/download
 ```
 
 ### STEP 3. 
-Go to particular lesson directory and create environment file with TF_VARs:
+Go to particular lesson directory and create environment file with TF_VARs (region1 + region2 required by lesson9 and lesson10):
 
 ```
 Martin-MacBook-Pro:foggykitchen_tf_oci_course martinlinxfeld$ cd LESSON8_vcn_local_peering
@@ -66,10 +69,12 @@ export TF_VAR_compartment_ocid="ocid1.tenancy.oc1..aaaaaaaasbktyckn(...)ldkrj2s3
 export TF_VAR_fingerprint="00:f9:d1:41:bb:57(...)82:47:e6:00"
 export TF_VAR_private_key_path="/tmp/oci_api_key.pem"
 export TF_VAR_region="eu-frankfurt-1"
+export TF_VAR_region1="eu-frankfurt-1"
+export TF_VAR_region2="eu-amsterdam-1"
 export TF_VAR_private_key_oci="/tmp/id_rsa"
 export TF_VAR_public_key_oci="/tmp/id_rsa.pub"
 
-Martin-MacBook-Pro:foggykitchen_tf_oci martinlinxfeld$ source setup_oci_tf_vars.sh
+Martin-MacBook-Pro:LESSON8_vcn_local_peering martinlinxfeld$ source setup_oci_tf_vars.sh
 ```
 
 ### STEP 4.
@@ -83,7 +88,7 @@ Initializing the backend...
 Initializing provider plugins...
 - Checking for available provider plugins...
 - Downloading plugin for provider "null" (hashicorp/null) 2.1.2...
-- Downloading plugin for provider "oci" (hashicorp/oci) 3.54.0...
+- Downloading plugin for provider "oci" (hashicorp/oci) 3.65.0...
 
 The following providers do not have any version constraints in configuration,
 so the latest version was installed.
