@@ -93,7 +93,7 @@ variable "CPUCoreCount" {
 }
 
 variable "DBEdition" {
-    default = "STANDARD_EDITION"
+    default = "ENTERPRISE_EDITION"
 }
 
 variable "DBAdminPassword" {
