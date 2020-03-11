@@ -51,15 +51,15 @@ variable "OsImage" {
 #}
 
 variable "webservice_ports" {
-  default = [80,443]
+  default = ["80","443"]
 }
 
 variable "bastion_ports" {
-  default = [22]
+  default = ["22"]
 }
 
 variable "sqlnet_ports" {
-  default = [1521]
+  default = ["1521"]
 }
 
 variable "fss_ingress_tcp_ports" {
@@ -77,7 +77,6 @@ variable "fss_egress_tcp_ports" {
 variable "fss_egress_udp_ports" {
   default = ["111"]
 }
-
 
 # DBSystem specific 
 variable "DBNodeShape" {

@@ -22,7 +22,7 @@ resource "oci_database_db_system" "FoggyKitchenDBSystem" {
   display_name = var.DBSystemDisplayName
   domain = var.DBNodeDomainName
   hostname = var.DBNodeHostName
-  nsg_ids = [oci_core_network_security_group.FoggyKitchenDBSystemSecurityGroup]
+  nsg_ids = oci_core_network_security_group.FoggyKitchenDBSystemSecurityGroup
   data_storage_percentage = "40"
   data_storage_size_in_gb = var.DataStorageSizeInGB
   license_model = var.LicenseModel
