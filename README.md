@@ -2,7 +2,7 @@
 
 ## Course description
 
-In this course, you can find 10 lessons (+ 2 extra lessons) with the Terraform's HCL version 0.12 code examples for the deployment of OCI resources. Our course starts with the simple example of one webserver in one regional public subnet, nested in one VCN in particular availability domain (AD). Incrementally next lessons will show you how to implement multiplied webservers, spread between ADs, located under load balancer umbrella. Further, we will make this setup even more secure by the introduction of private subnets and bastion-host to jump over. We will also explore storage options for the servers (local block volumes and shared filesystems). Besides the web tier, we will introduce VM based OCI DBSystem deployed in the fully separated private subnet. The last lesson will introduce VCN local peering for the integration of private DBSystem and external VCN with backend server (local VCN peering).  
+In this course, you can find 10 lessons (+ 3 extra lessons) with the Terraform's HCL version 0.12 code examples for the deployment of OCI resources. Our course starts with the simple example of one webserver in one regional public subnet, nested in one VCN in particular availability domain (AD). Incrementally next lessons will show you how to implement multiplied webservers, spread between ADs, located under load balancer umbrella. Further, we will make this setup even more secure by the introduction of private subnets and bastion-host to jump over. We will also explore storage options for the servers (local block volumes and shared filesystems). Besides the web tier, we will introduce VM based OCI DBSystem deployed in the fully separated private subnet. The last lesson will introduce VCN local peering for the integration of private DBSystem and external VCN with backend server (local VCN peering).  
 
 ## How to use code from the lessons
 
@@ -303,6 +303,13 @@ In this lesson, we will add only one additional OCI resource. It will be 100G bl
 In this lesson, we will introduce the database component which is based on additional region private subnet for OCI DBSystem (*oci_database_db_system*). All necessary variables required to setup DBSystem have been added to variables.tf file. We have to also create additional Security List for SQLNet protocol and this Security List has been bound to this new private database subnet. DBSystem provisioning is based on one VM and Standard Edition of 12.1 RDBMS. With this OCI PaaS offering included in Terraform automation, you can expect to have a longer break in work. DBSystem use to be provisioned in 1 hour, so one or two coffees will be needed :)
 
 ![](LESSON7_dbsystem/LESSON7_dbsystem.jpg)
+
+### LESSON 7a - DBSystem with DataGuard
+
+In this lesson, we will introduce the OCI DBSystem DataGuard association. It will provide standby database in additional DBSystem located in a different AD comparing to primary database. This setup is for DR purposes.
+Another aspect is a switch from security lists to NSG, now also on DBSystem level.
+
+![](LESSON7a_dbsystem_with_dataguard/LESSON7a_dbsystem_with_dataguard.jpg)
 
 ### LESSON 8 - VCN local peering
 
