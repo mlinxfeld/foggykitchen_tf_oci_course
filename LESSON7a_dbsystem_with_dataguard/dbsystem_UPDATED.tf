@@ -30,8 +30,8 @@ resource "oci_database_db_system" "FoggyKitchenDBSystem" {
 }
 
 data "oci_database_db_homes" "primarydb_home" {
-  compartment_id = "${var.compartment_ocid}"
-  db_system_id   = "${oci_database_db_system.test_db_system.id}"
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  db_system_id   = "${oci_database_db_system.FoggyKitchenDBSystem.id}"
 
   filter {
     name   = "display_name"
@@ -40,7 +40,7 @@ data "oci_database_db_homes" "primarydb_home" {
 }
 
 data "oci_database_databases" "primarydb" {
-  compartment_id = "${var.compartment_ocid}"
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   db_home_id     = "${data.oci_database_db_homes.primarydb_home.db_homes.0.db_home_id}"
 }
 
