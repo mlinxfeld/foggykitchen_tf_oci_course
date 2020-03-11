@@ -31,9 +31,6 @@ variable "fsssubnet-CIDR" {
   default = "10.0.5.0/24"
 }
 
-variable "VCNname" {
-  default = "FoggyKitchenVCN"
-}
 
 #variable "ADs" {
 #  default = ["unja:EU-FRANKFURT-1-AD-1", "unja:EU-FRANKFURT-1-AD-2", "unja:EU-FRANKFURT-1-AD-3"]
