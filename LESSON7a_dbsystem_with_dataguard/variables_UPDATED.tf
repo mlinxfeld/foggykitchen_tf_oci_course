@@ -113,6 +113,10 @@ variable "DBDisplayName" {
     default = "FoggyDB"
 }
 
+variable "DBHomeDisplayName" {
+    default = "FoggyDBHome"
+}
+
 variable "DBDiskRedundancy" {
     default = "HIGH"
 }

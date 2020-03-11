@@ -13,7 +13,7 @@ resource "oci_database_db_system" "FoggyKitchenDBSystem" {
       pdb_name = var.PDBName
     }
     db_version = var.DBVersion
-    display_name = var.DBDisplayName
+    display_name = var.DBHomeDisplayName
   }
   disk_redundancy = var.DBDiskRedundancy
   shape = var.DBNodeShape
@@ -29,10 +29,25 @@ resource "oci_database_db_system" "FoggyKitchenDBSystem" {
   node_count = var.NodeCount
 }
 
+data "oci_database_db_homes" "primarydb_home" {
+  compartment_id = "${var.compartment_ocid}"
+  db_system_id   = "${oci_database_db_system.test_db_system.id}"
+
+  filter {
+    name   = "display_name"
+    values = [var.DBHomeDisplayName]
+  }
+}
+
+data "oci_database_databases" "primarydb" {
+  compartment_id = "${var.compartment_ocid}"
+  db_home_id     = "${data.oci_database_db_homes.primarydb_home.db_homes.0.db_home_id}"
+}
+
 resource "oci_database_data_guard_association" "FoggyKitchenDBSystemStandby" {
     creation_type = "NewDbSystem"
     database_admin_password = var.DBAdminPassword
-    database_id = oci_database_database.FoggyKitchenDBSystem.id
+    database_id = data.oci_database_databases.primarydb.databases.0.id
     protection_mode = "MAXIMUM_PERFORMANCE"
     transport_type = "ASYNC"
 
