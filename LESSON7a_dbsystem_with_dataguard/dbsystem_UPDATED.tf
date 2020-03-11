@@ -22,7 +22,7 @@ resource "oci_database_db_system" "FoggyKitchenDBSystem" {
   display_name = var.DBSystemDisplayName
   domain = var.DBNodeDomainName
   hostname = var.DBNodeHostName
-  nsg_ids = oci_core_network_security_group.FoggyKitchenDBSystemSecurityGroup
+  nsg_ids = [oci_core_network_security_group.FoggyKitchenDBSystemSecurityGroup.id]
   data_storage_percentage = "40"
   data_storage_size_in_gb = var.DataStorageSizeInGB
   license_model = var.LicenseModel
@@ -55,7 +55,7 @@ resource "oci_database_data_guard_association" "FoggyKitchenDBSystemStandby" {
     availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[2], "name")
     display_name = var.DBStandbySystemDisplayName
     hostname = var.DBStandbyNodeHostName
-    nsg_ids = [oci_core_network_security_group.FoggyKitchenDBSystemSecurityGroup]
+    nsg_ids = [oci_core_network_security_group.FoggyKitchenDBSystemSecurityGroup.id]
     shape = var.DBStandbyNodeShape
     subnet_id = oci_core_subnet.FoggyKitchenDBSubnet.id
 }
