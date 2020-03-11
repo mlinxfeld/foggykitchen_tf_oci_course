@@ -62,6 +62,23 @@ variable "sqlnet_ports" {
   default = [1521]
 }
 
+variable "fss_ingress_tcp_ports" {
+  default = ["111","2048","2049","2050"]
+}
+
+variable "fss_ingress_udp_ports" {
+  default = ["111","2048"]
+}
+
+variable "fss_egress_tcp_ports" {
+  default = ["111","2048","2049","2050"]
+}
+
+variable "fss_egress_udp_ports" {
+  default = ["111"]
+}
+
+
 # DBSystem specific 
 variable "DBNodeShape" {
     default = "VM.Standard2.1"
