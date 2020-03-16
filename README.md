@@ -2,7 +2,7 @@
 
 ## Course description
 
-In this course, you can find 10 lessons (+ 3 extra lessons) with the Terraform's HCL version 0.12 code examples for the deployment of OCI resources. Our course starts with the simple example of one webserver in one regional public subnet, nested in one VCN in particular availability domain (AD). Incrementally next lessons will show you how to implement multiplied webservers, spread between ADs, located under load balancer umbrella. Further, we will make this setup even more secure by the introduction of private subnets and bastion-host to jump over. We will also explore storage options for the servers (local block volumes and shared filesystems). Besides the web tier, we will introduce VM based OCI DBSystem deployed in the fully separated private subnet. The last lesson will introduce VCN local peering for the integration of private DBSystem and external VCN with backend server (local VCN peering).  
+In this course, you can find 10 lessons (+ 4 extra lessons) with the Terraform's HCL version 0.12 code examples for the deployment of OCI resources. Our course starts with the simple example of one webserver in one regional public subnet, nested in one VCN in particular availability domain (AD). Incrementally next lessons will show you how to implement multiplied webservers, spread between ADs, located under load balancer umbrella. Further, we will make this setup even more secure by the introduction of private subnets and bastion-host to jump over. We will also explore storage options for the servers (local block volumes and shared filesystems). Besides the web tier, we will introduce VM based OCI DBSystem deployed in the fully separated private subnet. The last lesson will introduce VCN local peering for the integration of private DBSystem and external VCN with backend server (local VCN peering).  
 
 ## How to use code from the lessons
 
@@ -255,11 +255,18 @@ In this lesson we will create the simplest set of OCI resources, starting with o
 
 ![](LESSON1_single_webserver/LESSON1_single_webserver.jpg)
 
-### LESSON 2 - Second Webserver in other AD
+### LESSON 2 - Second Webserver in other Availability Domain (AD)
 
 In this lesson, we will add the second VM in another AD in the same VCN and regional subnet. Inside this new VM again *Null Provider* will be used to configure yet another webserver with the simple webpage content, but this time it will be showing content as follows: **Welcome to FoggyKitchen.com! This is WEBSERVER2...**. After this lesson, you can use public IP addresses of both VMs to access two different web pages. Wouldn't it be great to have some load balancer on top of that and hide both web servers under the load balancer umbrella?
 
 ![](LESSON2_second_webserver_in_other_AD/LESSON2_second_webserver_in_other_AD.jpg)
+
+### LESSON 2a - Second Webserver in other Fault Domain (FD)
+
+In this lesson, we will deploy the infrastructure in OCI region where only one Availablity Domain (AD) has been delivered. It means we will deploy webservers in the same AD, but in different Fault Domains (FD). The rest of the configuration is the same as in the original lesson 2.
+
+![](LESSON2a_second_webserver_in_another_FD/LESSON2a_second_webserver_in_another_FD.jpg)
+
 
 ### LESSON 3 - Load Balancer
 
