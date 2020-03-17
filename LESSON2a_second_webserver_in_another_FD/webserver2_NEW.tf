@@ -4,6 +4,7 @@ resource "oci_core_instance" "FoggyKitchenWebserver2" {
   display_name = "FoggyKitchenWebServer2"
   shape = var.Shapes[0]
   subnet_id = oci_core_subnet.FoggyKitchenWebSubnet.id
+  fault_domain = "FAULT-DOMAIN-2"
   source_details {
     source_type = "image"
     source_id   = lookup(data.oci_core_images.OSImageLocal.images[0], "id")
