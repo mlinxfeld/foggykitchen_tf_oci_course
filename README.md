@@ -332,6 +332,12 @@ In this lesson I will move *FoggyKitchenVCN2* content, including subnet and Back
 
 ![](LESSON9_vcn_remote_peering/LESSON9_vcn_remote_peering.jpg)
 
+### LESSON 9a - VCN remote peering with cross-region DataGuard 
+
+This lesson is a mixture of lesson9 and lesson 7a. We are setting up cross-region DGAssociation. In this lesson I primary DBSystem will be in one datacenter (eu-frankfurt-1) and standby database will be deployed in another region (eu-amsterdam-1). DataGuard's SQLNet traffic will go via DRGs/RPC and OCI backbone network.
+
+![](LESSON9a_vcn_remote_peering_with_dataguard/LESSON9a_vcn_remote_peering_with_dataguard.png)
+
 ### LESSON 10 - Transit VCN
 
 This lesson will be based on Lesson9. VCN2 located in another region (eu-amsterdam-1) will be transformed into *Hub VCN*. Additionally we will create two *Spoke VCNs* in this region. *Spoke VCNs* will be interconnected with this *Hub VCN* with the usage of LPGs (local VCN peering). In the code we will also add two route tables: (1) on DRG attach and (2) on *Hub VCN* LPGs' side. As a consequence it will be possible to start connection from departamental servers located in a *Spoke VCNs / Spoke subnets* to the infrastructure in the first original region (eu-frankfurt-1). It means *Hub VCN* will play a role of Transit Routing VCN for *Spoke VCNs*.
