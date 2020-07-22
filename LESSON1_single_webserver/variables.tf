@@ -24,14 +24,8 @@ variable "Shapes" {
 }
 
 variable "OsImage" {
-  # Oracle-Linux-7.7-2020.02.21-0 in Frankfurt
-  default = "Oracle-Linux-7.7-2020.02.21-0"
+  default = "Oracle-Linux-7.8-2020.05.26-0"
 }
-
-#variable "Images" {
- # Oracle-Linux-7.7-2019.11.12-0 in Frankfurt
-# default = ["ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa3bu75jht762mfvwroa2gdck6boqwyktztyu5dfhftcycucyp63ma"]
-#}
 
 variable "service_ports" {
   default = [80,443,22]
