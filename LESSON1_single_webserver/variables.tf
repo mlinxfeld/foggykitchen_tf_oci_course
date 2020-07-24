@@ -15,10 +15,6 @@ variable "VCNname" {
   default = "FoggyKitchenVCN"
 }
 
-#variable "ADs" {
-#  default = ["unja:EU-FRANKFURT-1-AD-1", "unja:EU-FRANKFURT-1-AD-2", "unja:EU-FRANKFURT-1-AD-3"]
-#}
-
 variable "Shapes" {
  default = ["VM.Standard.E2.1","VM.Standard.E2.1.Micro","VM.Standard2.1","VM.Standard.E2.1","VM.Standard.E2.2"]
 }
