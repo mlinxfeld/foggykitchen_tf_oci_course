@@ -14,7 +14,8 @@ resource "null_resource" "FoggyKitchenWebserver1HTTPD" {
                 bastion_user = "opc"
                 bastion_private_key = file(var.private_key_oci)
         }
-  inline = ["echo '== 1. Installing HTTPD package with yum'",
+  inline = ["echo '== START of FoggyKitchenWebserver1HTTPD",
+            "echo '== 1. Installing HTTPD package with yum'",
             "sudo -u root yum -y -q install httpd",
 
             "echo '== 2. Creating /sharedfs/index.html'",
@@ -33,6 +34,8 @@ resource "null_resource" "FoggyKitchenWebserver1HTTPD" {
 
             "echo '== 5. Disabling firewall and starting HTTPD service'",
             "sudo -u root service firewalld stop",
-            "sudo -u root service httpd start"]
+            "sudo -u root service httpd start",
+
+            "echo '== END of FoggyKitchenWebserver1HTTPD"]
   }
 }
