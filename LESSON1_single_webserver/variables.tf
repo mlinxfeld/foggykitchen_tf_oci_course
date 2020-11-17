@@ -11,6 +11,11 @@ variable "VCN-CIDR" {
   default = "10.0.0.0/16"
 }
 
+variable "VCN-CIDRs" {
+  type = list(string)
+  default = ["10.0.0.0/16"]
+}
+
 variable "VCNname" {
   default = "FoggyKitchenVCN"
 }
