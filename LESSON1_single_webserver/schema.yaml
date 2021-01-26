@@ -24,7 +24,7 @@ variableGroups:
 - title: "Optional Configuration"
   visible: true  
   variables:
-  - VCN-CIDRs
+  - VCN-CIDR
   - Subnet-CIDR
   - VCNname
   - Shape
@@ -68,17 +68,13 @@ variables:
 
   # Optional Configuration
 
-  VCN-CIDRs:
-    type: array
-    items:
-      type: string
-      pattern: "^[0-9\\.\\/]+$"
+  VCN-CIDR:
+    type: string
     required: false
-    default: ["10.0.0.0/16"]
-    title: "VCN CIDRs"
-    minItems: 1
-    uniqueItems: true
-    description: "Choose single, contiguous IPv4 CIDR blocks for the VCN"
+    default: "10.0.0.0/16"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "VCN CIDR"
+    description: "Choose single, contiguous IPv4 CIDR block for the VCN"
 
   Subnet-CIDR:
     type: string

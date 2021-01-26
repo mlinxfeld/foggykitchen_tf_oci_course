@@ -6,16 +6,12 @@ variable "compartment_ocid" {}
 variable "region" {}
 variable "availablity_domain_name" {}
 
-variable "VCN-CIDRs" {
+variable "VCN-CIDR" {
   default = "10.0.0.0/16"
 }
 
 variable "Subnet-CIDR" {
   default = "10.0.1.0/24"
-}
-
-variable "VCNname" {
-  default = "FoggyKitchenVCN"
 }
 
 variable "Shape" {
