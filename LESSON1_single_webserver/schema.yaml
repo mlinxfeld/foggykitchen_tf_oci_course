@@ -72,7 +72,7 @@ variables:
     type: array
     items:
       type: string
-      pattern: "^[0-9\\.]+$"
+      pattern: "^[0-9\\.\\/]+$"
     required: false
     default: ["10.0.0.0/16"]
     title: "VCN CIDRs"
