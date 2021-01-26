@@ -4,28 +4,31 @@ variable "fingerprint" {}
 variable "private_key_path" {}
 variable "compartment_ocid" {}
 variable "region" {}
-variable "private_key_oci" {}
-variable "public_key_oci" {}
-
-variable "VCN-CIDR" {
-  default = "10.0.0.0/16"
-}
+variable "availablity_domain_name" {}
 
 variable "VCN-CIDRs" {
   type = list(string)
   default = ["10.0.0.0/16"]
 }
 
+variable "Subnet-CIDR" {
+  default = "10.0.1.0/24"
+}
+
 variable "VCNname" {
   default = "FoggyKitchenVCN"
 }
 
-variable "Shapes" {
- default = ["VM.Standard.E2.1","VM.Standard.E2.1.Micro","VM.Standard2.1","VM.Standard.E2.1","VM.Standard.E2.2"]
+variable "Shape" {
+ default = "VM.Standard.E2.1"
 }
 
-variable "OsImage" {
-  default = "Oracle-Linux-7.8-2020.05.26-0"
+variable "instance_os" {
+  default = "Oracle Linux"
+}
+
+variable "linux_os_version" {
+  default = "7.8"
 }
 
 variable "service_ports" {
