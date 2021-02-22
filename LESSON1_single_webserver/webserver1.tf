@@ -1,7 +1,7 @@
 resource "oci_core_instance" "FoggyKitchenWebserver1" {
   availability_domain = var.availablity_domain_name 
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
-  display_name = "FoggyKitchenWebServer1"
+  display_name = "FoggyKitchenWebServer"
   shape = var.Shape
   source_details {
     source_type = "image"
