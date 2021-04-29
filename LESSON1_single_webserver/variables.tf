@@ -1,7 +1,7 @@
 variable "tenancy_ocid" {}
-#variable "user_ocid" {}
-#variable "fingerprint" {}
-#variable "private_key_path" {}
+variable "user_ocid" {}
+variable "fingerprint" {}
+variable "private_key_path" {}
 variable "compartment_ocid" {}
 variable "region" {}
 variable "availablity_domain_name" {}
@@ -15,7 +15,15 @@ variable "Subnet-CIDR" {
 }
 
 variable "Shape" {
- default = "VM.Standard.E2.1"
+ default = "VM.Standard.E3.Flex"
+}
+
+variable "FlexShapeOCPUS" {
+    default = 1
+}
+
+variable "FlexShapeMemory" {
+    default = 1
 }
 
 variable "instance_os" {
@@ -23,10 +31,22 @@ variable "instance_os" {
 }
 
 variable "linux_os_version" {
-  default = "7.8"
+  default = "7.9"
 }
 
 variable "service_ports" {
   default = [80,443,22]
 }
 
+# Dictionary Locals
+locals {
+  compute_flexible_shapes = [
+    "VM.Standard.E3.Flex",
+    "VM.Standard.E4.Flex"
+  ]
+}
+
+# Checks if is using Flexible Compute Shapes
+locals {
+  is_flexible_shape = contains(local.compute_flexible_shapes, var.Shape)
+}
