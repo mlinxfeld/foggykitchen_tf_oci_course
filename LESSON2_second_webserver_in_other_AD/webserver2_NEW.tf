@@ -1,5 +1,5 @@
 resource "oci_core_instance" "FoggyKitchenWebserver2" {
-  availability_domain = var.availablity_domain_name2
+  availability_domain = var.availablity_domain_name2 == "" ? lookup(data.oci_identity_availability_domains.ADs.availability_domains[1], "name") : var.availablity_domain_name2
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name = "FoggyKitchenWebServer2"
   shape = var.Shape

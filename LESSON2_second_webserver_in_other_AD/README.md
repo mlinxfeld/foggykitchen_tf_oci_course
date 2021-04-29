@@ -53,8 +53,6 @@ export TF_VAR_tenancy_ocid="ocid1.tenancy.oc1..aaaaaaaas(...)krj2s3gdbz7d2heqzzx
 export TF_VAR_compartment_ocid="ocid1.tenancy.oc1..aaaaaaaasbktyckn(...)ldkrj2s3gdbz7d2heqzzxn7pe64ksbia"
 export TF_VAR_fingerprint="00:f9:d1:41:bb:57(...)82:47:e6:00"
 export TF_VAR_private_key_path="/tmp/oci_api_key.pem"
-export TF_VAR_availablity_domain_name="unja:EU-FRANKFURT-1-AD-1"
-export TF_VAR_availablity_domain_name2="unja:EU-FRANKFURT-1-AD-2"
 export TF_VAR_region="eu-frankfurt-1"
 
 Martin-MacBook-Pro:LESSON2_second_webserver_in_other_AD martinlinxfeld$ source setup_oci_tf_vars.sh

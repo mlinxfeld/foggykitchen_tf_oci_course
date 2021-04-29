@@ -1,3 +1,8 @@
+# Gets a list of Availability Domains
+data "oci_identity_availability_domains" "ADs" {
+  compartment_id = var.tenancy_ocid
+}
+
 data "oci_core_images" "OSImage" {
   compartment_id           = var.compartment_ocid
   operating_system         = var.instance_os
@@ -12,7 +17,7 @@ data "oci_core_images" "OSImage" {
 }
 
 data "oci_core_vnic_attachments" "FoggyKitchenWebserver1_VNIC1_attach" {
-  availability_domain = var.availablity_domain_name 
+  availability_domain = var.availablity_domain_name == "" ? lookup(data.oci_identity_availability_domains.ADs.availability_domains[0], "name") : var.availablity_domain_name
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   instance_id = oci_core_instance.FoggyKitchenWebserver1.id
 }
@@ -23,7 +28,7 @@ data "oci_core_vnic" "FoggyKitchenWebserver1_VNIC1" {
 
 
 data "oci_core_vnic_attachments" "FoggyKitchenWebserver2_VNIC1_attach" {
-  availability_domain = var.availablity_domain_name2 
+  availability_domain = var.availablity_domain_name2 == "" ? lookup(data.oci_identity_availability_domains.ADs.availability_domains[1], "name") : var.availablity_domain_name2
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   instance_id = oci_core_instance.FoggyKitchenWebserver2.id
 }
