@@ -1,14 +1,14 @@
 # FoggyKitchen Terraform OCI Course
 
-## LESSON 1 - Single Webserver
+## LESSON 2 - Second Webserver in other Availability Domain (AD)
 
-In this lesson we will create the simplest set of OCI resources, starting with one compartment, one VCN and one subnet in this VCN. The subnet will be regional (covering all availability domains AD1-AD3). Inside this public subnet, we will nest one VM for WebServer. Public subnet means that VM will have public IP associated - VM will be exposed to the public Internet (via Internet Gateway and proper route table). After this deployment, one basic Security List will permit access from the public Internet to VM via protocol SSH (port 22) & HTTP/HTTPS protocols (port 80, 443). For the software provisioning we will utilize null_resource and remote-exec capability of Terraform *Null Provider* - Terraform will install HTTP server with root webpage content. As a consequence, after successful terraform apply, we should be able to visit VM public IP address with our web browser and expect their simple webpage content - **Welcome to FoggyKitchen.com! This is WEBSERVER1...**.
+In this lesson, we will add the second VM in another AD in the same VCN and regional subnet. Inside this new VM again *Null Provider* will be used to configure yet another webserver with the simple webpage content, but this time it will be showing content as follows: **Welcome to FoggyKitchen.com! This is WEBSERVER2...**. After this lesson, you can use public IP addresses of both VMs to access two different web pages. Wouldn't it be great to have some load balancer on top of that and hide both web servers under the load balancer umbrella?
 
-![](LESSON1_single_webserver.jpg)
+![](LESSON2_second_webserver_in_other_AD.jpg)
 
 ## Deploy Using Oracle Resource Manager
 
-1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/raw/master/LESSON1_single_webserver/resource-manager/LESSON1_single_webserver.zip)
+1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/raw/master/LESSON2_second_webserver_in_other_AD/resource-manager/LESSON2_second_webserver_in_other_AD.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials.
 
@@ -38,7 +38,7 @@ Martin-MacBook-Pro:~ martinlinxfeld$ git clone https://github.com/mlinxfeld/fogg
 
 Martin-MacBook-Pro:~ martinlinxfeld$ cd foggykitchen_tf_oci_course/
 
-Martin-MacBook-Pro:foggykitchen_tf_oci_course martinlinxfeld$ cd LESSON1_single_webserver
+Martin-MacBook-Pro:foggykitchen_tf_oci_course martinlinxfeld$ cd LESSON2_second_webserver_in_other_AD
 
 ```
 
@@ -46,7 +46,7 @@ Martin-MacBook-Pro:foggykitchen_tf_oci_course martinlinxfeld$ cd LESSON1_single_
 Create environment file with TF_VARs:
 
 ```
-Martin-MacBook-Pro:LESSON1_single_webserver martinlinxfeld$ vi setup_oci_tf_vars.sh
+Martin-MacBook-Pro:LESSON2_second_webserver_in_other_AD martinlinxfeld$ vi setup_oci_tf_vars.sh
 
 export TF_VAR_user_ocid="ocid1.user.oc1..aaaaaaaaob4qbf2(...)uunizjie4his4vgh3jx5jxa"
 export TF_VAR_tenancy_ocid="ocid1.tenancy.oc1..aaaaaaaas(...)krj2s3gdbz7d2heqzzxn7pe64ksbia"
@@ -54,25 +54,26 @@ export TF_VAR_compartment_ocid="ocid1.tenancy.oc1..aaaaaaaasbktyckn(...)ldkrj2s3
 export TF_VAR_fingerprint="00:f9:d1:41:bb:57(...)82:47:e6:00"
 export TF_VAR_private_key_path="/tmp/oci_api_key.pem"
 export TF_VAR_availablity_domain_name="unja:EU-FRANKFURT-1-AD-1"
+export TF_VAR_availablity_domain_name2="unja:EU-FRANKFURT-1-AD-2"
 export TF_VAR_region="eu-frankfurt-1"
 
-Martin-MacBook-Pro:LESSON1_single_webserver martinlinxfeld$ source setup_oci_tf_vars.sh
+Martin-MacBook-Pro:LESSON2_second_webserver_in_other_AD martinlinxfeld$ source setup_oci_tf_vars.sh
 ```
 
 ### Create the Resources
 Run the following commands:
 
 ```
-Martin-MacBook-Pro:LESSON1_single_webserver martinlinxfeld$ terraform init
+Martin-MacBook-Pro:LESSON2_second_webserver_in_other_AD martinlinxfeld$ terraform init
     
-Martin-MacBook-Pro:LESSON1_single_webserver martinlinxfeld$ terraform plan
+Martin-MacBook-Pro:LESSON2_second_webserver_in_other_AD martinlinxfeld$ terraform plan
 
-Martin-MacBook-Pro:LESSON1_single_webserver martinlinxfeld$ terraform apply
+Martin-MacBook-Pro:LESSON2_second_webserver_in_other_AD martinlinxfeld$ terraform apply
 ```
 
 ### Destroy the Deployment
 When you no longer need the deployment, you can run this command to destroy the resources:
 
 ```
-Martin-MacBook-Pro:LESSON1_single_webserver martinlinxfeld$ terraform destroy
+Martin-MacBook-Pro:LESSON2_second_webserver_in_other_AD martinlinxfeld$ terraform destroy
 ```
