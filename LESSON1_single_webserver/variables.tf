@@ -4,31 +4,49 @@ variable "fingerprint" {}
 variable "private_key_path" {}
 variable "compartment_ocid" {}
 variable "region" {}
-variable "private_key_oci" {}
-variable "public_key_oci" {}
+variable "availablity_domain_name" {}
 
 variable "VCN-CIDR" {
   default = "10.0.0.0/16"
 }
 
-variable "VCN-CIDRs" {
-  type = list(string)
-  default = ["10.0.0.0/16"]
+variable "Subnet-CIDR" {
+  default = "10.0.1.0/24"
 }
 
-variable "VCNname" {
-  default = "FoggyKitchenVCN"
+variable "Shape" {
+ default = "VM.Standard.E3.Flex"
 }
 
-variable "Shapes" {
- default = ["VM.Standard.E2.1","VM.Standard.E2.1.Micro","VM.Standard2.1","VM.Standard.E2.1","VM.Standard.E2.2"]
+variable "FlexShapeOCPUS" {
+    default = 1
 }
 
-variable "OsImage" {
-  default = "Oracle-Linux-7.8-2020.05.26-0"
+variable "FlexShapeMemory" {
+    default = 1
+}
+
+variable "instance_os" {
+  default = "Oracle Linux"
+}
+
+variable "linux_os_version" {
+  default = "7.9"
 }
 
 variable "service_ports" {
   default = [80,443,22]
 }
 
+# Dictionary Locals
+locals {
+  compute_flexible_shapes = [
+    "VM.Standard.E3.Flex",
+    "VM.Standard.E4.Flex"
+  ]
+}
+
+# Checks if is using Flexible Compute Shapes
+locals {
+  is_flexible_shape = contains(local.compute_flexible_shapes, var.Shape)
+}

@@ -1,17 +1,18 @@
-# Gets a list of Availability Domains
-data "oci_identity_availability_domains" "ADs" {
-  compartment_id = var.tenancy_ocid
-}
+data "oci_core_images" "OSImage" {
+  compartment_id           = var.compartment_ocid
+  operating_system         = var.instance_os
+  operating_system_version = var.linux_os_version
+  shape                    = var.Shape
 
-# Gets the Id of a specific OS Images
-data "oci_core_images" "OSImageLocal" {
-  #Required
-  compartment_id = var.compartment_ocid
-  display_name   = var.OsImage
+  filter {
+    name   = "display_name"
+    values = ["^.*Oracle[^G]*$"]
+    regex  = true
+  }
 }
 
 data "oci_core_vnic_attachments" "FoggyKitchenWebserver1_VNIC1_attach" {
-  availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[1], "name")
+  availability_domain = var.availablity_domain_name 
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   instance_id = oci_core_instance.FoggyKitchenWebserver1.id
 }

@@ -1,0 +1,192 @@
+# Copyright (c) 2020, Oracle and/or its affiliates. All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+title: "LESSON 1 - Single Webserver"
+description: "FoggyKitchen Terraform OCI Course - LESSON 1 - Single Webserver."
+stackDescription: "FoggyKitchen Terraform OCI Course - LESSON 1 - Single Webserver."
+schemaVersion: 1.1.0
+version: "20201028"
+locale: "en"
+
+variableGroups:
+- title: "General Configuration"
+  visible: false
+  variables:
+  - tenancy_ocid
+  - region
+  - service_ports
+
+- title: "Required Configuration"
+  visible: true  
+  variables:
+  - compartment_ocid
+  - availablity_domain_name 
+  - show_advanced 
+
+- title: "Networking Optional Configuration"
+  visible: 
+      and:
+        - show_advanced
+  variables:
+  - VCN-CIDR
+  - Subnet-CIDR
+
+- title: "Compute Optional Configuration"
+  visible: 
+      and:
+        - show_advanced
+  variables:
+  - Shape
+  - FlexShapeOCPUS
+  - FlexShapeMemory
+  - instance_os
+  - linux_os_version
+
+variables:
+
+  show_advanced:
+    type: boolean
+    title: "Show advanced options?"
+    description: "Shows advanced options."
+    visible: true
+    default: false
+
+  # General Configuration
+  tenancy_ocid:
+    title: "Tenancy ID"
+    description: "The Oracle Cloud Identifier (OCID) for your tenancy"
+    type: string
+    required: true
+    visibile: false
+
+  region:
+    title: "Region"
+    description: "Choose Region where you deploy your Webserver"
+    type: oci:identity:region:name
+    required: true
+    visibile: true
+
+  compartment_ocid:
+    title: "Compartment OCID"
+    description: "Choose Comparment where you deploy your Webserver"
+    type: oci:identity:compartment:id
+    required: true
+    visibile: true
+
+  availablity_domain_name:
+    type: oci:identity:availabilitydomain:name
+    required: true
+    visibile: true
+    title: "Availability Domain to be chosen"
+    description: "Choose Availability Domain where your Webserver will be deployed."
+    dependsOn:
+      regionName: ${region}
+      compartmentId: ${compartment_ocid}
+
+  # Optional Configuration
+
+  VCN-CIDR:
+    type: string
+    required: false
+    default: "10.0.0.0/16"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "VCN CIDR"
+    description: "Choose single, contiguous IPv4 CIDR block for the VCN"
+
+  Subnet-CIDR:
+    type: string
+    required: false
+    default: "10.0.1.0/24"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: Subnet CIDR"
+    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
+  Shape:
+    type: oci:core:instanceshape:name
+    title: "Webserver Shape"
+    description: "Choose a shape for your Webserver"
+    default: "VM.Standard.E3.Flex"
+    required: false
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+
+  FlexShapeOCPUS:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 1
+    title: "Flex Shape OCPUs"
+    description: "Choose number of OCPUs for Flex Shape."
+    visible:
+      and:
+        - or:
+          - eq:
+            - Shape 
+            - "VM.Standard.E3.Flex"
+          - eq:
+            - Shape 
+            - "VM.Standard.E4.Flex"
+
+  FlexShapeMemory:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 1
+    title: "Flex Shape Memory (GB)"
+    description: "Choose number GB for Flex Shape Memory."
+    visible:
+      and:
+        - or:
+          - eq:
+            - Shape 
+            - "VM.Standard.E3.Flex"
+          - eq:
+            - Shape
+            - "VM.Standard.E4.Flex"
+
+  instance_os:
+    type: enum
+    required: false
+    visible: true
+    title: "Instance OS"
+    description: "Choose Operating System that determines the operating system for Webserver host."
+    default: "Oracle Linux"
+    enum:
+      - "Oracle Linux"
+
+  linux_os_version:
+    type: enum
+    required: false
+    visible: true
+    title: "Instance OS version"
+    description: "Choose Operating System version that determines the operating system version for Webserver host."
+    default: "7.9"
+    enum:
+      - "7.9"  
+
+  service_ports:
+    title: "Service Ports"
+    description: "Service Ports"
+    type: string
+    required: false
+    visible: false
+
+outputs:
+
+  generated_ssh_private_key:
+    title: "Generated SSH Private Key"
+    displayText: "Generated SSH Private Key"
+    type: string
+    visible: true
+  
+  FoggyKitchenWebserver1PublicIP:
+    title: "Webserver Public IP"
+    displayText: "Webserver Public IP"
+    type: copyableString
+    visible: true
+
+
