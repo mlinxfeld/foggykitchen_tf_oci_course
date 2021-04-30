@@ -77,8 +77,8 @@ variables:
     type: oci:identity:availabilitydomain:name
     required: true
     visibile: true
-    title: "Availability Domain for Webserver1"
-    description: "Choose Availability Domain where your Webserver1 will be deployed."
+    title: "Availability Domain"
+    description: "Choose Availability Domain where your Webserver1 & Webserver2 will be deployed."
     dependsOn:
       regionName: ${region}
       compartmentId: ${compartment_ocid}
