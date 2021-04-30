@@ -83,16 +83,6 @@ variables:
       regionName: ${region}
       compartmentId: ${compartment_ocid}
 
-  availablity_domain_name2:
-    type: oci:identity:availabilitydomain:name
-    required: true
-    visibile: true
-    title: "Availability Domain for Webserver2"
-    description: "Choose Availability Domain where your Webserver2 will be deployed."
-    dependsOn:
-      regionName: ${region}
-      compartmentId: ${compartment_ocid}
-
   # Optional Configuration
 
   VCN-CIDR:
