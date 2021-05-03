@@ -195,9 +195,14 @@ outputs:
     visible: true
   
   FoggyKitchenWebserver1PublicIP:
-    title: "Webserver Public IP"
-    displayText: "Webserver Public IP"
+    title: "Webserver1 Public IP"
+    displayText: "Webserver1 Public IP"
     type: copyableString
     visible: true
 
+  FoggyKitchenWebserver2PublicIP:
+    title: "Webserver2 Public IP"
+    displayText: "Webserver2 Public IP"
+    type: copyableString
+    visible: true
 
