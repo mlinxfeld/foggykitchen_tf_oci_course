@@ -53,3 +53,4 @@ locals {
 locals {
   is_flexible_shape = contains(local.compute_flexible_shapes, var.Shape)
 }
+

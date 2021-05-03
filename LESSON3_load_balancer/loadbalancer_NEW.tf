@@ -1,5 +1,14 @@
 resource "oci_load_balancer" "FoggyKitchenLoadBalancer" {
-  shape          = "100Mbps"
+  shape = var.lb_shape
+
+  dynamic "shape_details" {
+    for_each = local.is_flexible_lb_shape ? [1] : []
+    content {
+      minimum_bandwidth_in_mbps = var.flex_lb_min_shape
+      maximum_bandwidth_in_mbps = var.flex_lb_max_shape
+    }
+  }
+
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id 
   subnet_ids     = [
     oci_core_subnet.FoggyKitchenWebSubnet.id
@@ -52,8 +61,4 @@ resource "oci_load_balancer_backend" "FoggyKitchenLoadBalancerBackend2" {
   weight           = 1
 }
 
-
-output "FoggyKitchenLoadBalancer_Public_IP" {
-  value = [oci_load_balancer.FoggyKitchenLoadBalancer.ip_addresses]
-}
 

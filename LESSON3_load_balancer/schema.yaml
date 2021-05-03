@@ -1,9 +1,9 @@
 # Copyright (c) 2020, Oracle and/or its affiliates. All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
-title: "LESSON 2a - Second Webserver in other Fault Domain (FD)"
-description: "FoggyKitchen Terraform OCI Course - LESSON 2a - Second Webserver in other Fault Domain (FD)."
-stackDescription: "FoggyKitchen Terraform OCI Course - LESSON 2a - Second Webserver in other Fault Domain (FD)."
+title: "LESSON 3 - Load Balancer"
+description: "FoggyKitchen Terraform OCI Course - LESSON 3 - Load Balancer."
+stackDescription: "FoggyKitchen Terraform OCI Course - LESSON 3 - Load Balancer."
 schemaVersion: 1.1.0
 version: "20201028"
 locale: "en"
@@ -30,6 +30,15 @@ variableGroups:
   variables:
   - VCN-CIDR
   - Subnet-CIDR
+
+- title: "Load Balancer Optional Configuration"
+  visible: 
+      and:
+        - show_advanced
+  variables:
+  - lb_shape
+  - flex_lb_min_shape
+  - flex_lb_max_shape
 
 - title: "Compute Optional Configuration"
   visible: 
@@ -168,6 +177,56 @@ variables:
     enum:
       - "7.9"  
 
+  lb_shape:
+    type: enum
+    title: "Load Balanacer Shape"
+    description: "Load Balanacer Shape"
+    default: "flexible"
+    required: false 
+    enum:
+      - "flexible"
+      - "100Mbps"
+      - "10Mbps"
+      - "10Mbps-Micro"
+      - "400Mbps"
+      - "8000Mbps"
+
+  flex_lb_min_shape:
+    type: enum
+    required: false
+    default: "10"
+    title: "LB Flex Min Shape"
+    description: "Choose Minimum Shape for Flex Load Balancer."
+    enum:
+      - "10"
+      - "100"
+      - "1000"
+      - "400"
+      - "8000"
+    visible:
+      and:
+        - eq:
+          - lb_shape 
+          - "flexible"
+
+  flex_lb_max_shape:
+    type: enum
+    required: false
+    default: "100"
+    title: "LB Flex Max Shape"
+    description: "Choose Maximum Shape for Flex Load Balancer."
+    enum:
+      - "10"
+      - "100"
+      - "1000"
+      - "400"
+      - "8000"
+    visible:
+      and:
+        - eq:
+          - lb_shape 
+          - "flexible"
+
   service_ports:
     title: "Service Ports"
     description: "Service Ports"
@@ -194,4 +253,11 @@ outputs:
     displayText: "Webserver2 Public IP"
     type: copyableString
     visible: true
+
+  FoggyKitchenLoadBalancer_Public_IP:
+    title: "Webserver Public IP"
+    displayText: "Webserver Public IP"
+    type: copyableString
+    visible: true
+
 
