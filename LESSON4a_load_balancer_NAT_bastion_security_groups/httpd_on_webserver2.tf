@@ -5,14 +5,14 @@ resource "null_resource" "FoggyKitchenWebserver2HTTPD" {
                 type     = "ssh"
                 user     = "opc"
                 host     = data.oci_core_vnic.FoggyKitchenWebserver2_VNIC1.private_ip_address
-                private_key = file(var.private_key_oci)
+                private_key = tls_private_key.public_private_key_pair.private_key_pem
                 script_path = "/home/opc/myssh.sh"
                 agent = false
                 timeout = "10m"
                 bastion_host = data.oci_core_vnic.FoggyKitchenBastionServer_VNIC1.public_ip_address
                 bastion_port = "22"
                 bastion_user = "opc"
-                bastion_private_key = file(var.private_key_oci)
+                bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
         }
   inline = ["echo '== 1. Installing HTTPD package with yum'",
             "sudo -u root yum -y -q install httpd",
@@ -26,3 +26,4 @@ resource "null_resource" "FoggyKitchenWebserver2HTTPD" {
             "sudo -u root service httpd start"]
   }
 }
+

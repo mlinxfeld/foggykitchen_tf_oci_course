@@ -8,7 +8,7 @@ In this course, you can find 10 lessons (+ 4 extra lessons) with the Terraform's
 
 ### STEP 1.
 
-Clone the repo from github by executing the command as follows and then go to foggykitchen_tf_oci_course directory:
+Clone the repo from GitHub.com by executing the command as follows and then go to foggykitchen_tf_oci_course directory:
 
 ```
 Martin-MacBook-Pro:~ martinlinxfeld$ git clone https://github.com/mlinxfeld/foggykitchen_tf_oci_course.git
