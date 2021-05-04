@@ -1,5 +1,5 @@
 resource "oci_core_subnet" "FoggyKitchenWebSubnet" {
-  cidr_block = "10.0.1.0/24"
+  cidr_block = var.WebSubnet-CIDR
   display_name = "FoggyKitchenWebSubnet"
   dns_label = "FoggyKitchenN1"
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id

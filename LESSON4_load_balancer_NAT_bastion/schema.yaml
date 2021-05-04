@@ -1,9 +1,9 @@
 # Copyright (c) 2020, Oracle and/or its affiliates. All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
-title: "LESSON 3 - Load Balancer"
-description: "FoggyKitchen Terraform OCI Course - LESSON 3 - Load Balancer."
-stackDescription: "FoggyKitchen Terraform OCI Course - LESSON 3 - Load Balancer."
+title: "LESSON 4 - Load Balancer + NAT Gateway + Bastion Host"
+description: "FoggyKitchen Terraform OCI Course - LESSON 4 - Load Balancer + NAT Gateway + Bastion Host."
+stackDescription: "FoggyKitchen Terraform OCI Course - LESSON 4 - Load Balancer + NAT Gateway + Bastion Host."
 schemaVersion: 1.1.0
 version: "20201028"
 locale: "en"
@@ -14,7 +14,8 @@ variableGroups:
   variables:
   - tenancy_ocid
   - region
-  - service_ports
+  - webservice_ports
+  - bastion_ports
 
 - title: "Required Configuration"
   visible: true  
@@ -29,7 +30,9 @@ variableGroups:
         - show_advanced
   variables:
   - VCN-CIDR
-  - Subnet-CIDR
+  - WebSubnet-CIDR
+  - LBSubnet-CIDR
+  - BastionSubnet-CIDR
 
 - title: "Load Balancer Optional Configuration"
   visible: 
@@ -102,12 +105,28 @@ variables:
     title: "VCN CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the VCN"
 
-  Subnet-CIDR:
+  WebSubnet-CIDR:
     type: string
     required: false
     default: "10.0.1.0/24"
     pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    title: Subnet CIDR"
+    title: "WebSubnet CIDR"
+    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
+  LBSubnet-CIDR:
+    type: string
+    required: false
+    default: "10.0.1.0/24"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "LoadBalancer Subnet CIDR"
+    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
+  BastionSubnet-CIDR:
+    type: string
+    required: false
+    default: "10.0.1.0/24"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "Bastion Subnet CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
   Shape:
@@ -227,9 +246,16 @@ variables:
           - lb_shape 
           - "flexible"
 
-  service_ports:
-    title: "Service Ports"
-    description: "Service Ports"
+  webservice_ports:
+    title: "Web Service Ports"
+    description: "Web Service Ports"
+    type: string
+    required: false
+    visible: false
+
+  bastion_ports:
+    title: "Baston SSH Ports"
+    description: "Bastion SSH Ports"
     type: string
     required: false
     visible: false
@@ -242,21 +268,21 @@ outputs:
     type: string
     visible: true
   
-  FoggyKitchenWebserver1PublicIP:
-    title: "Webserver1 Public IP"
-    displayText: "Webserver1 Public IP"
+  FoggyKitchenWebserver1PrivateIP:
+    title: "Webserver1 Private IP"
+    displayText: "Webserver1 Private IP"
     type: copyableString
     visible: true
 
-  FoggyKitchenWebserver2PublicIP:
-    title: "Webserver2 Public IP"
-    displayText: "Webserver2 Public IP"
+  FoggyKitchenWebserver2PrivateIP:
+    title: "Webserver2 Private IP"
+    displayText: "Webserver2 Private IP"
     type: copyableString
     visible: true
 
-  FoggyKitchenLoadBalancer_Public_IP:
-    title: "Load Balancer Public IP"
-    displayText: "Load Balancer Public IP"
+  FoggyKitchenPublicLoadBalancer_Public_IP:
+    title: "LoadBalancer Public IP"
+    displayText: "LoadBalancer Public IP"
     type: copyableString
     visible: true
 
