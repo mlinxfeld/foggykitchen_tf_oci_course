@@ -116,7 +116,7 @@ variables:
   LBSubnet-CIDR:
     type: string
     required: false
-    default: "10.0.1.0/24"
+    default: "10.0.2.0/24"
     pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
     title: "LoadBalancer Subnet CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
@@ -124,7 +124,7 @@ variables:
   BastionSubnet-CIDR:
     type: string
     required: false
-    default: "10.0.1.0/24"
+    default: "10.0.3.0/24"
     pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
     title: "Bastion Subnet CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
