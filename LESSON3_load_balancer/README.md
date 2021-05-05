@@ -53,7 +53,7 @@ export TF_VAR_tenancy_ocid="ocid1.tenancy.oc1..aaaaaaaas(...)krj2s3gdbz7d2heqzzx
 export TF_VAR_compartment_ocid="ocid1.tenancy.oc1..aaaaaaaasbktyckn(...)ldkrj2s3gdbz7d2heqzzxn7pe64ksbia"
 export TF_VAR_fingerprint="00:f9:d1:41:bb:57(...)82:47:e6:00"
 export TF_VAR_private_key_path="/tmp/oci_api_key.pem"
-export TF_VAR_region="eu-frankfurt-1"
+export TF_VAR_region="eu-amsterdam-1"
 
 Martin-MacBook-Pro:LESSON3_load_balancer martinlinxfeld$ source setup_oci_tf_vars.sh
 ```
