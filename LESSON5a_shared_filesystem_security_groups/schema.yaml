@@ -16,6 +16,10 @@ variableGroups:
   - region
   - webservice_ports
   - bastion_ports
+  - fss_ingress_tcp_ports
+  - fss_ingress_udp_ports
+  - fss_egress_tcp_ports
+  - fss_egress_udp_ports
 
 - title: "Required Configuration"
   visible: true  
