@@ -1,5 +1,5 @@
 resource "null_resource" "FoggyKitchenWebserver2HTTPD" {
- depends_on = [oci_core_instance.FoggyKitchenWebserver2,oci_core_instance.FoggyKitchenBastionServer,null_resource.FoggyKitchenWebserver2SharedFilesystem]
+ depends_on = [null_resource.FoggyKitchenWebserver1HTTPD, oci_core_instance.FoggyKitchenWebserver2, oci_core_instance.FoggyKitchenBastionServer, null_resource.FoggyKitchenWebserver2SharedFilesystem]
  provisioner "remote-exec" {
         connection {
                 type     = "ssh"
