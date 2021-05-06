@@ -1,5 +1,5 @@
 resource "oci_core_subnet" "FoggyKitchenBastionSubnet" {
-  cidr_block = var.bastionsubnet-CIDR
+  cidr_block = var.BastionSubnet-CIDR
   display_name = "FoggyKitchenBastionSubnet"
   dns_label = "FoggyKitchenN3"
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
