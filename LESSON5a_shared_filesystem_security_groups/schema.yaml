@@ -37,6 +37,7 @@ variableGroups:
   - WebSubnet-CIDR
   - LBSubnet-CIDR
   - BastionSubnet-CIDR
+  - FSSSubnet-CIDR
 
 - title: "Load Balancer Optional Configuration"
   visible: 
@@ -138,6 +139,14 @@ variables:
     default: "10.0.3.0/24"
     pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
     title: "Bastion Subnet CIDR"
+    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
+
+  FSSSubnet-CIDR:
+    type: string
+    required: false
+    default: "10.0.4.0/24"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "FSS Subnet CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
   Shape:
@@ -274,7 +283,7 @@ variables:
   MountTargetIPAddress:
     type: string
     required: false
-    default: "10.0.1.25"
+    default: "10.0.4.25"
     title: "Mount Target IP Address"
     description: "Choose Mount Target IP Address for File Storage Service."
 
