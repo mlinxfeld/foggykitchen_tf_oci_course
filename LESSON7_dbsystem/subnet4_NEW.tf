@@ -1,5 +1,5 @@
 resource "oci_core_subnet" "FoggyKitchenDBSubnet" {
-  cidr_block = var.DBSubnet-CIDR
+  cidr_block = var.DBSystemSubnet-CIDR
   display_name = "FoggyKitchenDBSubnet"
   dns_label = "FoggyKitchenN4"
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id

@@ -25,7 +25,7 @@ variable "BastionSubnet-CIDR" {
   default = "10.0.3.0/24"
 }
 
-variable "DBSubnet-CIDR" {
+variable "DBSystemSubnet-CIDR" {
   default = "10.0.4.0/24"
 }
 

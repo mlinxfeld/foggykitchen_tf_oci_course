@@ -16,6 +16,7 @@ variableGroups:
   - region
   - webservice_ports
   - bastion_ports
+  - sqlnet_ports
   - HostUserName
 
 - title: "Required Configuration"
@@ -35,7 +36,7 @@ variableGroups:
   - WebSubnet-CIDR
   - LBSubnet-CIDR
   - BastionSubnet-CIDR
-  - DBSystem-CIDR
+  - DBSystemSubnet-CIDR
 
 - title: "Load Balancer Optional Configuration"
   visible: 
@@ -171,7 +172,7 @@ variables:
     title: "Bastion Subnet CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
-  DBSubnet-CIDR:
+  DBSystemSubnet-CIDR:
     type: string
     required: false
     default: "10.0.4.0/24"
