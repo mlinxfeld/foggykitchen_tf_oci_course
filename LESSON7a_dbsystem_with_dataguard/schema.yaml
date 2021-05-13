@@ -386,7 +386,7 @@ variables:
   DBEdition:
     type: enum
     required: false
-    default: "STANDARD_EDITION"
+    default: "ENTERPRISE_EDITION"
     title: "DB Edition"
     description: "Choose DB Edition for your DBSystem." 
     enum:
