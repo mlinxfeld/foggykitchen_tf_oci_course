@@ -1,5 +1,5 @@
 resource "oci_core_volume" "FoggyKitchenWebserver1BlockVolume100G" {
-  availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[1], "name")
+  availability_domain = var.availablity_domain_name == "" ? lookup(data.oci_identity_availability_domains.ADs.availability_domains[0], "name") : var.availablity_domain_name
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name = "FoggyKitchenWebserver1 BlockVolume 100G"
   size_in_gbs = "100"
@@ -7,7 +7,6 @@ resource "oci_core_volume" "FoggyKitchenWebserver1BlockVolume100G" {
 
 resource "oci_core_volume_attachment" "FoggyKitchenWebserver1BlockVolume100G_attach" {
     attachment_type = "iscsi"
-    compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
     instance_id = oci_core_instance.FoggyKitchenWebserver1.id
     volume_id = oci_core_volume.FoggyKitchenWebserver1BlockVolume100G.id
 }
@@ -21,14 +20,14 @@ resource "null_resource" "FoggyKitchenWebserver1_oci_iscsi_attach" {
                 type     = "ssh"
                 user     = "opc"
                 host     = data.oci_core_vnic.FoggyKitchenWebserver1_VNIC1.private_ip_address
-                private_key = file(var.private_key_oci)
+                private_key = tls_private_key.public_private_key_pair.private_key_pem
                 script_path = "/home/opc/myssh.sh"
                 agent = false
                 timeout = "10m"
                 bastion_host = data.oci_core_vnic.FoggyKitchenBastionServer_VNIC1.public_ip_address
                 bastion_port = "22"
                 bastion_user = "opc"
-                bastion_private_key = file(var.private_key_oci)
+                bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
         }
      inline = ["sudo /bin/su -c \"rm -Rf /home/opc/iscsiattach.sh\""]
   }
@@ -38,14 +37,14 @@ resource "null_resource" "FoggyKitchenWebserver1_oci_iscsi_attach" {
                 type     = "ssh"
                 user     = "opc"
                 host     = data.oci_core_vnic.FoggyKitchenWebserver1_VNIC1.private_ip_address
-                private_key = file(var.private_key_oci)
+                private_key = tls_private_key.public_private_key_pair.private_key_pem
                 script_path = "/home/opc/myssh.sh"
                 agent = false
                 timeout = "10m"
                 bastion_host = data.oci_core_vnic.FoggyKitchenBastionServer_VNIC1.public_ip_address
                 bastion_port = "22"
                 bastion_user = "opc"
-                bastion_private_key = file(var.private_key_oci)
+                bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
         }
     source     = "iscsiattach.sh"
     destination = "/home/opc/iscsiattach.sh"
@@ -56,14 +55,14 @@ resource "null_resource" "FoggyKitchenWebserver1_oci_iscsi_attach" {
                 type     = "ssh"
                 user     = "opc"
                 host     = data.oci_core_vnic.FoggyKitchenWebserver1_VNIC1.private_ip_address
-                private_key = file(var.private_key_oci)
+                private_key = tls_private_key.public_private_key_pair.private_key_pem
                 script_path = "/home/opc/myssh.sh"
                 agent = false
                 timeout = "10m"
                 bastion_host = data.oci_core_vnic.FoggyKitchenBastionServer_VNIC1.public_ip_address
                 bastion_port = "22"
                 bastion_user = "opc"
-                bastion_private_key = file(var.private_key_oci)
+                bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
         }
   inline = ["sudo /bin/su -c \"chown root /home/opc/iscsiattach.sh\"",
             "sudo /bin/su -c \"chmod u+x /home/opc/iscsiattach.sh\"",
@@ -81,14 +80,14 @@ resource "null_resource" "FoggyKitchenWebserver1_oci_u01_fstab" {
                 type     = "ssh"
                 user     = "opc"
                 host     = data.oci_core_vnic.FoggyKitchenWebserver1_VNIC1.private_ip_address
-                private_key = file(var.private_key_oci)
+                private_key = tls_private_key.public_private_key_pair.private_key_pem
                 script_path = "/home/opc/myssh.sh"
                 agent = false
                 timeout = "10m"
                 bastion_host = data.oci_core_vnic.FoggyKitchenBastionServer_VNIC1.public_ip_address
                 bastion_port = "22"
                 bastion_user = "opc"
-                bastion_private_key = file(var.private_key_oci)
+                bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
         }
   inline = ["sudo -u root parted /dev/sdb --script -- mklabel gpt",
             "sudo -u root parted /dev/sdb --script -- mkpart primary ext4 0% 100%",
