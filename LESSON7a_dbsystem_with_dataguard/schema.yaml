@@ -18,12 +18,17 @@ variableGroups:
   - bastion_ports
   - sqlnet_ports
   - HostUserName
+  - fss_ingress_tcp_ports
+  - fss_ingress_udp_ports
+  - fss_egress_tcp_ports
+  - fss_egress_udp_ports
 
 - title: "Required Configuration"
   visible: true  
   variables:
   - compartment_ocid
   - availablity_domain_name 
+  - availablity_domain_name2 
   - DBAdminPassword
   - show_advanced 
 
@@ -69,7 +74,7 @@ variableGroups:
   - DBEdition
   - DBName
   - DBVersion
-  - DBDisplayName
+  - DBHomeDisplayName
   - DBDiskRedundancy
   - DBSystemDisplayName
   - DBNodeDomainName
@@ -134,6 +139,16 @@ variables:
     visibile: true
     title: "Availability Domain"
     description: "Choose Availability Domain where your Webserver1 & Webserver2 will be deployed."
+    dependsOn:
+      regionName: ${region}
+      compartmentId: ${compartment_ocid}
+
+  availablity_domain_name2:
+    type: oci:identity:availabilitydomain:name
+    required: true
+    visibile: true
+    title: "Availability Domain 2"
+    description: "Choose Availability Domain where Standby DB System will be deployed."
     dependsOn:
       regionName: ${region}
       compartmentId: ${compartment_ocid}
@@ -419,7 +434,7 @@ variables:
       - "21.0.0.0" 
       - "21.1.0.0"
   
-  DBDisplayName:
+  DBHomeDisplayName:
     type: string
     required: false
     title: "Database home display name" 

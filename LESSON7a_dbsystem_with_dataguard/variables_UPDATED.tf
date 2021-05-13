@@ -127,10 +127,6 @@ variable "DBVersion" {
     default = "12.1.0.2"
 }
 
-variable "DBDisplayName" {
-    default = "FoggyDB"
-}
-
 variable "DBHomeDisplayName" {
     default = "FoggyDBHome"
 }
