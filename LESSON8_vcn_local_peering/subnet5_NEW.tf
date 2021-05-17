@@ -1,5 +1,5 @@
 resource "oci_core_subnet" "FoggyKitchenBackendSubnet" {
-  cidr_block = "192.168.1.0/24"
+  cidr_block = var.BackendSubnet-CIDR
   display_name = "FoggyKitchenBackendSubnet"
   dns_label = "FoggyKitchenN5"
   prohibit_public_ip_on_vnic = true

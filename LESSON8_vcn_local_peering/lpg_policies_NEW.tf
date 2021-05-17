@@ -1,5 +1,6 @@
 
 resource "oci_identity_policy" "FoggyKitchenLPGPolicy1" {
+  provider = oci.homeregion
   depends_on = [oci_identity_compartment.FoggyKitchenCompartment,oci_identity_compartment.ExternalCompartment]
   name = "FoggyKitchenLPGPolicy"
   description = "FoggyKitchenLocalPeeringPolicy1"
@@ -9,6 +10,7 @@ resource "oci_identity_policy" "FoggyKitchenLPGPolicy1" {
 }
 
 resource "oci_identity_policy" "FoggyKitchenLPGPolicy2" {
+  provider = oci.homeregion
   depends_on = [oci_identity_compartment.FoggyKitchenCompartment,oci_identity_compartment.ExternalCompartment]
   name = "FoggyKitchenLPGPolicy"
   description = "FoggyKitchen LocalPeeringPolicy2"
