@@ -1,6 +1,6 @@
 resource "oci_core_subnet" "FoggyKitchenLBSubnet" {
   provider = oci.requestor
-  cidr_block = "10.0.2.0/24"
+  cidr_block = var.LBSubnet-CIDR
   display_name = "FoggyKitchenLBSubnet"
   dns_label = "FoggyKitchenN1"
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
