@@ -18,14 +18,14 @@ variableGroups:
   - bastion_ports
   - sqlnet_ports
   - HostUserName
+  - availablity_domain_name 
+  - availablity_domain_name2
 
 - title: "Required Configuration"
   visible: true  
   variables:
   - region1
   - region2
-  - availablity_domain_name 
-  - availablity_domain_name2
   - compartment_ocid
   - DBAdminPassword
   - show_advanced 
