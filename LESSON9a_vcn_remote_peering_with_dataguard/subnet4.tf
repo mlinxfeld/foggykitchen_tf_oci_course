@@ -1,6 +1,6 @@
 resource "oci_core_subnet" "FoggyKitchenDBSubnet" {
   provider = oci.requestor
-  cidr_block = var.dbsubnet-CIDR
+  cidr_block = var.DBSystemSubnet-CIDR
   display_name = "FoggyKitchenDBSubnet"
   dns_label = "FoggyKitchenN4"
   prohibit_public_ip_on_vnic = true

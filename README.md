@@ -336,7 +336,7 @@ In this lesson I will move *FoggyKitchenVCN2* content, including subnet and Back
 
 This lesson is a mixture of lesson9 and lesson 7a. We are setting up cross-region DGAssociation. In this lesson I primary DBSystem will be in one datacenter (eu-frankfurt-1) and standby database will be deployed in another region (eu-amsterdam-1). DataGuard's SQLNet traffic will go via DRGs/RPC and OCI backbone network.
 
-![](LESSON9a_vcn_remote_peering_with_dataguard/LESSON9a_vcn_remote_peering_with_dataguard.png)
+![](LESSON9a_vcn_remote_peering_with_dataguard/LESSON9a_vcn_remote_peering_with_dataguard.jpg)
 
 ### LESSON 10 - Transit VCN
 

@@ -5,7 +5,7 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorF
     network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorFSSSecurityGroup.id
     direction = "INGRESS"
     protocol = "6"
-    source = var.websubnet-CIDR
+    source = var.WebSubnet-CIDR
     source_type = "CIDR_BLOCK"
     tcp_options {
         destination_port_range {
@@ -22,7 +22,7 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorF
     network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorFSSSecurityGroup.id
     direction = "INGRESS"
     protocol = "17"
-    source = var.websubnet-CIDR
+    source = var.WebSubnet-CIDR
     source_type = "CIDR_BLOCK"
     udp_options {
         destination_port_range {
@@ -39,7 +39,7 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorF
     network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorFSSSecurityGroup.id
     direction = "EGRESS"
     protocol = "6"
-    destination = var.websubnet-CIDR
+    destination = var.WebSubnet-CIDR
     destination_type = "CIDR_BLOCK"
     tcp_options {
         destination_port_range {
@@ -56,7 +56,7 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorF
     network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorFSSSecurityGroup.id
     direction = "EGRESS"
     protocol = "17"
-    destination = var.websubnet-CIDR
+    destination = var.WebSubnet-CIDR
     destination_type = "CIDR_BLOCK"
     udp_options {
         destination_port_range {

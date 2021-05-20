@@ -1,6 +1,6 @@
 resource "oci_core_instance" "FoggyKitchenBastionServer" {
   provider = oci.requestor
-  availability_domain = lookup(data.oci_identity_availability_domains.R-ADs.availability_domains[0], "name")
+  availability_domain = var.availablity_domain_name == "" ? lookup(data.oci_identity_availability_domains.R-ADs.availability_domains[0], "name") : var.availablity_domain_name
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name = "FoggyKitchenBastionServer"
   shape = var.Shape
