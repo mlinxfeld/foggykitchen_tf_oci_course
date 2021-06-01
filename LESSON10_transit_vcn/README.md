@@ -1,14 +1,14 @@
 # FoggyKitchen Terraform OCI Course
 
-## LESSON 9 - VCN remote peering
+### LESSON 10 - Transit VCN
 
-In this lesson I will move *FoggyKitchenVCN2* content, including subnet and BackendServer to another region (eu-amsterdam-1). In this case I need to build Dynamic Routing Gateways (DRGs) for both VCNs and interconnect them with Remote Peering Connections (RPCs). I also need to establish some additional policies to let this interconnection work. From functional perspective cross-region connection will work as the local one from the lesson 8. We will be able to access Backend server with SSH from DBSystem server and additonally from webservers.
+This lesson will be based on Lesson9. VCN2 located in another region (eu-amsterdam-1) will be transformed into *Hub VCN*. Additionally we will create two *Spoke VCNs* in this region. *Spoke VCNs* will be interconnected with this *Hub VCN* with the usage of LPGs (local VCN peering). In the code we will also add two route tables: (1) on DRG attach and (2) on *Hub VCN* LPGs' side. As a consequence it will be possible to start connection from departamental servers located in a *Spoke VCNs / Spoke subnets* to the infrastructure in the first original region (eu-frankfurt-1). It means *Hub VCN* will play a role of Transit Routing VCN for *Spoke VCNs*.
 
-![](LESSON9_vcn_remote_peering.jpg)
+![](LESSON10_transit_vcn.jpg)
 
 ## Deploy Using Oracle Resource Manager
 
-1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/raw/master/LESSON9_vcn_remote_peering/resource-manager/LESSON9_vcn_remote_peering.zip)
+1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/raw/master/LESSON10_transit_vcn/resource-manager/LESSON10_transit_vcn.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials.
 
@@ -38,7 +38,7 @@ Martin-MacBook-Pro:~ martinlinxfeld$ git clone https://github.com/mlinxfeld/fogg
 
 Martin-MacBook-Pro:~ martinlinxfeld$ cd foggykitchen_tf_oci_course/
 
-Martin-MacBook-Pro:foggykitchen_tf_oci_course martinlinxfeld$ cd LESSON9_vcn_remote_peering
+Martin-MacBook-Pro:foggykitchen_tf_oci_course martinlinxfeld$ cd LESSON10_transit_vcn
 
 ```
 
@@ -46,7 +46,7 @@ Martin-MacBook-Pro:foggykitchen_tf_oci_course martinlinxfeld$ cd LESSON9_vcn_rem
 Create environment file with TF_VARs (ATTENTION: User should be local, not federated with IDCS):
 
 ```
-Martin-MacBook-Pro:LESSON9_vcn_remote_peering martinlinxfeld$ vi setup_oci_tf_vars.sh
+Martin-MacBook-Pro:LESSON10_transit_vcn martinlinxfeld$ vi setup_oci_tf_vars.sh
 
 export TF_VAR_user_ocid="ocid1.user.oc1..aaaaaaaaob4qbf2(...)uunizjie4his4vgh3jx5jxa"
 export TF_VAR_tenancy_ocid="ocid1.tenancy.oc1..aaaaaaaas(...)krj2s3gdbz7d2heqzzxn7pe64ksbia"
@@ -56,23 +56,23 @@ export TF_VAR_private_key_path="/tmp/oci_api_key.pem"
 export TF_VAR_region1="eu-frankfurt-1"
 export TF_VAR_region2="eu-amsterdam-1"
 
-Martin-MacBook-Pro:LESSON9_vcn_remote_peering martinlinxfeld$ source setup_oci_tf_vars.sh
+Martin-MacBook-Pro:LESSON10_transit_vcn martinlinxfeld$ source setup_oci_tf_vars.sh
 ```
 
 ### Create the Resources
 Run the following commands:
 
 ```
-Martin-MacBook-Pro:LESSON9_vcn_remote_peering martinlinxfeld$ terraform init
+Martin-MacBook-Pro:LESSON10_transit_vcn martinlinxfeld$ terraform init
     
-Martin-MacBook-Pro:LESSON9_vcn_remote_peering martinlinxfeld$ terraform plan
+Martin-MacBook-Pro:LESSON10_transit_vcn martinlinxfeld$ terraform plan
 
-Martin-MacBook-Pro:LESSON9_vcn_remote_peering martinlinxfeld$ terraform apply
+Martin-MacBook-Pro:LESSON10_transit_vcn martinlinxfeld$ terraform apply
 ```
 
 ### Destroy the Deployment
 When you no longer need the deployment, you can run this command to destroy the resources:
 
 ```
-Martin-MacBook-Pro:LESSON9_vcn_remote_peering martinlinxfeld$ terraform destroy
+Martin-MacBook-Pro:LESSON10_transit_vcn martinlinxfeld$ terraform destroy
 ```

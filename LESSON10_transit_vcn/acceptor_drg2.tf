@@ -5,7 +5,6 @@ resource "oci_core_drg" "FoggyKitchenDRG2" {
   compartment_id = oci_identity_compartment.ExternalCompartment.id
 }
 
-
 resource "oci_core_drg_attachment" "FoggyKitchenDRG2Attachment" {
   depends_on = [oci_identity_policy.FoggyKitchenAcceptorPolicy, oci_identity_user_group_membership.FoggyKitchenAcceptorUserGroupMembership]
   provider   = oci.acceptor

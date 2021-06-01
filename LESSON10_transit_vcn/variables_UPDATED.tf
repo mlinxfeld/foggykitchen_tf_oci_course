@@ -4,8 +4,14 @@ variable "fingerprint" {}
 variable "private_key_path" {}
 variable "compartment_ocid" {}
 variable "region" {}
-variable "private_key_oci" {}
-variable "public_key_oci" {}
+
+variable "availablity_domain_name" {
+  default = ""
+}
+
+variable "availablity_domain_name2" {
+  default = ""
+}
 
 variable "region1" {
   default = "eu-frankfurt-1"
@@ -31,48 +37,88 @@ variable "VCN-CIDR4" {
   default = "172.16.2.0/24"
 }
 
-#variable "ADs1" {
-#  default = ["unja:EU-FRANKFURT-1-AD-1", "unja:EU-FRANKFURT-1-AD-2", "unja:EU-FRANKFURT-1-AD-3"]
-#}
-
-#variable "ADs2" {
-#  default = ["unja:EU-AMSTERDAM-1-AD-1"]
-#}
-
-variable "Shapes" {
- default = ["VM.Standard.E2.1","VM.Standard.E2.1.Micro","VM.Standard2.1","VM.Standard.E2.1","VM.Standard.E2.2"]
+variable "WebSubnet-CIDR" {
+  default = "10.0.1.0/24"
 }
 
-variable "OsImage" {
-  # Oracle-Linux-7.7-2020.02.21-0 in Frankfurt
-  default = "Oracle-Linux-7.7-2020.02.21-0"
+variable "LBSubnet-CIDR" {
+  default = "10.0.2.0/24"
 }
 
-#variable "Images" {
- # Oracle-Linux-7.7-2019.11.12-0 in Frankfurt
-# default = ["ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa3bu75jht762mfvwroa2gdck6boqwyktztyu5dfhftcycucyp63ma"]
-#}
+variable "BastionSubnet-CIDR" {
+  default = "10.0.3.0/24"
+}
 
+variable "DBSystemSubnet-CIDR" {
+  default = "10.0.4.0/24"
+}
+
+variable "HubSubnet-CIDR" {
+  default = "192.168.1.0/24"
+}
+
+variable "Spoke1Subnet-CIDR" {
+  default = "172.16.1.0/24"
+}
+
+variable "Spoke2Subnet-CIDR" {
+  default = "172.16.2.0/24"
+}
+
+variable "MountTargetIPAddress" {
+  default = "10.0.1.26"
+}
+
+variable "Shape" {
+ default = "VM.Standard.E3.Flex"
+}
+
+variable "FlexShapeOCPUS" {
+    default = 1
+}
+
+variable "FlexShapeMemory" {
+    default = 1
+}
+
+variable "instance_os" {
+  default = "Oracle Linux"
+}
+
+variable "linux_os_version" {
+  default = "7.9"
+}
 
 variable "webservice_ports" {
-  default = [80,443]
+  default = ["80","443"]
 }
 
 variable "bastion_ports" {
-  default = [22]
+  default = ["22"]
+}
+
+variable "lb_shape" {
+  default = "flexible"
+}
+
+variable "flex_lb_min_shape" {
+  default = 10
+}
+
+variable "flex_lb_max_shape" {
+  default = 100
 }
 
 variable "sqlnet_ports" {
-  default = [1521]
+  default = ["1521"]
 }
 
-# DBSystem specific 
 variable "DBNodeShape" {
     default = "VM.Standard2.1"
 }
 
 variable "CPUCoreCount" {
-    default = "1"
+    default = 1
 }
 
 variable "DBEdition" {
@@ -128,11 +174,11 @@ variable "DBWorkload" {
 }
 
 variable "PDBName" {
-  default = "mysla"
+  default = "TFPDB1"
 }
 
 variable "DataStorageSizeInGB" {
-  default = "256"
+  default = 256
 }
 
 variable "LicenseModel" {
@@ -140,5 +186,20 @@ variable "LicenseModel" {
 }
 
 variable "NodeCount" {
-  default = "1"
+  default = 1
+}
+
+# Dictionary Locals
+locals {
+  compute_flexible_shapes = [
+    "VM.Standard.E3.Flex",
+    "VM.Standard.E4.Flex"
+  ]
+}
+
+
+# Checks if is using Flexible Compute Shapes
+locals {
+  is_flexible_shape = contains(local.compute_flexible_shapes, var.Shape)
+  is_flexible_lb_shape = var.lb_shape == "flexible" ? true : false
 }

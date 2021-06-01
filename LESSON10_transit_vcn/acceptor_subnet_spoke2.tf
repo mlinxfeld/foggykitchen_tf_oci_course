@@ -1,6 +1,6 @@
 resource "oci_core_subnet" "FoggyKitchenSpokeSubnet2" {
   provider = oci.acceptor
-  cidr_block = "172.16.2.0/24"
+  cidr_block = var.Spoke2Subnet-CIDR
   display_name = "FoggyKitchenSpokeSubnet2"
   dns_label = "FoggyKitcheN7"
   #prohibit_public_ip_on_vnic = true

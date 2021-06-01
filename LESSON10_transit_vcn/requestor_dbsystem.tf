@@ -19,7 +19,7 @@ resource "oci_database_db_system" "FoggyKitchenDBSystem" {
   disk_redundancy = var.DBDiskRedundancy
   shape = var.DBNodeShape
   subnet_id = oci_core_subnet.FoggyKitchenDBSubnet.id
-  ssh_public_keys = [file(var.public_key_oci)]
+  ssh_public_keys = [tls_private_key.public_private_key_pair.public_key_openssh]
   display_name = var.DBSystemDisplayName
   domain = var.DBNodeDomainName
   hostname = var.DBNodeHostName
@@ -27,25 +27,5 @@ resource "oci_database_db_system" "FoggyKitchenDBSystem" {
   data_storage_size_in_gb = var.DataStorageSizeInGB
   license_model = var.LicenseModel
   node_count = var.NodeCount
-}
-
-data "oci_database_db_nodes" "DBNodeList" {
-  provider = oci.requestor
-  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
-  db_system_id = oci_database_db_system.FoggyKitchenDBSystem.id
-}
-
-data "oci_database_db_node" "DBNodeDetails" {
-  provider = oci.requestor
-  db_node_id = lookup(data.oci_database_db_nodes.DBNodeList.db_nodes[0], "id")
-}
-
-data "oci_core_vnic" "FoggyKitchenDBSystem_VNIC1" {
-  provider = oci.requestor
-  vnic_id = data.oci_database_db_node.DBNodeDetails.vnic_id
-}
-
-output "FoggyKitchenDBServer_PrivateIP" {
-   value = [data.oci_core_vnic.FoggyKitchenDBSystem_VNIC1.private_ip_address]
 }
 

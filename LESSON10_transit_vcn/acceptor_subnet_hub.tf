@@ -1,6 +1,6 @@
 resource "oci_core_subnet" "FoggyKitchenHubSubnet" {
   provider = oci.acceptor
-  cidr_block = "192.168.1.0/24"
+  cidr_block = var.HubSubnet-CIDR
   display_name = "FoggyKitchenHubSubnet"
   dns_label = "FoggyKitchenN5"
 #  prohibit_public_ip_on_vnic = true
