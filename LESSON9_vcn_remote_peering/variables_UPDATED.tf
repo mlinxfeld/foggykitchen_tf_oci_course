@@ -4,7 +4,6 @@ variable "fingerprint" {}
 variable "private_key_path" {}
 variable "compartment_ocid" {}
 
-
 variable "availablity_domain_name" {
   default = ""
 }

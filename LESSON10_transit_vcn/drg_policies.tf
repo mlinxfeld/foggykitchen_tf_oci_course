@@ -1,5 +1,6 @@
 resource "oci_identity_group" "FoggyKitchenRequestorGroup" {
   provider    = oci.homeregion
+  compartment_id = var.tenancy_ocid
   name        = "FoggyKitchenRequestorGroup"
   description = "FoggyKitchenRequestorGroup"
 }
@@ -25,6 +26,7 @@ resource "oci_identity_policy" "FoggyKitchenRequestorPolicy" {
 
 resource "oci_identity_group" "FoggyKitchenAcceptorGroup" {
   provider    = oci.homeregion
+  compartment_id = var.tenancy_ocid
   name        = "FoggyKitchenAcceptorGroup"
   description = "FoggyKitchenAcceptorGroup"
 }
