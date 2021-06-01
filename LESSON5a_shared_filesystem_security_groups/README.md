@@ -9,7 +9,7 @@ subnet and NSG will be used instead of SecurityList. This is not obligatory less
 
 ## Deploy Using Oracle Resource Manager
 
-1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/raw/master/LESSON5a_shared_filesystem_security_groups/resource-manager/LESSON5a_shared_filesystem_security_groups.zip)
+1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/releases/latest/download/LESSON5a_shared_filesystem_security_groups.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials.
 

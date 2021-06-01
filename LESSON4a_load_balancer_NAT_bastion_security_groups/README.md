@@ -8,7 +8,7 @@ In this lesson, we will explore a new approach to security in OCI. Instead of us
 
 ## Deploy Using Oracle Resource Manager
 
-1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/raw/master/LESSON4a_load_balancer_NAT_bastion_security_groups/resource-manager/LESSON4a_load_balancer_NAT_bastion_security_groups.zip)
+1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/releases/latest/download/LESSON4a_load_balancer_NAT_bastion_security_groups.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials.
 

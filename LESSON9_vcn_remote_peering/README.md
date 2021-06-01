@@ -8,7 +8,7 @@ In this lesson I will move *FoggyKitchenVCN2* content, including subnet and Back
 
 ## Deploy Using Oracle Resource Manager
 
-1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/raw/master/LESSON9_vcn_remote_peering/resource-manager/LESSON9_vcn_remote_peering.zip)
+1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/releases/latest/download/LESSON9_vcn_remote_peering.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials.
 

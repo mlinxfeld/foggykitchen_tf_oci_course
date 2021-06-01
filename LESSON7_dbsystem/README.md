@@ -8,7 +8,7 @@ In this lesson, we will introduce the database component which is based on addit
 
 ## Deploy Using Oracle Resource Manager
 
-1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/raw/master/LESSON7_dbsystem/resource-manager/LESSON7_dbsystem.zip)
+1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/releases/latest/download/LESSON7_dbsystem.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials.
 

@@ -8,7 +8,7 @@ This lesson is a mixture of lesson9 and lesson 7a. We are setting up cross-regio
 
 ## Deploy Using Oracle Resource Manager
 
-1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/raw/master/LESSON9a_vcn_remote_peering_with_dataguard/resource-manager/LESSON9a_vcn_remote_peering_with_dataguard.zip)
+1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/foggykitchen_tf_oci_course/releases/latest/download/LESSON9a_vcn_remote_peering_with_dataguard.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials.
 
