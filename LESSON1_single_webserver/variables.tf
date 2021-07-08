@@ -1,10 +1,14 @@
+# All variables used by the automation.
+
 variable "tenancy_ocid" {}
 variable "user_ocid" {}
 variable "fingerprint" {}
 variable "private_key_path" {}
 variable "compartment_ocid" {}
 variable "region" {}
-variable "availablity_domain_name" {}
+variable "availablity_domain_name" {
+  default = ""
+}
 
 variable "VCN-CIDR" {
   default = "10.0.0.0/16"
@@ -15,15 +19,15 @@ variable "Subnet-CIDR" {
 }
 
 variable "Shape" {
- default = "VM.Standard.E3.Flex"
+  default = "VM.Standard.E3.Flex"
 }
 
 variable "FlexShapeOCPUS" {
-    default = 1
+  default = 1
 }
 
 variable "FlexShapeMemory" {
-    default = 1
+  default = 1
 }
 
 variable "instance_os" {
@@ -35,7 +39,7 @@ variable "linux_os_version" {
 }
 
 variable "service_ports" {
-  default = [80,443,22]
+  default = [80, 443, 22]
 }
 
 # Dictionary Locals
