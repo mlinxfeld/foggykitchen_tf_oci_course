@@ -1,3 +1,4 @@
+# General Provider 
 provider "oci" {
   tenancy_ocid     = var.tenancy_ocid
   user_ocid        = var.user_ocid
@@ -6,6 +7,7 @@ provider "oci" {
   region           = var.region
 }
 
+# Home Region Provider
 provider "oci" {
   alias                = "homeregion"
   tenancy_ocid         = var.tenancy_ocid
@@ -15,4 +17,3 @@ provider "oci" {
   region               = data.oci_identity_region_subscriptions.home_region_subscriptions.region_subscriptions[0].region_name
   disable_auto_retries = "true"
 }
-
