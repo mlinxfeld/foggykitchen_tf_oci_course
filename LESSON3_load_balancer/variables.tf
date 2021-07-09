@@ -18,15 +18,15 @@ variable "Subnet-CIDR" {
 }
 
 variable "Shape" {
- default = "VM.Standard.E3.Flex"
+  default = "VM.Standard.E3.Flex"
 }
 
 variable "FlexShapeOCPUS" {
-    default = 1
+  default = 1
 }
 
 variable "FlexShapeMemory" {
-    default = 1
+  default = 1
 }
 
 variable "instance_os" {
@@ -38,7 +38,7 @@ variable "linux_os_version" {
 }
 
 variable "service_ports" {
-  default = [80,443,22]
+  default = [80, 443, 22]
 }
 
 variable "lb_shape" {
@@ -63,7 +63,7 @@ locals {
 
 # Checks if is using Flexible Compute Shapes
 locals {
-  is_flexible_shape = contains(local.compute_flexible_shapes, var.Shape)
+  is_flexible_shape    = contains(local.compute_flexible_shapes, var.Shape)
   is_flexible_lb_shape = var.lb_shape == "flexible" ? true : false
 }
 

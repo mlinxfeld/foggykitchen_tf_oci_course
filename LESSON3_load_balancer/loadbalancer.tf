@@ -1,3 +1,4 @@
+# Public Load Balancer
 resource "oci_load_balancer" "FoggyKitchenLoadBalancer" {
   shape = var.lb_shape
 
@@ -9,27 +10,28 @@ resource "oci_load_balancer" "FoggyKitchenLoadBalancer" {
     }
   }
 
-  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id 
-  subnet_ids     = [
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  subnet_ids = [
     oci_core_subnet.FoggyKitchenWebSubnet.id
   ]
-  display_name   = "FoggyKitchenLoadBalancer"
+  display_name = "FoggyKitchenLoadBalancer"
 }
 
+# LoadBalancer Backendset
 resource "oci_load_balancer_backendset" "FoggyKitchenLoadBalancerBackendset" {
   name             = "FoggyKitchenLBBackendset"
   load_balancer_id = oci_load_balancer.FoggyKitchenLoadBalancer.id
   policy           = "ROUND_ROBIN"
 
   health_checker {
-    port     = "80"
-    protocol = "HTTP"
+    port                = "80"
+    protocol            = "HTTP"
     response_body_regex = ".*"
-    url_path = "/"
+    url_path            = "/"
   }
 }
 
-
+# LoadBalancer Listener
 resource "oci_load_balancer_listener" "FoggyKitchenLoadBalancerListener" {
   load_balancer_id         = oci_load_balancer.FoggyKitchenLoadBalancer.id
   name                     = "FoggyKitchenLoadBalancerListener"
@@ -38,18 +40,19 @@ resource "oci_load_balancer_listener" "FoggyKitchenLoadBalancerListener" {
   protocol                 = "HTTP"
 }
 
-
+# LoadBalanacer Backend for WebServer1 Instance
 resource "oci_load_balancer_backend" "FoggyKitchenLoadBalancerBackend" {
   load_balancer_id = oci_load_balancer.FoggyKitchenLoadBalancer.id
   backendset_name  = oci_load_balancer_backendset.FoggyKitchenLoadBalancerBackendset.name
   ip_address       = oci_core_instance.FoggyKitchenWebserver1.private_ip
-  port             = 80 
+  port             = 80
   backup           = false
   drain            = false
   offline          = false
   weight           = 1
 }
 
+# LoadBalanacer Backend for WebServer2 Instance
 resource "oci_load_balancer_backend" "FoggyKitchenLoadBalancerBackend2" {
   load_balancer_id = oci_load_balancer.FoggyKitchenLoadBalancer.id
   backendset_name  = oci_load_balancer_backendset.FoggyKitchenLoadBalancerBackendset.name
