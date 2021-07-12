@@ -17,6 +17,15 @@ resource "oci_load_balancer" "FoggyKitchenLoadBalancer" {
   display_name = "FoggyKitchenLoadBalancer"
 }
 
+# LoadBalancer Listener
+resource "oci_load_balancer_listener" "FoggyKitchenLoadBalancerListener" {
+  load_balancer_id         = oci_load_balancer.FoggyKitchenLoadBalancer.id
+  name                     = "FoggyKitchenLoadBalancerListener"
+  default_backend_set_name = oci_load_balancer_backendset.FoggyKitchenLoadBalancerBackendset.name
+  port                     = 80
+  protocol                 = "HTTP"
+}
+
 # LoadBalancer Backendset
 resource "oci_load_balancer_backendset" "FoggyKitchenLoadBalancerBackendset" {
   name             = "FoggyKitchenLBBackendset"
@@ -29,15 +38,6 @@ resource "oci_load_balancer_backendset" "FoggyKitchenLoadBalancerBackendset" {
     response_body_regex = ".*"
     url_path            = "/"
   }
-}
-
-# LoadBalancer Listener
-resource "oci_load_balancer_listener" "FoggyKitchenLoadBalancerListener" {
-  load_balancer_id         = oci_load_balancer.FoggyKitchenLoadBalancer.id
-  name                     = "FoggyKitchenLoadBalancerListener"
-  default_backend_set_name = oci_load_balancer_backendset.FoggyKitchenLoadBalancerBackendset.name
-  port                     = 80
-  protocol                 = "HTTP"
 }
 
 # LoadBalanacer Backend for WebServer1 Instance
