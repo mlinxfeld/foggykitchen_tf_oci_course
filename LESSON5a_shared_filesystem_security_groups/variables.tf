@@ -34,15 +34,15 @@ variable "MountTargetIPAddress" {
 }
 
 variable "Shape" {
- default = "VM.Standard.E3.Flex"
+  default = "VM.Standard.E3.Flex"
 }
 
 variable "FlexShapeOCPUS" {
-    default = 1
+  default = 1
 }
 
 variable "FlexShapeMemory" {
-    default = 1
+  default = 1
 }
 
 variable "instance_os" {
@@ -66,7 +66,7 @@ variable "flex_lb_max_shape" {
 }
 
 variable "webservice_ports" {
-  default = ["80","443"]
+  default = ["80", "443"]
 }
 
 variable "bastion_ports" {
@@ -74,15 +74,15 @@ variable "bastion_ports" {
 }
 
 variable "fss_ingress_tcp_ports" {
-  default = ["111","2048","2049","2050"]
+  default = ["111", "2048", "2049", "2050"]
 }
 
 variable "fss_ingress_udp_ports" {
-  default = ["111","2048"]
+  default = ["111", "2048"]
 }
 
 variable "fss_egress_tcp_ports" {
-  default = ["111","2048","2049","2050"]
+  default = ["111", "2048", "2049", "2050"]
 }
 
 variable "fss_egress_udp_ports" {
@@ -94,13 +94,15 @@ variable "fss_egress_udp_ports" {
 locals {
   compute_flexible_shapes = [
     "VM.Standard.E3.Flex",
-    "VM.Standard.E4.Flex"
+    "VM.Standard.E4.Flex",
+    "VM.Standard.A1.Flex",
+    "VM.Optimized3.Flex"
   ]
 }
 
 # Checks if is using Flexible Compute Shapes
 locals {
-  is_flexible_shape = contains(local.compute_flexible_shapes, var.Shape)
+  is_flexible_shape    = contains(local.compute_flexible_shapes, var.Shape)
   is_flexible_lb_shape = var.lb_shape == "flexible" ? true : false
 }
 
