@@ -54,6 +54,13 @@ variableGroups:
   - instance_os
   - linux_os_version
 
+- title: "Block Volume Optional Configuration"
+  visible:
+      and:
+        - show_advanced
+  variables:
+  - volume_size_in_gbs  
+
 - title: "File Storage Service Optional Configuration"
   visible: 
       and:
@@ -163,6 +170,12 @@ variables:
           - eq:
             - Shape 
             - "VM.Standard.E4.Flex"
+          - eq:
+            - Shape 
+            - "VM.Standard.A1.Flex"
+          - eq:
+            - Shape 
+            - "VM.Optimized3.Flex"
 
   FlexShapeMemory:
     type: number
@@ -182,6 +195,12 @@ variables:
           - eq:
             - Shape
             - "VM.Standard.E4.Flex"
+          - eq:
+            - Shape 
+            - "VM.Standard.A1.Flex"
+          - eq:
+            - Shape 
+            - "VM.Optimized3.Flex"
 
   instance_os:
     type: enum
@@ -266,6 +285,16 @@ variables:
     type: string
     required: false
     visible: false
+
+  volume_size_in_gbs:
+    type: number
+    required: false
+    minimum: 50
+    maximum: 32000
+    multipleOf: 1
+    default: 100
+    title: "Block Volume Size (GB)"
+    description: "Choose the size of Block Volume (in GB)"
 
   MountTargetIPAddress:
     type: string
