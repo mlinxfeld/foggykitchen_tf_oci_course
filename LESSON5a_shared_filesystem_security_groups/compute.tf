@@ -23,6 +23,7 @@ resource "oci_core_instance" "FoggyKitchenBastionServer" {
   create_vnic_details {
     subnet_id        = oci_core_subnet.FoggyKitchenBastionSubnet.id
     assign_public_ip = true
+    nsg_ids          = [oci_core_network_security_group.FoggyKitchenSSHSecurityGroup.id]
   }
 }
 
@@ -51,7 +52,7 @@ resource "oci_core_instance" "FoggyKitchenWebserver1" {
   create_vnic_details {
     subnet_id        = oci_core_subnet.FoggyKitchenWebSubnet.id
     assign_public_ip = false
-    nsg_ids          = [oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id]
+    nsg_ids          = [oci_core_network_security_group.FoggyKitchenSSHSecurityGroup.id, oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id]
   }
 }
 
@@ -80,6 +81,6 @@ resource "oci_core_instance" "FoggyKitchenWebserver2" {
   create_vnic_details {
     subnet_id        = oci_core_subnet.FoggyKitchenWebSubnet.id
     assign_public_ip = false
-    nsg_ids          = [oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id]
+    nsg_ids          = [oci_core_network_security_group.FoggyKitchenSSHSecurityGroup.id, oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id]
   }
 }
