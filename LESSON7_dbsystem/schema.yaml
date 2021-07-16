@@ -58,6 +58,13 @@ variableGroups:
   - instance_os
   - linux_os_version
 
+- title: "Block Volume Optional Configuration"
+  visible:
+      and:
+        - show_advanced
+  variables:
+  - volume_size_in_gbs  
+
 - title: "DBSystem Optional Configuration"
   visible: 
       and:
@@ -310,6 +317,16 @@ variables:
     type: string
     required: false
     visible: false
+
+  volume_size_in_gbs:
+    type: number
+    required: false
+    minimum: 50
+    maximum: 32000
+    multipleOf: 1
+    default: 100
+    title: "Block Volume Size (GB)"
+    description: "Choose the size of Block Volume (in GB)"
 
   MountTargetIPAddress:
     type: string
