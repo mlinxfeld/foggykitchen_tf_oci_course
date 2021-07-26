@@ -214,6 +214,12 @@ variables:
           - eq:
             - Shape 
             - "VM.Standard.E4.Flex"
+          - eq:
+            - Shape 
+            - "VM.Standard.A1.Flex"
+          - eq:
+            - Shape 
+            - "VM.Optimized3.Flex"
 
   FlexShapeMemory:
     type: number
@@ -233,6 +239,12 @@ variables:
           - eq:
             - Shape
             - "VM.Standard.E4.Flex"
+          - eq:
+            - Shape 
+            - "VM.Standard.A1.Flex"
+          - eq:
+            - Shape 
+            - "VM.Optimized3.Flex"
 
   instance_os:
     type: enum
