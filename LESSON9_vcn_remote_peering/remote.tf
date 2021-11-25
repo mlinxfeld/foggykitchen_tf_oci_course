@@ -3,6 +3,7 @@
 resource "null_resource" "FoggyKitchenWebserver1SharedFilesystem" {
   depends_on = [oci_core_instance.FoggyKitchenWebserver1, oci_core_instance.FoggyKitchenBastionServer, oci_file_storage_export.FoggyKitchenExport]
 
+
   provisioner "remote-exec" {
     connection {
       type                = "ssh"
@@ -18,15 +19,12 @@ resource "null_resource" "FoggyKitchenWebserver1SharedFilesystem" {
       bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
     }
     inline = [
-      "echo '== Start of null_resource.FoggyKitchenWebserver1SharedFilesystem'",
       "sudo /bin/su -c \"yum install -y -q nfs-utils\"",
       "sudo /bin/su -c \"mkdir -p /sharedfs\"",
       "sudo /bin/su -c \"echo '${var.MountTargetIPAddress}:/sharedfs /sharedfs nfs rsize=8192,wsize=8192,timeo=14,intr 0 0' >> /etc/fstab\"",
-      "sudo /bin/su -c \"mount /sharedfs\"",
-      "echo '== End of null_resource.FoggyKitchenWebserver1SharedFilesystem'"
+      "sudo /bin/su -c \"mount /sharedfs\""
     ]
   }
-
 }
 
 # Setup FSS on Webserver2
@@ -49,12 +47,10 @@ resource "null_resource" "FoggyKitchenWebserver2SharedFilesystem" {
       bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
     }
     inline = [
-      "echo '== Start of null_resource.FoggyKitchenWebserver2SharedFilesystem'",
       "sudo /bin/su -c \"yum install -y -q nfs-utils\"",
       "sudo /bin/su -c \"mkdir -p /sharedfs\"",
       "sudo /bin/su -c \"echo '${var.MountTargetIPAddress}:/sharedfs /sharedfs nfs rsize=8192,wsize=8192,timeo=14,intr 0 0' >> /etc/fstab\"",
-      "sudo /bin/su -c \"mount /sharedfs\"",
-      "echo '== End of null_resource.FoggyKitchenWebserver2SharedFilesystem'"
+      "sudo /bin/su -c \"mount /sharedfs\""
     ]
   }
 
@@ -231,4 +227,6 @@ resource "null_resource" "FoggyKitchenWebserver1_oci_u01_fstab" {
   }
 
 }
+
+
 
