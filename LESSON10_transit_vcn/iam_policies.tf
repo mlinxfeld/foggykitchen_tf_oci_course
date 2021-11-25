@@ -1,15 +1,13 @@
+# IAM Requestor Group
+
 resource "oci_identity_group" "FoggyKitchenRequestorGroup" {
-  provider    = oci.homeregion
+  provider       = oci.homeregion
   compartment_id = var.tenancy_ocid
-  name        = "FoggyKitchenRequestorGroup"
-  description = "FoggyKitchenRequestorGroup"
+  name           = "FoggyKitchenRequestorGroup"
+  description    = "FoggyKitchenRequestorGroup"
 }
 
-resource "oci_identity_user_group_membership" "FoggyKitchenRequestorUserGroupMembership" {
-  provider    = oci.homeregion
-  group_id    = oci_identity_group.FoggyKitchenRequestorGroup.id
-  user_id     = var.user_ocid
-}
+# IAM Requestor Policy
 
 resource "oci_identity_policy" "FoggyKitchenRequestorPolicy" {
   provider       = oci.homeregion
@@ -23,19 +21,16 @@ resource "oci_identity_policy" "FoggyKitchenRequestorPolicy" {
   ]
 }
 
+# IAM Acceptor Group
 
 resource "oci_identity_group" "FoggyKitchenAcceptorGroup" {
-  provider    = oci.homeregion
+  provider       = oci.homeregion
   compartment_id = var.tenancy_ocid
-  name        = "FoggyKitchenAcceptorGroup"
-  description = "FoggyKitchenAcceptorGroup"
+  name           = "FoggyKitchenAcceptorGroup"
+  description    = "FoggyKitchenAcceptorGroup"
 }
 
-resource "oci_identity_user_group_membership" "FoggyKitchenAcceptorUserGroupMembership" {
-  provider = oci.homeregion
-  group_id = oci_identity_group.FoggyKitchenAcceptorGroup.id
-  user_id  = var.user_ocid
-}
+# IAM Acceptor Policy
 
 resource "oci_identity_policy" "FoggyKitchenAcceptorPolicy" {
   provider       = oci.homeregion
@@ -48,3 +43,28 @@ resource "oci_identity_policy" "FoggyKitchenAcceptorPolicy" {
     "Allow group ${oci_identity_group.FoggyKitchenAcceptorGroup.name} to manage instance-family in compartment id ${oci_identity_compartment.ExternalCompartment.id}",
   ]
 }
+
+/*
+resource "oci_identity_policy" "FoggyKitchenLPGPolicy1" {
+  depends_on     = [oci_identity_compartment.ExternalCompartment]
+  provider       = oci.admin
+  name           = "FoggyKitchenLPGPolicy"
+  description    = "FoggyKitchenLocalPeeringPolicy1"
+  compartment_id = oci_identity_compartment.ExternalCompartment.id
+  statements     = ["Allow group Administrators to manage local-peering-from in compartment ${oci_identity_compartment.ExternalCompartment.name}"
+  ]
+}
+
+resource "oci_identity_policy" "FoggyKitchenLPGPolicy2" {
+  depends_on     = [oci_identity_compartment.ExternalCompartment]
+  provider       = oci.admin
+  name           = "FoggyKitchenLPGPolicy"
+  description    = "FoggyKitchen LocalPeeringPolicy2"
+  compartment_id = oci_identity_compartment.ExternalCompartment.id
+  statements     = [
+                "Allow group Administrators to manage local-peering-to in compartment ${oci_identity_compartment.ExternalCompartment.name}",
+                "Allow group Administrators to inspect vcns in compartment ${oci_identity_compartment.ExternalCompartment.name}",
+                "Allow group Administrators to inspect local-peering-gateways in compartment ${oci_identity_compartment.ExternalCompartment.name}"
+  ]
+}
+*/
