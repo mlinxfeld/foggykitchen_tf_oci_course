@@ -1,9 +1,9 @@
 # Copyright (c) 2020, Oracle and/or its affiliates. All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
-title: "LESSON 10 - Transit VCN"
-description: "FoggyKitchen Terraform OCI Course - LESSON 10 - Transit VCN."
-stackDescription: "FoggyKitchen Terraform OCI Course - LESSON 10 - Transit VCN."
+title: "LESSON 11 - Transit DRG2"
+description: "FoggyKitchen Terraform OCI Course - LESSON 11 - Transit DRG2."
+stackDescription: "FoggyKitchen Terraform OCI Course - LESSON 11 - Transit DRG2."
 schemaVersion: 1.1.0
 version: "20201028"
 locale: "en"
@@ -43,7 +43,7 @@ variableGroups:
   - LBSubnet-CIDR
   - BastionSubnet-CIDR
   - DBSystemSubnet-CIDR
-  - HubSubnet-CIDR
+  - SpokeSubnet0-CIDR
   - Spoke1Subnet-CIDR
   - Spoke2Subnet-CIDR
 
@@ -230,12 +230,12 @@ variables:
     title: "DBSystem Subnet CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
-  HubSubnet-CIDR:
+  SpokeSubnet0-CIDR:
     type: string
     required: false
     default: "192.168.1.0/24"
     pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    title: "HubSubnet CIDR"
+    title: "Spoke0Subnet CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
   Spoke1Subnet-CIDR:
