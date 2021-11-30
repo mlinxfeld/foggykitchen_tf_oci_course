@@ -4,7 +4,7 @@
 
 This lesson is based on Lesson10, but instead of building *HubVCN*, we will use the latest functionally of Dynamic Routing Gateway (DRG). Nowadays, DRG, also called 2.0, supports multiplied attachments to VCNs. So there is no need to use the Hub-Spoke model anymore. Instead, you can directly attach all second region (eu-amsterdam-1) VCNs and subnets to DRG2. It reduces the complexity of the architecture.
 
-![](LESSON11_transit_drg2.jpg)
+![](LESSON11_transit_drg2.png)
 
 ## Deploy Using Oracle Resource Manager
 
