@@ -343,3 +343,11 @@ This lesson is a mixture of lesson9 and lesson 7a. We are setting up cross-regio
 This lesson will be based on Lesson9. VCN2 located in another region (eu-amsterdam-1) will be transformed into *Hub VCN*. Additionally we will create two *Spoke VCNs* in this region. *Spoke VCNs* will be interconnected with this *Hub VCN* with the usage of LPGs (local VCN peering). In the code we will also add two route tables: (1) on DRG attach and (2) on *Hub VCN* LPGs' side. As a consequence it will be possible to start connection from departamental servers located in a *Spoke VCNs / Spoke subnets* to the infrastructure in the first original region (eu-frankfurt-1). It means *Hub VCN* will play a role of Transit Routing VCN for *Spoke VCNs*.
 
 ![](LESSON10_transit_vcn/LESSON10_transit_vcn.jpg) 
+
+
+### LESSON 11 - Transit DRG2
+
+This lesson is based on Lesson10, but instead of building *HubVCN*, we will use the latest functionally of Dynamic Routing Gateway (DRG). Nowadays, DRG, also called 2.0, supports multiplied attachments to VCNs. So there is no need to use the Hub-Spoke model anymore. Instead, you can directly attach all second region (eu-amsterdam-1) VCNs and subnets to DRG2. It reduces the complexity of the architecture.
+
+
+![](LESSON11_transit_drg2/LESSON11_transit_drg2.png) 

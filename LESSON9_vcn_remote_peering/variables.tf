@@ -49,15 +49,15 @@ variable "MountTargetIPAddress" {
 }
 
 variable "Shape" {
- default = "VM.Standard.E3.Flex"
+  default = "VM.Standard.E3.Flex"
 }
 
 variable "FlexShapeOCPUS" {
-    default = 1
+  default = 1
 }
 
 variable "FlexShapeMemory" {
-    default = 1
+  default = 1
 }
 
 variable "instance_os" {
@@ -69,7 +69,7 @@ variable "linux_os_version" {
 }
 
 variable "webservice_ports" {
-  default = ["80","443"]
+  default = ["80", "443"]
 }
 
 variable "bastion_ports" {
@@ -97,51 +97,51 @@ variable "BackendSubnet-CIDR" {
 }
 
 variable "DBNodeShape" {
-    default = "VM.Standard2.1"
+  default = "VM.Standard2.1"
 }
 
 variable "CPUCoreCount" {
-    default = 1
+  default = 1
 }
 
 variable "DBEdition" {
-    default = "STANDARD_EDITION"
+  default = "STANDARD_EDITION"
 }
 
 variable "DBAdminPassword" {
-    default = "BEstrO0ng_#11"
+  default = "BEstrO0ng_#11"
 }
 
 variable "DBName" {
-    default = "FOGGYDB"
+  default = "FOGGYDB"
 }
 
 variable "DBVersion" {
-    default = "12.1.0.2"
+  default = "12.1.0.2"
 }
 
 variable "DBDisplayName" {
-    default = "FoggyDB"
+  default = "FoggyDB"
 }
 
 variable "DBDiskRedundancy" {
-    default = "HIGH"
+  default = "HIGH"
 }
 
 variable "DBSystemDisplayName" {
-    default = "FoggyKitchenDBSystem"
+  default = "FoggyKitchenDBSystem"
 }
 
 variable "DBNodeDomainName" {
-    default = "FoggyKitchenN4.FoggyKitchenVCN.oraclevcn.com"
+  default = "FoggyKitchenN4.FoggyKitchenVCN.oraclevcn.com"
 }
 
 variable "DBNodeHostName" {
-    default = "foggydbnode"
+  default = "foggydbnode"
 }
 
 variable "HostUserName" {
-    default = "opc"
+  default = "opc"
 }
 
 variable "NCharacterSet" {
@@ -183,6 +183,6 @@ locals {
 
 # Checks if is using Flexible Compute Shapes
 locals {
-  is_flexible_shape = contains(local.compute_flexible_shapes, var.Shape)
+  is_flexible_shape    = contains(local.compute_flexible_shapes, var.Shape)
   is_flexible_lb_shape = var.lb_shape == "flexible" ? true : false
 }
