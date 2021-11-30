@@ -53,7 +53,7 @@ variable "DBSystemSubnet-CIDR" {
   default = "10.0.4.0/24"
 }
 
-variable "HubSubnet-CIDR" {
+variable "SpokeSubnet0-CIDR" {
   default = "192.168.1.0/24"
 }
 
