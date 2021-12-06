@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.12.0"
+  required_version = ">= 0.15.0"
   required_providers {
     oci = {
       source  = "hashicorp/oci"
@@ -7,7 +7,6 @@ terraform {
     }
   }
 }
-
 provider "oci" {
   alias            = "requestor"
   tenancy_ocid     = var.tenancy_ocid
