@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "oci" {
-  alias            = "requestor"
+  alias            = "requestor" #oci-region-1 
   tenancy_ocid     = var.tenancy_ocid
   user_ocid        = var.user_ocid
   fingerprint      = var.fingerprint
@@ -18,7 +18,7 @@ provider "oci" {
 }
 
 provider "oci" {
-  alias            = "acceptor"
+  alias            = "acceptor" #oci-region-2
   tenancy_ocid     = var.tenancy_ocid
   user_ocid        = var.user_ocid
   fingerprint      = var.fingerprint
@@ -27,7 +27,7 @@ provider "oci" {
 }
 
 provider "oci" {
-  alias            = "homeregion"
+  alias            = "homeregion" #oci-region-1 
   tenancy_ocid     = var.tenancy_ocid
   user_ocid        = var.user_ocid
   fingerprint      = var.fingerprint
