@@ -20,7 +20,7 @@ output "FoggyKitchenDBServer_PrivateIP" {
 
 # LoadBalancer_Public_IP
 output "FoggyKitchenPublicLoadBalancer_Public_IP" {
-  value = [oci_load_balancer.FoggyKitchenPublicLoadBalancer.ip_addresses]
+  value = [oci_load_balancer.FoggyKitchenPublicLoadBalancer.ip_address_details[0].ip_address]
 }
 
 # DepartamentServer1_PrivateIP

@@ -5,7 +5,7 @@ output "FoggyKitchenBastionServer_PublicIP" {
 
 # LoadBalancer URL
 output "FoggyKitchenPublicLoadBalancer_URL" {
-  value = "http://${oci_load_balancer.FoggyKitchenPublicLoadBalancer.ip_addresses[0]}/shared/"
+  value = "http://${oci_load_balancer.FoggyKitchenPublicLoadBalancer.ip_address_details[0].ip_address}/shared/"
 }
 
 # WebServer1 Instance Private IP
