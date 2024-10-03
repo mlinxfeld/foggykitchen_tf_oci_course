@@ -84,10 +84,10 @@ resource "oci_core_security_list" "FoggyKitchenWebSecurityList" {
     }
   }
 
-  ingress_security_rules {
-    protocol = "6"
-    source   = var.VCN-CIDR
-  }
+#  ingress_security_rules {
+#    protocol = "6"
+#    source   = var.VCN-CIDR
+#  }
 }
 
 # Security List for SSH
@@ -113,10 +113,10 @@ resource "oci_core_security_list" "FoggyKitchenSSHSecurityList" {
     }
   }
 
-  ingress_security_rules {
-    protocol = "6"
-    source   = var.VCN-CIDR
-  }
+#  ingress_security_rules {
+#    protocol = "6"
+#    source   = var.VCN-CIDR
+#  }
 }
 
 # WebSubnet (private)

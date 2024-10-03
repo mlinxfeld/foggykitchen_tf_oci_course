@@ -1,6 +1,6 @@
 # LoadBalancer Public IP
 output "FoggyKitchenLoadBalancer_Public_IP" {
-  value = [oci_load_balancer.FoggyKitchenLoadBalancer.ip_addresses]
+  value = [oci_load_balancer.FoggyKitchenLoadBalancer.ip_address_details[*].ip_address]
 }
 
 # WebServer1 Instance Public IP
