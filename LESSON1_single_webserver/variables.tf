@@ -19,7 +19,7 @@ variable "Subnet-CIDR" {
 }
 
 variable "Shape" {
-  default = "VM.Standard.E3.Flex"
+  default = "VM.Standard.E4.Flex"
 }
 
 variable "FlexShapeOCPUS" {
