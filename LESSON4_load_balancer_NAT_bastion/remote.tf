@@ -16,8 +16,8 @@ resource "null_resource" "FoggyKitchenWebserver1HTTPD" {
       bastion_user        = "opc"
       bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
     }
-    inline = ["echo '== 1. Installing HTTPD package with yum'",
-      "sudo -u root yum -y -q install httpd",
+    inline = ["echo '== 1. Installing HTTPD package with dnf'",
+      "sudo -u root dnf -y -q install httpd",
 
       "echo '== 2. Creating /var/www/html/index.html'",
       "sudo -u root touch /var/www/html/index.html",
@@ -47,8 +47,8 @@ resource "null_resource" "FoggyKitchenWebserver2HTTPD" {
       bastion_user        = "opc"
       bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
     }
-    inline = ["echo '== 1. Installing HTTPD package with yum'",
-      "sudo -u root yum -y -q install httpd",
+    inline = ["echo '== 1. Installing HTTPD package with dnf'",
+      "sudo -u root dnf -y -q install httpd",
 
       "echo '== 2. Creating /var/www/html/index.html'",
       "sudo -u root touch /var/www/html/index.html",

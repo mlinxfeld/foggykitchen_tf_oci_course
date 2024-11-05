@@ -19,7 +19,7 @@ resource "null_resource" "FoggyKitchenWebserver1SharedFilesystem" {
       bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
     }
     inline = [
-      "sudo /bin/su -c \"yum install -y -q nfs-utils\"",
+      "sudo /bin/su -c \"dnf install -y -q nfs-utils\"",
       "sudo /bin/su -c \"mkdir -p /sharedfs\"",
       "sudo /bin/su -c \"echo '${var.MountTargetIPAddress}:/sharedfs /sharedfs nfs rsize=8192,wsize=8192,timeo=14,intr 0 0' >> /etc/fstab\"",
       "sudo /bin/su -c \"mount /sharedfs\""
@@ -48,7 +48,7 @@ resource "null_resource" "FoggyKitchenWebserver2SharedFilesystem" {
       bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
     }
     inline = [
-      "sudo /bin/su -c \"yum install -y -q nfs-utils\"",
+      "sudo /bin/su -c \"dnf install -y -q nfs-utils\"",
       "sudo /bin/su -c \"mkdir -p /sharedfs\"",
       "sudo /bin/su -c \"echo '${var.MountTargetIPAddress}:/sharedfs /sharedfs nfs rsize=8192,wsize=8192,timeo=14,intr 0 0' >> /etc/fstab\"",
       "sudo /bin/su -c \"mount /sharedfs\""
@@ -75,8 +75,8 @@ resource "null_resource" "FoggyKitchenWebserver1HTTPD" {
       bastion_user        = "opc"
       bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
     }
-    inline = ["echo '== 1. Installing HTTPD package with yum'",
-      "sudo -u root yum -y -q install httpd",
+    inline = ["echo '== 1. Installing HTTPD package with dnf'",
+      "sudo -u root dnf -y -q install httpd",
 
       "echo '== 2. Creating /sharedfs/index.html'",
       "sudo -u root touch /sharedfs/index.html",
@@ -116,8 +116,8 @@ resource "null_resource" "FoggyKitchenWebserver2HTTPD" {
       bastion_user        = "opc"
       bastion_private_key = tls_private_key.public_private_key_pair.private_key_pem
     }
-    inline = ["echo '== 1. Installing HTTPD package with yum'",
-      "sudo -u root yum -y -q install httpd",
+    inline = ["echo '== 1. Installing HTTPD package with dnf'",
+      "sudo -u root dnf -y -q install httpd",
 
       "echo '== 2. Adding Alias and Directory sharedfs to /etc/httpd/conf/httpd.conf'",
       "sudo /bin/su -c \"echo 'Alias /shared/ /sharedfs/' >> /etc/httpd/conf/httpd.conf\"",

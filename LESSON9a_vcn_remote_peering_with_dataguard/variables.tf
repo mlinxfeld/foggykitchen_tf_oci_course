@@ -58,7 +58,7 @@ variable "FlexShapeOCPUS" {
 }
 
 variable "FlexShapeMemory" {
-  default = 1
+  default = 2
 }
 
 variable "instance_os" {
@@ -66,7 +66,7 @@ variable "instance_os" {
 }
 
 variable "linux_os_version" {
-  default = "7.9"
+  default = "8"
 }
 
 variable "webservice_ports" {

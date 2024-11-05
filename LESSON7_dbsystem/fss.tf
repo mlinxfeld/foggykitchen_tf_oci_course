@@ -29,6 +29,13 @@ resource "oci_file_storage_export" "FoggyKitchenExport" {
   export_set_id  = oci_file_storage_mount_target.FoggyKitchenMountTarget.export_set_id
   file_system_id = oci_file_storage_file_system.FoggyKitchenFilesystem.id
   path           = "/sharedfs"
+
+  export_options {
+    source                         = var.VCN-CIDR
+    access                         = "READ_WRITE"
+    identity_squash                = "NONE"
+  }
+  
 }
 
 

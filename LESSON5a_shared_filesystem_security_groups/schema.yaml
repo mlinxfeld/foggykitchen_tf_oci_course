@@ -153,7 +153,7 @@ variables:
     type: oci:core:instanceshape:name
     title: "Webserver Shape"
     description: "Choose a shape for your Webserver"
-    default: "VM.Standard.E3.Flex"
+    default: "VM.Standard.E4.Flex"
     required: false
     dependsOn:
       compartmentId: ${compartment_ocid}
@@ -189,7 +189,7 @@ variables:
     minimum: 1
     maximum: 128
     multipleOf: 1
-    default: 1
+    default: 2
     title: "Flex Shape Memory (GB)"
     description: "Choose number GB for Flex Shape Memory."
     visible:
@@ -224,9 +224,10 @@ variables:
     visible: true
     title: "Instance OS version"
     description: "Choose Operating System version that determines the operating system version for Webserver host."
-    default: "7.9"
+    default: "8"
     enum:
-      - "7.9"  
+      - "8"
+      - "9"  
 
   lb_shape:
     type: enum
