@@ -63,7 +63,7 @@ resource "null_resource" "FoggyKitchenWebserver2SharedFilesystem" {
 # Software installation within WebServer1 Instance
 
 resource "null_resource" "FoggyKitchenWebserver1HTTPD" {
-  depends_on = [oci_core_instance.FoggyKitchenWebserver1, oci_core_instance.FoggyKitchenBastionServer, null_resource.FoggyKitchenWebserver1SharedFilesystem]
+  depends_on = [oci_core_instance.FoggyKitchenWebserver1, oci_core_instance.FoggyKitchenBastionServer, null_resource.FoggyKitchenWebserver1SharedFilesystem,null_resource.FoggyKitchenWebserver1_oci_u01_fstab]
   provisioner "remote-exec" {
     connection {
       type                = "ssh"
@@ -140,7 +140,7 @@ resource "null_resource" "FoggyKitchenWebserver2HTTPD" {
 
 # Attachment of block volume to Webserver1
 resource "null_resource" "FoggyKitchenWebserver1_oci_iscsi_attach" {
-  depends_on = [oci_core_volume_attachment.FoggyKitchenWebserver1BlockVolume100G_attach]
+  depends_on = [oci_core_volume_attachment.FoggyKitchenWebserver1BlockVolume100G_attach, null_resource.FoggyKitchenWebserver2SharedFilesystem]
 
   provisioner "remote-exec" {
     connection {

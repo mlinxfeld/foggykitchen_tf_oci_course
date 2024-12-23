@@ -7,6 +7,7 @@ terraform {
     }
   }
 }
+
 # General Provider 
 provider "oci" {
   tenancy_ocid     = var.tenancy_ocid
