@@ -7,4 +7,5 @@ locals {
     "VM.Optimized3.Flex"
   ]
   is_flexible_shape = contains(local.compute_flexible_shapes, var.Shape)
+  default_availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[0], "name", "")
 }

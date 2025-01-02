@@ -1,6 +1,9 @@
 # Software installation within WebServer Instance
 resource "null_resource" "FoggyKitchenWebserver1HTTPD" {
   depends_on = [oci_core_instance.FoggyKitchenWebserver1]
+  triggers = {
+    instance_id = oci_core_instance.FoggyKitchenWebserver1.id
+  }  
   provisioner "remote-exec" {
     connection {
       type        = "ssh"

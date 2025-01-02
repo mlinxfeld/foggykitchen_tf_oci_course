@@ -1,0 +1,6 @@
+tenancy_ocid            = "ocid1.tenancy.oc1..*******"
+user_ocid               = "ocid1.user.oc1..*******"
+fingerprint             = "xx:xx:xx:*******"
+private_key_path        = "/Users/MyUser/.oci/oci_api_key.pem"
+region                  = "eu-frankfurt-1"
+compartment_ocid        = "ocid1.compartment.oc1..*******"
