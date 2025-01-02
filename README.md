@@ -357,7 +357,7 @@ This lesson is based on Lesson10, but instead of building *HubVCN*, we will use 
 This project is open source. Please submit your contributions by forking this repository and submitting a pull request! [FoggyKitchen.com](https://foggykitchen.com/) appreciates any contributions that are made by the open source community.
 
 ## License
-Copyright (c) 2024 [FoggyKitchen.com](https://foggykitchen.com/)
+Copyright (c) 2025 [FoggyKitchen.com](https://foggykitchen.com/)
 
 Licensed under the Universal Permissive License (UPL), Version 1.0.
 
