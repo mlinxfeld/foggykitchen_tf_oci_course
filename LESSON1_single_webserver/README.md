@@ -25,10 +25,10 @@ Before deploying the resources, you need to configure authentication with OCI. Y
    Open `setup_oci_tf_vars.sh` and update the placeholders with your OCI credentials:
 
    ```bash
-   export TF_VAR_user_ocid="ocid1.user.oc1..aaaaaaaaob4qbf2(...)uunizjie4his4vgh3jx5jxa"
-   export TF_VAR_tenancy_ocid="ocid1.tenancy.oc1..aaaaaaaas(...)krj2s3gdbz7d2heqzzxn7pe64ksbia"
-   export TF_VAR_compartment_ocid="ocid1.compartment.oc1..aaaaaaaasbktyckn(...)ldkrj2s3gdbz7d2heqzzxn7pe64ksbia"
-   export TF_VAR_fingerprint="00:f9:d1:41:bb:57(...)82:47:e6:00"
+   export TF_VAR_user_ocid="ocid1.user.oc1..*******"
+   export TF_VAR_tenancy_ocid="ocid1.tenancy.oc1..*******"
+   export TF_VAR_compartment_ocid="ocid1.compartment.oc1..*******"
+   export TF_VAR_fingerprint="xx:xx:xx:*******:xx:xx"
    export TF_VAR_private_key_path="/Users/MyUser/.oci/oci_api_key.pem"
    export TF_VAR_region="eu-frankfurt-1"
    ```
@@ -57,7 +57,7 @@ Before deploying the resources, you need to configure authentication with OCI. Y
    ```hcl
    tenancy_ocid            = "ocid1.tenancy.oc1..*******"
    user_ocid               = "ocid1.user.oc1..*******"
-   fingerprint             = "xx:xx:xx:*******"
+   fingerprint             = "xx:xx:xx:*******:xx:xx"
    private_key_path        = "/Users/MyUser/.oci/oci_api_key.pem"
    region                  = "eu-frankfurt-1"
    compartment_ocid        = "ocid1.compartment.oc1..*******"
