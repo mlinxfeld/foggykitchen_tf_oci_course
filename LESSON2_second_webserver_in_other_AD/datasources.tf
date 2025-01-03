@@ -27,27 +27,16 @@ data "oci_core_images" "OSImage" {
   }
 }
 
-# WebServer1 Compute VNIC Attachment DataSource
-data "oci_core_vnic_attachments" "FoggyKitchenWebserver1_VNIC1_attach" {
-  availability_domain = var.availablity_domain_name == "" ? lookup(data.oci_identity_availability_domains.ADs.availability_domains[0], "name") : var.availablity_domain_name
+# WebServers Compute VNIC Attachment DataSource
+data "oci_core_vnic_attachments" "FoggyKitchenWebserver_VNIC1_attach" {
+  count               = var.ComputeCount
+  availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[count.index % length(data.oci_identity_availability_domains.ADs.availability_domains)], "name") 
   compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
-  instance_id         = oci_core_instance.FoggyKitchenWebserver1.id
+  instance_id         = oci_core_instance.FoggyKitchenWebserver[count.index].id
 }
 
-# WebServer1 Compute VNIC DataSource
-data "oci_core_vnic" "FoggyKitchenWebserver1_VNIC1" {
-  vnic_id = data.oci_core_vnic_attachments.FoggyKitchenWebserver1_VNIC1_attach.vnic_attachments.0.vnic_id
+# WebServers Compute VNIC DataSource
+data "oci_core_vnic" "FoggyKitchenWebserver_VNIC1" {
+  count   = var.ComputeCount
+  vnic_id = data.oci_core_vnic_attachments.FoggyKitchenWebserver_VNIC1_attach[count.index].vnic_attachments.0.vnic_id
 }
-
-# WebServer2 Compute VNIC Attachment DataSource
-data "oci_core_vnic_attachments" "FoggyKitchenWebserver2_VNIC1_attach" {
-  availability_domain = var.availablity_domain_name2 == "" ? lookup(data.oci_identity_availability_domains.ADs.availability_domains[1], "name") : var.availablity_domain_name2
-  compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
-  instance_id         = oci_core_instance.FoggyKitchenWebserver2.id
-}
-
-# WebServer2 Compute VNIC DataSource
-data "oci_core_vnic" "FoggyKitchenWebserver2_VNIC1" {
-  vnic_id = data.oci_core_vnic_attachments.FoggyKitchenWebserver2_VNIC1_attach.vnic_attachments.0.vnic_id
-}
-
