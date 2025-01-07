@@ -1,11 +1,9 @@
-# WebServer1 Instance Public IP
-output "FoggyKitchenWebserver1PublicIP" {
-  value = [data.oci_core_vnic.FoggyKitchenWebserver1_VNIC1.public_ip_address]
-}
-
-# WebServer2 Instance Public IP
-output "FoggyKitchenWebserver2PublicIP" {
-  value = [data.oci_core_vnic.FoggyKitchenWebserver2_VNIC1.public_ip_address]
+# WebServer Instances Public IPs
+output "FoggyKitchenWebserver_Public_IPs_Formatted" {
+  value = {
+    for i, ip in data.oci_core_vnic.FoggyKitchenWebserver_VNIC1[*].public_ip_address :
+    oci_core_instance.FoggyKitchenWebserver[i].display_name => ip
+  }
 }
 
 # Generated Private Key for WebServer Instance

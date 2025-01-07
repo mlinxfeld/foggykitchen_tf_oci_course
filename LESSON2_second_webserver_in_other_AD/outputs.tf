@@ -1,6 +1,9 @@
 # WebServer Instances Public IPs
-output "FoggyKitchenWebserversPublicIPs" {
-  value = [data.oci_core_vnic.FoggyKitchenWebserver_VNIC1[*].public_ip_address]
+output "FoggyKitchenWebserver_Public_IPs_Formatted" {
+  value = {
+    for i, ip in data.oci_core_vnic.FoggyKitchenWebserver_VNIC1[*].public_ip_address :
+    oci_core_instance.FoggyKitchenWebserver[i].display_name => ip
+  }
 }
 
 # Generated Private Key for WebServer Instance

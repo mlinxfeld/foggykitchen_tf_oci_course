@@ -56,6 +56,10 @@ variable "Subnet-CIDR" {
 variable "ComputeCount" {
   default = 2
   description = "Number of compute instances to create."
+  validation {
+    condition     = var.ComputeCount > 0
+    error_message = "ComputeCount must be greater than 0."
+  }
 }
 
 variable "Shape" {

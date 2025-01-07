@@ -8,3 +8,4 @@ resource "oci_identity_compartment" "FoggyKitchenCompartment" {
     command = "sleep 60"
   }
 }
+
