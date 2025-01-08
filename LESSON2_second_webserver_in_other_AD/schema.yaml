@@ -37,6 +37,7 @@ variableGroups:
       and:
         - show_advanced
   variables:
+  - ComputeCount
   - Shape
   - FlexShapeOCPUS
   - FlexShapeMemory

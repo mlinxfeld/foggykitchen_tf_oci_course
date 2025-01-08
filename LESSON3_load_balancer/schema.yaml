@@ -45,6 +45,7 @@ variableGroups:
       and:
         - show_advanced
   variables:
+  - ComputeCount
   - Shape
   - FlexShapeOCPUS
   - FlexShapeMemory
@@ -93,6 +94,16 @@ variables:
       compartmentId: ${compartment_ocid}
 
   # Optional Configuration
+
+  ComputeCount:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 2
+    title: "Webservers Compute Count"
+    description: "Number of compute instances to create."
 
   VCN-CIDR:
     type: string

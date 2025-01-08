@@ -42,9 +42,10 @@ resource "oci_load_balancer_backendset" "FoggyKitchenLoadBalancerBackendset" {
 
 # LoadBalanacer Backend for WebServer1 Instance
 resource "oci_load_balancer_backend" "FoggyKitchenLoadBalancerBackend" {
+  count            = var.ComputeCount
   load_balancer_id = oci_load_balancer.FoggyKitchenLoadBalancer.id
   backendset_name  = oci_load_balancer_backendset.FoggyKitchenLoadBalancerBackendset.name
-  ip_address       = oci_core_instance.FoggyKitchenWebserver1.private_ip
+  ip_address       = oci_core_instance.FoggyKitchenWebserver[count.index].private_ip
   port             = 80
   backup           = false
   drain            = false
@@ -52,16 +53,5 @@ resource "oci_load_balancer_backend" "FoggyKitchenLoadBalancerBackend" {
   weight           = 1
 }
 
-# LoadBalanacer Backend for WebServer2 Instance
-resource "oci_load_balancer_backend" "FoggyKitchenLoadBalancerBackend2" {
-  load_balancer_id = oci_load_balancer.FoggyKitchenLoadBalancer.id
-  backendset_name  = oci_load_balancer_backendset.FoggyKitchenLoadBalancerBackendset.name
-  ip_address       = oci_core_instance.FoggyKitchenWebserver2.private_ip
-  port             = 80
-  backup           = false
-  drain            = false
-  offline          = false
-  weight           = 1
-}
 
 
