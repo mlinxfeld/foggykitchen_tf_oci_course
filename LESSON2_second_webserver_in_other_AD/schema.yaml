@@ -1,6 +1,3 @@
-# Copyright (c) 2020, Oracle and/or its affiliates. All rights reserved.
-# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
-
 title: "LESSON 2 - Second Webserver in other Availability Domain (AD)"
 description: "FoggyKitchen Terraform OCI Course - LESSON 2 - Second Webserver in other Availability Domain (AD)."
 stackDescription: "FoggyKitchen Terraform OCI Course - LESSON 2 - Second Webserver in other Availability Domain (AD)."

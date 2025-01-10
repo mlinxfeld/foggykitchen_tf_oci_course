@@ -63,7 +63,7 @@ resource "oci_core_route_table" "FoggyKitchenRouteTableViaNAT" {
 
 # WebSubnet (private)
 resource "oci_core_subnet" "FoggyKitchenWebSubnet" {
-  cidr_block                 = var.WebSubnet-CIDR
+  cidr_block                 = var.PrivateSubnet-CIDR
   display_name               = "FoggyKitchenWebSubnet"
   dns_label                  = "FoggyKitchenN1"
   compartment_id             = oci_identity_compartment.FoggyKitchenCompartment.id
@@ -75,24 +75,24 @@ resource "oci_core_subnet" "FoggyKitchenWebSubnet" {
 
 # LoadBalancer Subnet (public)
 resource "oci_core_subnet" "FoggyKitchenLBSubnet" {
-  cidr_block      = var.LBSubnet-CIDR
-  display_name    = "FoggyKitchenLBSubnet"
-  dns_label       = "FoggyKitchenN2"
-  compartment_id  = oci_identity_compartment.FoggyKitchenCompartment.id
-  vcn_id          = oci_core_virtual_network.FoggyKitchenVCN.id
-  route_table_id  = oci_core_route_table.FoggyKitchenRouteTableViaIGW.id
-  dhcp_options_id = oci_core_dhcp_options.FoggyKitchenDhcpOptions1.id
+  cidr_block        = var.LBSubnet-CIDR
+  display_name      = "FoggyKitchenLBSubnet"
+  dns_label         = "FoggyKitchenN2"
+  compartment_id    = oci_identity_compartment.FoggyKitchenCompartment.id
+  vcn_id            = oci_core_virtual_network.FoggyKitchenVCN.id
+  route_table_id    = oci_core_route_table.FoggyKitchenRouteTableViaIGW.id
+  dhcp_options_id   = oci_core_dhcp_options.FoggyKitchenDhcpOptions1.id
 }
 
 # Bastion Subnet (public)
 resource "oci_core_subnet" "FoggyKitchenBastionSubnet" {
-  cidr_block      = var.BastionSubnet-CIDR
-  display_name    = "FoggyKitchenBastionSubnet"
-  dns_label       = "FoggyKitchenN3"
-  compartment_id  = oci_identity_compartment.FoggyKitchenCompartment.id
-  vcn_id          = oci_core_virtual_network.FoggyKitchenVCN.id
-  route_table_id  = oci_core_route_table.FoggyKitchenRouteTableViaIGW.id
-  dhcp_options_id = oci_core_dhcp_options.FoggyKitchenDhcpOptions1.id
+  cidr_block        = var.BastionSubnet-CIDR
+  display_name      = "FoggyKitchenBastionSubnet"
+  dns_label         = "FoggyKitchenN3"
+  compartment_id    = oci_identity_compartment.FoggyKitchenCompartment.id
+  vcn_id            = oci_core_virtual_network.FoggyKitchenVCN.id
+  route_table_id    = oci_core_route_table.FoggyKitchenRouteTableViaIGW.id
+  dhcp_options_id   = oci_core_dhcp_options.FoggyKitchenDhcpOptions1.id
 }
 
 

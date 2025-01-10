@@ -1,6 +1,3 @@
-# Copyright (c) 2020, Oracle and/or its affiliates. All rights reserved.
-# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
-
 title: "LESSON 4 - Load Balancer + NAT Gateway + Bastion Host"
 description: "FoggyKitchen Terraform OCI Course - LESSON 4 - Load Balancer + NAT Gateway + Bastion Host."
 stackDescription: "FoggyKitchen Terraform OCI Course - LESSON 4 - Load Balancer + NAT Gateway + Bastion Host."
