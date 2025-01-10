@@ -1,5 +1,5 @@
 # Public Load Balancer
-resource "oci_load_balancer" "FoggyKitchenPublicLoadBalancer" {
+resource "oci_load_balancer" "FoggyKitchenLoadBalancer" {
   shape = var.lb_shape
 
   dynamic "shape_details" {
@@ -18,18 +18,18 @@ resource "oci_load_balancer" "FoggyKitchenPublicLoadBalancer" {
 }
 
 # LoadBalancer Listener
-resource "oci_load_balancer_listener" "FoggyKitchenPublicLoadBalancerListener" {
-  load_balancer_id         = oci_load_balancer.FoggyKitchenPublicLoadBalancer.id
-  name                     = "FoggyKitchenPublicLoadBalancerListener"
-  default_backend_set_name = oci_load_balancer_backendset.FoggyKitchenPublicLoadBalancerBackendset.name
+resource "oci_load_balancer_listener" "FoggyKitchenLoadBalancerListener" {
+  load_balancer_id         = oci_load_balancer.FoggyKitchenLoadBalancer.id
+  name                     = "FoggyKitchenLoadBalancerListener"
+  default_backend_set_name = oci_load_balancer_backendset.FoggyKitchenLoadBalancerBackendset.name
   port                     = 80
   protocol                 = "HTTP"
 }
 
 # LoadBalancer Backendset
-resource "oci_load_balancer_backendset" "FoggyKitchenPublicLoadBalancerBackendset" {
-  name             = "FoggyKitchenPublicLBBackendset"
-  load_balancer_id = oci_load_balancer.FoggyKitchenPublicLoadBalancer.id
+resource "oci_load_balancer_backendset" "FoggyKitchenLoadBalancerBackendset" {
+  name             = "FoggyKitchenLBBackendset"
+  load_balancer_id = oci_load_balancer.FoggyKitchenLoadBalancer.id
   policy           = "ROUND_ROBIN"
 
   health_checker {
@@ -41,27 +41,15 @@ resource "oci_load_balancer_backendset" "FoggyKitchenPublicLoadBalancerBackendse
 }
 
 # LoadBalanacer Backend for WebServer1 Instance
-resource "oci_load_balancer_backend" "FoggyKitchenPublicLoadBalancerBackend1" {
-  load_balancer_id = oci_load_balancer.FoggyKitchenPublicLoadBalancer.id
-  backendset_name  = oci_load_balancer_backendset.FoggyKitchenPublicLoadBalancerBackendset.name
-  ip_address       = oci_core_instance.FoggyKitchenWebserver1.private_ip
+resource "oci_load_balancer_backend" "FoggyKitchenLoadBalancerBackend" {
+  count            = var.ComputeCount
+  load_balancer_id = oci_load_balancer.FoggyKitchenLoadBalancer.id
+  backendset_name  = oci_load_balancer_backendset.FoggyKitchenLoadBalancerBackendset.name
+  ip_address       = oci_core_instance.FoggyKitchenWebserver[count.index].private_ip
   port             = 80
   backup           = false
   drain            = false
   offline          = false
   weight           = 1
 }
-
-# LoadBalanacer Backend for WebServer2 Instance
-resource "oci_load_balancer_backend" "FoggyKitchenPublicLoadBalancerBackend2" {
-  load_balancer_id = oci_load_balancer.FoggyKitchenPublicLoadBalancer.id
-  backendset_name  = oci_load_balancer_backendset.FoggyKitchenPublicLoadBalancerBackendset.name
-  ip_address       = oci_core_instance.FoggyKitchenWebserver2.private_ip
-  port             = 80
-  backup           = false
-  drain            = false
-  offline          = false
-  weight           = 1
-}
-
 

@@ -30,7 +30,7 @@ variableGroups:
         - show_advanced
   variables:
   - VCN-CIDR
-  - WebSubnet-CIDR
+  - PrivateSubnet-CIDR
   - LBSubnet-CIDR
   - BastionSubnet-CIDR
 
@@ -43,16 +43,25 @@ variableGroups:
   - flex_lb_min_shape
   - flex_lb_max_shape
 
-- title: "Compute Optional Configuration"
+- title: "Webserver Optional Configuration"
   visible: 
       and:
         - show_advanced
   variables:
-  - Shape
-  - FlexShapeOCPUS
-  - FlexShapeMemory
+  - WebserverShape
+  - WebserverFlexShapeOCPUS
+  - WebserverFlexShapeMemory
   - instance_os
   - linux_os_version
+
+- title: "Bastion Optional Configuration"
+  visible: 
+      and:
+        - show_advanced
+  variables:
+  - BastionShape
+  - BastionFlexShapeOCPUS
+  - BastionFlexShapeMemory
 
 variables:
 
@@ -97,6 +106,16 @@ variables:
 
   # Optional Configuration
 
+  ComputeCount:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 2
+    title: "Webservers Compute Count"
+    description: "Number of compute instances to create."
+
   VCN-CIDR:
     type: string
     required: false
@@ -105,7 +124,7 @@ variables:
     title: "VCN CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the VCN"
 
-  WebSubnet-CIDR:
+  PrivateSubnet-CIDR:
     type: string
     required: false
     default: "10.0.1.0/24"
@@ -113,7 +132,7 @@ variables:
     title: "WebSubnet CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
-  LBSubnet-CIDR:
+  PublicSubnet-CIDR:
     type: string
     required: false
     default: "10.0.2.0/24"
@@ -129,41 +148,51 @@ variables:
     title: "Bastion Subnet CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
-  Shape:
+  WebserverShape:
     type: oci:core:instanceshape:name
     title: "Webserver Shape"
-    description: "Choose a shape for your Webserver"
+    description: "Choose a shape for your Webservers"
     default: "VM.Standard.E4.Flex"
     required: false
     dependsOn:
       compartmentId: ${compartment_ocid}
 
-  FlexShapeOCPUS:
+  BastionShape:
+    type: oci:core:instanceshape:name
+    title: "Bastion Shape"
+    description: "Choose a shape for your Bastion Server"
+    default: "VM.Standard.E4.Flex"
+    required: false
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+
+
+  WebserverFlexShapeOCPUS:
     type: number
     required: false
     minimum: 1
     maximum: 128
     multipleOf: 1
     default: 1
-    title: "Flex Shape OCPUs"
-    description: "Choose number of OCPUs for Flex Shape."
+    title: "Webserver Flex Shape OCPUs"
+    description: "Choose number of OCPUs for Flex Webserver Shape."
     visible:
       and:
         - or:
           - eq:
-            - Shape 
+            - WebserverShape 
             - "VM.Standard.E3.Flex"
           - eq:
-            - Shape 
+            - WebserverShape 
             - "VM.Standard.E4.Flex"
           - eq:
-            - Shape 
+            - WebserverShape 
             - "VM.Standard.A1.Flex"
           - eq:
-            - Shape 
+            - WebserverShape 
             - "VM.Optimized3.Flex"
 
-  FlexShapeMemory:
+  WebserverFlexShapeMemory:
     type: number
     required: false
     minimum: 1
@@ -171,22 +200,73 @@ variables:
     multipleOf: 1
     default: 2
     title: "Flex Shape Memory (GB)"
-    description: "Choose number GB for Flex Shape Memory."
+    description: "Choose number GB for Flex Shape Webserver Memory."
     visible:
       and:
         - or:
           - eq:
-            - Shape 
+            - WebserverShape 
             - "VM.Standard.E3.Flex"
           - eq:
-            - Shape
+            - WebserverShape
             - "VM.Standard.E4.Flex"
           - eq:
-            - Shape 
+            - WebserverShape 
             - "VM.Standard.A1.Flex"
           - eq:
-            - Shape 
+            - WebserverShape 
             - "VM.Optimized3.Flex"
+
+  BastionFlexShapeOCPUS:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 1
+    title: "Bastion Flex Shape OCPUs"
+    description: "Choose number of OCPUs for Bastion Flex Shape."
+    visible:
+      and:
+        - or:
+          - eq:
+            - BastionShape 
+            - "VM.Standard.E3.Flex"
+          - eq:
+            - BastionShape 
+            - "VM.Standard.E4.Flex"
+          - eq:
+            - BastionShape 
+            - "VM.Standard.A1.Flex"
+          - eq:
+            - BastionShape 
+            - "VM.Optimized3.Flex"
+
+  BastionFlexShapeMemory:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 2
+    title: "Bastion Flex Shape Memory (GB)"
+    description: "Choose number GB for Flex Bastion Shape Memory."
+    visible:
+      and:
+        - or:
+          - eq:
+            - BastionShape 
+            - "VM.Standard.E3.Flex"
+          - eq:
+            - BastionShape
+            - "VM.Standard.E4.Flex"
+          - eq:
+            - BastionShape 
+            - "VM.Standard.A1.Flex"
+          - eq:
+            - BastionShape 
+            - "VM.Optimized3.Flex"
+
 
   instance_os:
     type: enum
@@ -281,18 +361,6 @@ outputs:
     type: string
     visible: true
   
-  FoggyKitchenWebserver1PrivateIP:
-    title: "Webserver1 Private IP"
-    displayText: "Webserver1 Private IP"
-    type: copyableString
-    visible: true
-
-  FoggyKitchenWebserver2PrivateIP:
-    title: "Webserver2 Private IP"
-    displayText: "Webserver2 Private IP"
-    type: copyableString
-    visible: true
-
   FoggyKitchenPublicLoadBalancer_Public_IP:
     title: "LoadBalancer Public IP"
     displayText: "LoadBalancer Public IP"
