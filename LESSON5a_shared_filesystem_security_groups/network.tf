@@ -62,7 +62,7 @@ resource "oci_core_route_table" "FoggyKitchenRouteTableViaNAT" {
 
 # WebSubnet (private)
 resource "oci_core_subnet" "FoggyKitchenWebSubnet" {
-  cidr_block                 = var.WebSubnet-CIDR
+  cidr_block                 = var.PrivateSubnet-CIDR
   display_name               = "FoggyKitchenWebSubnet"
   dns_label                  = "FoggyKitchenN2"
   compartment_id             = oci_identity_compartment.FoggyKitchenCompartment.id
