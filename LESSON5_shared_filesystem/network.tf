@@ -96,6 +96,11 @@ resource "oci_core_security_list" "FoggyKitchenWebserversSecurityList" {
     }
   }
 
+ingress_security_rules {
+  protocol = "6"
+  source   = var.VCN-CIDR
+}
+
 }
 
 # Security List for HTTP/HTTPS access for Load Balancer 
