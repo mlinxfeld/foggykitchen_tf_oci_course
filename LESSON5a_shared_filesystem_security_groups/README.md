@@ -7,14 +7,6 @@ subnet and NSG will be used instead of SecurityList. This is not obligatory less
 
 ![](LESSON5a_shared_filesystem_security_groups.jpg)
 
-# FoggyKitchen Terraform OCI Course
-
-## LESSON 5 - Shared Filesystem 
-
-In this lesson, we will modify the configuration a little bit. It means we will create the shared filesystem (*File Storage Mount Target*) which will be mounted as NFS over both Webservers (/sharedfs mount point). Into that share storage we will upload index.html file with new content: **Welcome to FoggyKitchen.com! These are both WEBSERVERS under LB umbrella with shared index.html ...**. Next *Null Resources* will modify /etc/httpd/conf/httpd.conf to include alias and directory of shared resource. Load Balancer will be modified as little bit as well. Now Backend Health Check will check URL /shared every 3000 ms. After successful *terraform apply* we should go to Web Browser and check URL: *http://public_ip_of_load_balancer/shared/*. 
-
-![](LESSON5_shared_filesystem.jpg)
-
 ---
 
 ## Authentication Methods for Terraform and OpenTofu
