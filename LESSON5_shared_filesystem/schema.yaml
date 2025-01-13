@@ -1,6 +1,3 @@
-# Copyright (c) 2020, Oracle and/or its affiliates. All rights reserved.
-# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
-
 title: "LESSON 5 - Shared Filesystem"
 description: "FoggyKitchen Terraform OCI Course - LESSON 5 - Shared Filesystem ."
 stackDescription: "FoggyKitchen Terraform OCI Course - LESSON 5 - Shared Filesystem."
@@ -14,8 +11,7 @@ variableGroups:
   variables:
   - tenancy_ocid
   - region
-  - webservice_ports
-  - bastion_ports
+  - service_ports
 
 - title: "Required Configuration"
   visible: true  
@@ -30,9 +26,7 @@ variableGroups:
         - show_advanced
   variables:
   - VCN-CIDR
-  - WebSubnet-CIDR
-  - LBSubnet-CIDR
-  - BastionSubnet-CIDR
+  - Subnet-CIDR
 
 - title: "Load Balancer Optional Configuration"
   visible: 
@@ -48,6 +42,7 @@ variableGroups:
       and:
         - show_advanced
   variables:
+  - ComputeCount
   - Shape
   - FlexShapeOCPUS
   - FlexShapeMemory
@@ -101,8 +96,25 @@ variables:
     dependsOn:
       regionName: ${region}
       compartmentId: ${compartment_ocid}
+  
+  MountTargetIPAddress:
+    type: string
+    required: false
+    default: "10.0.1.25"
+    title: "Mount Target IP Address"
+    description: "Choose Mount Target IP Address for File Storage Service."
 
   # Optional Configuration
+
+  ComputeCount:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 2
+    title: "Webservers Compute Count"
+    description: "Number of compute instances to create."
 
   VCN-CIDR:
     type: string
@@ -112,28 +124,12 @@ variables:
     title: "VCN CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the VCN"
 
-  WebSubnet-CIDR:
+  Subnet-CIDR:
     type: string
     required: false
     default: "10.0.1.0/24"
     pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    title: "WebSubnet CIDR"
-    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
-
-  LBSubnet-CIDR:
-    type: string
-    required: false
-    default: "10.0.2.0/24"
-    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    title: "LoadBalancer Subnet CIDR"
-    description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
-
-  BastionSubnet-CIDR:
-    type: string
-    required: false
-    default: "10.0.3.0/24"
-    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    title: "Bastion Subnet CIDR"
+    title: Subnet CIDR"
     description: "Choose single, contiguous IPv4 CIDR block for the Subnet"
 
   Shape:
@@ -213,8 +209,8 @@ variables:
     description: "Choose Operating System version that determines the operating system version for Webserver host."
     default: "8"
     enum:
-      - "8"
-      - "9"  
+      - "8"  
+      - "9"
 
   lb_shape:
     type: enum
@@ -266,26 +262,12 @@ variables:
           - lb_shape 
           - "flexible"
 
-  webservice_ports:
-    title: "Web Service Ports"
-    description: "Web Service Ports"
+  service_ports:
+    title: "Service Ports"
+    description: "Service Ports"
     type: string
     required: false
     visible: false
-
-  bastion_ports:
-    title: "Baston SSH Ports"
-    description: "Bastion SSH Ports"
-    type: string
-    required: false
-    visible: false
-
-  MountTargetIPAddress:
-    type: string
-    required: false
-    default: "10.0.1.25"
-    title: "Mount Target IP Address"
-    description: "Choose Mount Target IP Address for File Storage Service."
 
 outputs:
 
@@ -295,21 +277,21 @@ outputs:
     type: string
     visible: true
   
-  FoggyKitchenWebserver1PrivateIP:
-    title: "Webserver1 Private IP"
-    displayText: "Webserver1 Private IP"
+  FoggyKitchenWebserver1PublicIP:
+    title: "Webserver1 Public IP"
+    displayText: "Webserver1 Public IP"
     type: copyableString
     visible: true
 
-  FoggyKitchenWebserver2PrivateIP:
-    title: "Webserver2 Private IP"
-    displayText: "Webserver2 Private IP"
+  FoggyKitchenWebserver2PublicIP:
+    title: "Webserver2 Public IP"
+    displayText: "Webserver2 Public IP"
     type: copyableString
     visible: true
 
-  FoggyKitchenPublicLoadBalancer_Public_IP:
-    title: "LoadBalancer Public IP"
-    displayText: "LoadBalancer Public IP"
+  FoggyKitchenLoadBalancer_Public_IP:
+    title: "Load Balancer Public IP"
+    displayText: "Load Balancer Public IP"
     type: copyableString
     visible: true
 
