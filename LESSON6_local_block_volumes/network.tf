@@ -61,10 +61,52 @@ resource "oci_core_route_table" "FoggyKitchenRouteTableViaNAT" {
   }
 }
 
-# Security List for HTTP/HTTPS
-resource "oci_core_security_list" "FoggyKitchenWebSecurityList" {
+# Security List for HTTP/HTTPS/SSH access for Webservers 
+resource "oci_core_security_list" "FoggyKitchenWebserversSecurityList" {
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
-  display_name   = "FoggyKitchenWebSecurityList"
+  display_name   = "FoggyKitchenWebserversSecurityList"
+  vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
+
+  egress_security_rules {
+    protocol    = "6"
+    destination = "0.0.0.0/0"
+  }
+
+  dynamic "ingress_security_rules" {
+    for_each = var.ssh_ports
+    content {
+      protocol = "6"
+      source   = var.BastionSubnet-CIDR # Allow traffic only from Bastion Subnet
+      tcp_options {
+        max = ingress_security_rules.value
+        min = ingress_security_rules.value
+      }
+    }
+  }
+
+  dynamic "ingress_security_rules" {
+    for_each = var.webservice_ports
+    content {
+      protocol = "6"
+      source   = var.LBSubnet-CIDR # Allow traffic only from the Load Balancer Subnet
+      tcp_options {
+        max = ingress_security_rules.value
+        min = ingress_security_rules.value
+      }
+    }
+  }
+
+ingress_security_rules {
+  protocol = "6"
+  source   = var.VCN-CIDR
+}
+
+}
+
+# Security List for HTTP/HTTPS access for Load Balancer 
+resource "oci_core_security_list" "FoggyKitchenLoadBalancerSecurityList" {
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  display_name   = "FoggyKitchenLoadBalancerSecurityList"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
 
   egress_security_rules {
@@ -76,24 +118,20 @@ resource "oci_core_security_list" "FoggyKitchenWebSecurityList" {
     for_each = var.webservice_ports
     content {
       protocol = "6"
-      source   = "0.0.0.0/0"
+      source   = "0.0.0.0/0" # Allow traffic from the internet
       tcp_options {
         max = ingress_security_rules.value
         min = ingress_security_rules.value
       }
     }
   }
-
-  ingress_security_rules {
-    protocol = "6"
-    source   = var.VCN-CIDR
-  }
 }
 
-# Security List for SSH
-resource "oci_core_security_list" "FoggyKitchenSSHSecurityList" {
+
+# Security List for SSH to Bastion
+resource "oci_core_security_list" "FoggyKitchenBastionSecurityList" {
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
-  display_name   = "FoggyKitchenSSHSecurityList"
+  display_name   = "FoggyKitchenBastionSecurityList"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
 
   egress_security_rules {
@@ -102,33 +140,28 @@ resource "oci_core_security_list" "FoggyKitchenSSHSecurityList" {
   }
 
   dynamic "ingress_security_rules" {
-    for_each = var.bastion_ports
+    for_each = var.ssh_ports
     content {
       protocol = "6"
-      source   = "0.0.0.0/0"
+      source   = var.bastion_allowed_ip # Restrict to trusted IPs
       tcp_options {
         max = ingress_security_rules.value
         min = ingress_security_rules.value
       }
     }
   }
-
-  ingress_security_rules {
-    protocol = "6"
-    source   = var.VCN-CIDR
-  }
 }
 
 # WebSubnet (private)
 resource "oci_core_subnet" "FoggyKitchenWebSubnet" {
-  cidr_block                 = var.WebSubnet-CIDR
+  cidr_block                 = var.PrivateSubnet-CIDR
   display_name               = "FoggyKitchenWebSubnet"
-  dns_label                  = "FoggyKitchenN2"
+  dns_label                  = "FoggyKitchenN1"
   compartment_id             = oci_identity_compartment.FoggyKitchenCompartment.id
   vcn_id                     = oci_core_virtual_network.FoggyKitchenVCN.id
   route_table_id             = oci_core_route_table.FoggyKitchenRouteTableViaNAT.id
   dhcp_options_id            = oci_core_dhcp_options.FoggyKitchenDhcpOptions1.id
-  security_list_ids          = [oci_core_security_list.FoggyKitchenWebSecurityList.id, oci_core_security_list.FoggyKitchenSSHSecurityList.id]
+  security_list_ids          = [oci_core_security_list.FoggyKitchenWebserversSecurityList.id]
   prohibit_public_ip_on_vnic = true
 }
 
@@ -136,12 +169,12 @@ resource "oci_core_subnet" "FoggyKitchenWebSubnet" {
 resource "oci_core_subnet" "FoggyKitchenLBSubnet" {
   cidr_block        = var.LBSubnet-CIDR
   display_name      = "FoggyKitchenLBSubnet"
-  dns_label         = "FoggyKitchenN1"
+  dns_label         = "FoggyKitchenN2"
   compartment_id    = oci_identity_compartment.FoggyKitchenCompartment.id
   vcn_id            = oci_core_virtual_network.FoggyKitchenVCN.id
   route_table_id    = oci_core_route_table.FoggyKitchenRouteTableViaIGW.id
   dhcp_options_id   = oci_core_dhcp_options.FoggyKitchenDhcpOptions1.id
-  security_list_ids = [oci_core_security_list.FoggyKitchenWebSecurityList.id]
+  security_list_ids = [oci_core_security_list.FoggyKitchenLoadBalancerSecurityList.id]
 }
 
 # Bastion Subnet (public)
@@ -153,7 +186,7 @@ resource "oci_core_subnet" "FoggyKitchenBastionSubnet" {
   vcn_id            = oci_core_virtual_network.FoggyKitchenVCN.id
   route_table_id    = oci_core_route_table.FoggyKitchenRouteTableViaIGW.id
   dhcp_options_id   = oci_core_dhcp_options.FoggyKitchenDhcpOptions1.id
-  security_list_ids = [oci_core_security_list.FoggyKitchenSSHSecurityList.id]
+  security_list_ids = [oci_core_security_list.FoggyKitchenBastionSecurityList.id]
 }
 
 
