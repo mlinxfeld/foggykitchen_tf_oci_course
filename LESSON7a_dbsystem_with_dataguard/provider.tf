@@ -3,7 +3,7 @@ terraform {
   required_providers {
     oci = {
       source  = "hashicorp/oci"
-      version = "= 4.48.0"
+      version = ">= 6.21.0"
     }
   }
 }
@@ -27,4 +27,3 @@ provider "oci" {
   region               = data.oci_identity_region_subscriptions.home_region_subscriptions.region_subscriptions[0].region_name
   disable_auto_retries = "true"
 }
-

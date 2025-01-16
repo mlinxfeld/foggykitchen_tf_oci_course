@@ -1,11 +1,5 @@
 #!/bin/bash
 # iscsiattach.sh - Scan and automatically attach new iSCSI targets
-#
-# Author: Steven B. Nelson, Sr. Solutions Architect
-#       Oracle Cloud Infrastructure
-#
-# 20 April 2017
-# Copyright Oracle, Inc.  All rights reserved.
 
 BASEADDR="169.254.2.2"
 
