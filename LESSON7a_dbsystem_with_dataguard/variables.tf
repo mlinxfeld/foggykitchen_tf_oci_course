@@ -177,7 +177,7 @@ variable "flex_lb_max_shape" {
 
 variable "MountTargetIPAddress" {
   description = "The IP address of the mount target for the file storage service."
-  default     = "10.0.4.25"
+  default     = "10.0.1.25"
 }
 
 variable "fss_ingress_tcp_ports" {

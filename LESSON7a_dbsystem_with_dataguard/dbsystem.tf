@@ -38,6 +38,7 @@ resource "oci_database_data_guard_association" "FoggyKitchenDBSystemStandby" {
   protection_mode                  = "MAXIMUM_PERFORMANCE"
   transport_type                   = "ASYNC"
   delete_standby_db_home_on_delete = "true"
+  cpu_core_count                   = var.CPUCoreCount
 
   availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[1], "name") 
   display_name        = var.DBStandbySystemDisplayName
