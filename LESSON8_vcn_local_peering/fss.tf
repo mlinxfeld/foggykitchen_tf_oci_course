@@ -1,7 +1,7 @@
 # Mount Target
 
 resource "oci_file_storage_mount_target" "FoggyKitchenMountTarget" {
-  availability_domain = var.availablity_domain_name == "" ? lookup(data.oci_identity_availability_domains.ADs.availability_domains[0], "name") : var.availablity_domain_name
+  availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[0], "name")
   compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
   subnet_id           = oci_core_subnet.FoggyKitchenWebSubnet.id
   ip_address          = var.MountTargetIPAddress
@@ -18,7 +18,7 @@ resource "oci_file_storage_export_set" "FoggyKitchenExportset" {
 # FileSystem
 
 resource "oci_file_storage_file_system" "FoggyKitchenFilesystem" {
-  availability_domain = var.availablity_domain_name == "" ? lookup(data.oci_identity_availability_domains.ADs.availability_domains[0], "name") : var.availablity_domain_name
+  availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[0], "name")
   compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name        = "FoggyKitchenFilesystem"
 }
@@ -35,5 +35,6 @@ resource "oci_file_storage_export" "FoggyKitchenExport" {
     access                         = "READ_WRITE"
     identity_squash                = "NONE"
   }
-  
+
 }
+

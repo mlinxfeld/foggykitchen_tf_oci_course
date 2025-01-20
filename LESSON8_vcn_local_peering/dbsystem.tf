@@ -1,6 +1,6 @@
 # DBSystem
 resource "oci_database_db_system" "FoggyKitchenDBSystem" {
-  availability_domain = var.availablity_domain_name == "" ? lookup(data.oci_identity_availability_domains.ADs.availability_domains[0], "name") : var.availablity_domain_name
+  availability_domain = lookup(data.oci_identity_availability_domains.ADs.availability_domains[0], "name")
   compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
   cpu_core_count      = var.CPUCoreCount
   database_edition    = var.DBEdition
@@ -24,7 +24,7 @@ resource "oci_database_db_system" "FoggyKitchenDBSystem" {
   domain                  = var.DBNodeDomainName
   hostname                = var.DBNodeHostName
   data_storage_percentage = "40"
-  data_storage_size_in_gb = var.DataStorageSizeInGB
-  license_model           = var.LicenseModel
-  node_count              = var.NodeCount
+  data_storage_size_in_gb = var.DBDataStorageSizeInGB
+  license_model           = var.DBLicenseModel
+  node_count              = var.DBNodeCount
 }
