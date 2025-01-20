@@ -2,7 +2,7 @@
 
 ## LESSON 8 - VCN local peering
 
-This lesson is the most complex so far. Besides the current pair of Compartment and VCN we would like to setup up a completely separated island. It will be a new Compartment there called *ExternalCompartment*. It this compartment we will create brand new VCN (*FoggyKitchenVCN2*) with completely different CIDR (192.168.0.0/16). Inside this VCN we will create a new regional private subnet and the Backend server will be nested there. So far this is the isolated island from original cloud infrastructure, so to interconnect them we need to create local peering with LPGs. Finally, we need to apply LPG policies there. If everything goes good we should be able to access Backend Server from Database server with SSH protocol. Let's roll with *terraform apply*.
+This lesson is the most complex so far. Besides the current pair of Compartment and VCN we would like to setup up a completely separated island. It will be a new Compartment there called *ExternalCompartment*. It this compartment we will create brand new VCN (*FoggyKitchenVCN2*) with completely different CIDR (192.168.0.0/16). Inside this VCN we will create a new regional private subnet and the Backend server will be nested there. So far this is the isolated island from original cloud infrastructure, so to interconnect them we need to create local peering with LPGs. If everything goes good we should be able to access Backend Server from Database server with SSH protocol.
 
 ![](LESSON8_vcn_local_peering.jpg)
 
