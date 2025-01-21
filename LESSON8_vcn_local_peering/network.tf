@@ -270,7 +270,7 @@ resource "oci_core_security_list" "FoggyKitchenSSHSecurityList2" {
 
   egress_security_rules {
     protocol    = "6"
-    destination = "0.0.0.0/0"
+    destination = var.DBSystemSubnet-CIDR
   }
 
   ingress_security_rules {
@@ -279,7 +279,7 @@ resource "oci_core_security_list" "FoggyKitchenSSHSecurityList2" {
       min = 22
     }
     protocol = "6"
-    source   = "0.0.0.0/0"
+    source   = var.DBSystemSubnet-CIDR
   }
 
   ingress_security_rules {
