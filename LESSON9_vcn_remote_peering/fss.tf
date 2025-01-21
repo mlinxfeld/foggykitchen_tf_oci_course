@@ -1,8 +1,8 @@
 # Mount Target
 
 resource "oci_file_storage_mount_target" "FoggyKitchenMountTarget" {
-  provider            = oci.requestor
-  availability_domain = var.availablity_domain_name == "" ? lookup(data.oci_identity_availability_domains.R-ADs.availability_domains[0], "name") : var.availablity_domain_name
+  provider            = oci.region1
+  availability_domain = lookup(data.oci_identity_availability_domains.R1-ADs.availability_domains[0], "name")
   compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
   subnet_id           = oci_core_subnet.FoggyKitchenWebSubnet.id
   ip_address          = var.MountTargetIPAddress
@@ -12,7 +12,7 @@ resource "oci_file_storage_mount_target" "FoggyKitchenMountTarget" {
 # Export Set
 
 resource "oci_file_storage_export_set" "FoggyKitchenExportset" {
-  provider        = oci.requestor
+  provider        = oci.region1
   mount_target_id = oci_file_storage_mount_target.FoggyKitchenMountTarget.id
   display_name    = "FoggyKitchenExportset"
 }
@@ -20,8 +20,8 @@ resource "oci_file_storage_export_set" "FoggyKitchenExportset" {
 # FileSystem
 
 resource "oci_file_storage_file_system" "FoggyKitchenFilesystem" {
-  provider            = oci.requestor
-  availability_domain = var.availablity_domain_name == "" ? lookup(data.oci_identity_availability_domains.R-ADs.availability_domains[0], "name") : var.availablity_domain_name
+  provider            = oci.region1
+  availability_domain = lookup(data.oci_identity_availability_domains.R1-ADs.availability_domains[0], "name")
   compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name        = "FoggyKitchenFilesystem"
 }
@@ -29,7 +29,7 @@ resource "oci_file_storage_file_system" "FoggyKitchenFilesystem" {
 # Export
 
 resource "oci_file_storage_export" "FoggyKitchenExport" {
-  provider       = oci.requestor
+  provider       = oci.region1
   export_set_id  = oci_file_storage_mount_target.FoggyKitchenMountTarget.export_set_id
   file_system_id = oci_file_storage_file_system.FoggyKitchenFilesystem.id
   path           = "/sharedfs"
@@ -39,6 +39,6 @@ resource "oci_file_storage_export" "FoggyKitchenExport" {
     access                         = "READ_WRITE"
     identity_squash                = "NONE"
   }
-  
+
 }
 

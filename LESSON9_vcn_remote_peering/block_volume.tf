@@ -1,17 +1,20 @@
-# 100 GB Block Volume
-resource "oci_core_volume" "FoggyKitchenWebserver1BlockVolume100G" {
-  provider            = oci.requestor
-  availability_domain = var.availablity_domain_name == "" ? lookup(data.oci_identity_availability_domains.R-ADs.availability_domains[0], "name") : var.availablity_domain_name
+# Block Volume
+resource "oci_core_volume" "FoggyKitchenWebserverBlockVolume" {
+  provider            = oci.region1
+  count               = var.ComputeCount
+  availability_domain = lookup(data.oci_identity_availability_domains.R1-ADs.availability_domains[count.index % length(data.oci_identity_availability_domains.R1-ADs.availability_domains)], "name") 
   compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
-  display_name        = "FoggyKitchenWebserver1 BlockVolume 100G"
-  size_in_gbs         = "100"
+  display_name        = "FoggyKitchenWebserver${count.index + 1} BlockVolume"
+  size_in_gbs         = var.volume_size_in_gbs
+  vpus_per_gb         = var.vpus_per_gb
 }
 
-# Attachment of 100 GB Block Volume to Webserver1
-resource "oci_core_volume_attachment" "FoggyKitchenWebserver1BlockVolume100G_attach" {
-  provider        = oci.requestor
+# Attachment of Block Volume to Webserver
+resource "oci_core_volume_attachment" "FoggyKitchenWebserverBlockVolume_attach" {
+  provider        = oci.region1
+  count           = var.ComputeCount
   attachment_type = "iscsi"
-  instance_id     = oci_core_instance.FoggyKitchenWebserver1.id
-  volume_id       = oci_core_volume.FoggyKitchenWebserver1BlockVolume100G.id
+  instance_id     = oci_core_instance.FoggyKitchenWebserver[count.index].id
+  volume_id       = oci_core_volume.FoggyKitchenWebserverBlockVolume[count.index].id
 }
 

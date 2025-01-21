@@ -1,6 +1,6 @@
 # VCN
 resource "oci_core_virtual_network" "FoggyKitchenVCN" {
-  provider       = oci.requestor
+  provider       = oci.region1
   cidr_block     = var.VCN-CIDR
   dns_label      = "FoggyKitchenVCN"
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
@@ -9,7 +9,7 @@ resource "oci_core_virtual_network" "FoggyKitchenVCN" {
 
 # VCN2
 resource "oci_core_virtual_network" "FoggyKitchenVCN2" {
-  provider       = oci.acceptor
+  provider       = oci.region2
   cidr_block     = var.VCN-CIDR2
   dns_label      = "FoggyKitcheVCN2"
   compartment_id = oci_identity_compartment.ExternalCompartment.id
@@ -18,7 +18,7 @@ resource "oci_core_virtual_network" "FoggyKitchenVCN2" {
 
 # DHCP Options for VCN1
 resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions1" {
-  provider       = oci.requestor
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
   display_name   = "FoggyKitchenDHCPOptions1"
@@ -38,7 +38,7 @@ resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions1" {
 
 # DHCP Options for VCN2
 resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions2" {
-  provider       = oci.acceptor
+  provider       = oci.region2
   compartment_id = oci_identity_compartment.ExternalCompartment.id
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
   display_name   = "FoggyKitchenDHCPOptions1"
@@ -58,7 +58,7 @@ resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions2" {
 
 # Internet Gateway
 resource "oci_core_internet_gateway" "FoggyKitchenInternetGateway" {
-  provider       = oci.requestor
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenInternetGateway"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
@@ -66,7 +66,7 @@ resource "oci_core_internet_gateway" "FoggyKitchenInternetGateway" {
 
 # Route Table for IGW
 resource "oci_core_route_table" "FoggyKitchenRouteTableViaIGW" {
-  provider       = oci.requestor
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
   display_name   = "FoggyKitchenRouteTableViaIGW"
@@ -79,7 +79,7 @@ resource "oci_core_route_table" "FoggyKitchenRouteTableViaIGW" {
 
 # NAT Gateway
 resource "oci_core_nat_gateway" "FoggyKitchenNATGateway" {
-  provider       = oci.requestor
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenNATGateway"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
@@ -87,7 +87,7 @@ resource "oci_core_nat_gateway" "FoggyKitchenNATGateway" {
 
 # Route Table for NAT and DRG1
 resource "oci_core_route_table" "FoggyKitchenRouteTableViaNATandDRG1" {
-  provider       = oci.requestor
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
   display_name   = "FoggyKitchenRouteTableViaNATandDRG1"
@@ -107,7 +107,7 @@ resource "oci_core_route_table" "FoggyKitchenRouteTableViaNATandDRG1" {
 
 # Route Table via DRG2
 resource "oci_core_route_table" "FoggyKitchenRouteTableViaDRG2" {
-  provider       = oci.acceptor
+  provider       = oci.region2
   compartment_id = oci_identity_compartment.ExternalCompartment.id
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
   display_name   = "FoggyKitchenRouteTableViaDRG2"
@@ -121,7 +121,7 @@ resource "oci_core_route_table" "FoggyKitchenRouteTableViaDRG2" {
 
 # Security List for HTTP/HTTPS in VCN
 resource "oci_core_security_list" "FoggyKitchenWebSecurityList" {
-  provider       = oci.requestor
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenWebSecurityList"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
@@ -151,7 +151,7 @@ resource "oci_core_security_list" "FoggyKitchenWebSecurityList" {
 
 # Security List for SSH in VCN
 resource "oci_core_security_list" "FoggyKitchenSSHSecurityList" {
-  provider       = oci.requestor
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenSSHSecurityList"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
@@ -162,7 +162,7 @@ resource "oci_core_security_list" "FoggyKitchenSSHSecurityList" {
   }
 
   dynamic "ingress_security_rules" {
-    for_each = var.bastion_ports
+    for_each = var.ssh_ports
     content {
       protocol = "6"
       source   = "0.0.0.0/0"
@@ -181,7 +181,7 @@ resource "oci_core_security_list" "FoggyKitchenSSHSecurityList" {
 
 # SQLNet Security List in VCN
 resource "oci_core_security_list" "FoggyKitchenSQLNetSecurityList" {
-  provider       = oci.requestor
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "Foggy Kitchen SQLNet Security List"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
@@ -211,7 +211,7 @@ resource "oci_core_security_list" "FoggyKitchenSQLNetSecurityList" {
 
 # Security List for ICMP in VCN
 resource "oci_core_security_list" "FoggyKitchenICMPecurityList" {
-  provider       = oci.requestor
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "Foggy KitchenICMPSecurity List"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
@@ -234,7 +234,7 @@ resource "oci_core_security_list" "FoggyKitchenICMPecurityList" {
 
 # Security List for SSH in VCN2
 resource "oci_core_security_list" "FoggyKitchenSSHSecurityList2" {
-  provider       = oci.acceptor
+  provider       = oci.region2
   compartment_id = oci_identity_compartment.ExternalCompartment.id
   display_name   = "FoggyKitchenSSHSecurityList2"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
@@ -250,7 +250,7 @@ resource "oci_core_security_list" "FoggyKitchenSSHSecurityList2" {
       min = 22
     }
     protocol = "6"
-    source   = "0.0.0.0/0"
+    source   = var.DBSystemSubnet-CIDR
   }
 
   ingress_security_rules {
@@ -259,32 +259,9 @@ resource "oci_core_security_list" "FoggyKitchenSSHSecurityList2" {
   }
 }
 
-# Security List for ICMP in VCN2
-resource "oci_core_security_list" "FoggyKitchenICMPecurityList2" {
-  provider       = oci.acceptor
-  compartment_id = oci_identity_compartment.ExternalCompartment.id
-  display_name   = "FoggyKitchenICMPSecurityList2"
-  vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
-
-  egress_security_rules {
-    protocol    = "6"
-    destination = "0.0.0.0/0"
-  }
-
-  ingress_security_rules {
-    protocol  = 1
-    source    = var.VCN-CIDR
-    stateless = true
-    icmp_options {
-      type = 3
-      code = 4
-    }
-  }
-}
-
 # LoadBalancer Subnet (public) in VCN
 resource "oci_core_subnet" "FoggyKitchenLBSubnet" {
-  provider          = oci.requestor
+  provider          = oci.region1
   cidr_block        = var.LBSubnet-CIDR
   display_name      = "FoggyKitchenLBSubnet"
   dns_label         = "FoggyKitchenN1"
@@ -297,8 +274,8 @@ resource "oci_core_subnet" "FoggyKitchenLBSubnet" {
 
 # WebSubnet (private) in VCN
 resource "oci_core_subnet" "FoggyKitchenWebSubnet" {
-  provider                   = oci.requestor
-  cidr_block                 = var.WebSubnet-CIDR
+  provider                   = oci.region1
+  cidr_block                 = var.PrivateSubnet-CIDR
   display_name               = "FoggyKitchenWebSubnet"
   dns_label                  = "FoggyKitchenN2"
   compartment_id             = oci_identity_compartment.FoggyKitchenCompartment.id
@@ -311,7 +288,7 @@ resource "oci_core_subnet" "FoggyKitchenWebSubnet" {
 
 # Bastion Subnet (public) in VCN
 resource "oci_core_subnet" "FoggyKitchenBastionSubnet" {
-  provider          = oci.requestor
+  provider          = oci.region1
   cidr_block        = var.BastionSubnet-CIDR
   display_name      = "FoggyKitchenBastionSubnet"
   dns_label         = "FoggyKitchenN3"
@@ -324,7 +301,7 @@ resource "oci_core_subnet" "FoggyKitchenBastionSubnet" {
 
 # DBSystem Subnet (private) in VCN
 resource "oci_core_subnet" "FoggyKitchenDBSubnet" {
-  provider                   = oci.requestor
+  provider                   = oci.region1
   cidr_block                 = var.DBSystemSubnet-CIDR
   display_name               = "FoggyKitchenDBSubnet"
   dns_label                  = "FoggyKitchenN4"
@@ -338,7 +315,7 @@ resource "oci_core_subnet" "FoggyKitchenDBSubnet" {
 
 # Backend Subnet (private) in VCN2
 resource "oci_core_subnet" "FoggyKitchenBackendSubnet" {
-  provider                   = oci.acceptor
+  provider                   = oci.region2
   cidr_block                 = var.BackendSubnet-CIDR
   display_name               = "FoggyKitchenBackendSubnet"
   dns_label                  = "FoggyKitchenN5"
@@ -347,7 +324,7 @@ resource "oci_core_subnet" "FoggyKitchenBackendSubnet" {
   vcn_id                     = oci_core_virtual_network.FoggyKitchenVCN2.id
   route_table_id             = oci_core_route_table.FoggyKitchenRouteTableViaDRG2.id
   dhcp_options_id            = oci_core_dhcp_options.FoggyKitchenDhcpOptions2.id
-  security_list_ids          = [oci_core_security_list.FoggyKitchenSSHSecurityList2.id, oci_core_security_list.FoggyKitchenICMPecurityList2.id]
+  security_list_ids          = [oci_core_security_list.FoggyKitchenSSHSecurityList2.id]
 }
 
 

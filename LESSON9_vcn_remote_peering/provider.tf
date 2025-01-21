@@ -3,13 +3,13 @@ terraform {
   required_providers {
     oci = {
       source  = "hashicorp/oci"
-      version = "= 4.48.0"
+      version = ">= 6.21.0"
     }
   }
 }
 
 provider "oci" {
-  alias            = "requestor" #oci-region-1 
+  alias            = "region1" #oci-region-1 
   tenancy_ocid     = var.tenancy_ocid
   user_ocid        = var.user_ocid
   fingerprint      = var.fingerprint
@@ -18,7 +18,7 @@ provider "oci" {
 }
 
 provider "oci" {
-  alias            = "acceptor" #oci-region-2
+  alias            = "region2" #oci-region-2
   tenancy_ocid     = var.tenancy_ocid
   user_ocid        = var.user_ocid
   fingerprint      = var.fingerprint
