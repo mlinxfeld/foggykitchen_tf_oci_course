@@ -1,6 +1,5 @@
 # DRG1 for VCN
 resource "oci_core_drg" "FoggyKitchenDRG1" {
-#  depends_on     = [oci_identity_policy.FoggyKitchenRequestorPolicy]
   provider       = oci.region1
   display_name   = "FoggyKitchenDRG1"
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
@@ -8,7 +7,6 @@ resource "oci_core_drg" "FoggyKitchenDRG1" {
 
 # DRG1 Attachment with VCN
 resource "oci_core_drg_attachment" "FoggyKitchenDRG1Attachment" {
-#  depends_on = [oci_identity_policy.FoggyKitchenRequestorPolicy]
   provider       = oci.region1
   display_name   = "FoggyKitchenDRG1Attachment"
   drg_id         = oci_core_drg.FoggyKitchenDRG1.id
@@ -17,7 +15,6 @@ resource "oci_core_drg_attachment" "FoggyKitchenDRG1Attachment" {
 
 # RPC1 for DRG1
 resource "oci_core_remote_peering_connection" "FoggyKitchenRPC1" {
-#  depends_on       = [oci_identity_policy.FoggyKitchenRequestorPolicy]
   provider         = oci.region1
   compartment_id   = oci_identity_compartment.FoggyKitchenCompartment.id
   drg_id           = oci_core_drg.FoggyKitchenDRG1.id
@@ -28,7 +25,6 @@ resource "oci_core_remote_peering_connection" "FoggyKitchenRPC1" {
 
 # DRG2 for VCN2
 resource "oci_core_drg" "FoggyKitchenDRG2" {
-#  depends_on     = [oci_identity_policy.FoggyKitchenAcceptorPolicy]
   provider       = oci.region2
   display_name   = "FoggyKitchenDRG2"
   compartment_id = oci_identity_compartment.ExternalCompartment.id
@@ -36,7 +32,6 @@ resource "oci_core_drg" "FoggyKitchenDRG2" {
 
 # DRG2 Attachment with VCN2
 resource "oci_core_drg_attachment" "FoggyKitchenDRG2Attachment" {
-#  depends_on = [oci_identity_policy.FoggyKitchenAcceptorPolicy]
   provider       = oci.region2
   display_name   = "FoggyKitchenDRG2Attachment"
   drg_id         = oci_core_drg.FoggyKitchenDRG2.id
@@ -45,7 +40,6 @@ resource "oci_core_drg_attachment" "FoggyKitchenDRG2Attachment" {
 
 # RPC2 for DRG2
 resource "oci_core_remote_peering_connection" "FoggyKitchenRPC2" {
-#  depends_on     = [oci_identity_policy.FoggyKitchenAcceptorPolicy]
   provider       = oci.region2
   compartment_id = oci_identity_compartment.ExternalCompartment.id
   drg_id         = oci_core_drg.FoggyKitchenDRG2.id

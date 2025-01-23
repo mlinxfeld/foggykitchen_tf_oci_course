@@ -209,29 +209,6 @@ resource "oci_core_security_list" "FoggyKitchenSQLNetSecurityList" {
   }
 }
 
-# Security List for ICMP in VCN
-resource "oci_core_security_list" "FoggyKitchenICMPecurityList" {
-  provider       = oci.region1
-  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
-  display_name   = "Foggy KitchenICMPSecurity List"
-  vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
-
-  egress_security_rules {
-    protocol    = "6"
-    destination = "0.0.0.0/0"
-  }
-
-  ingress_security_rules {
-    protocol  = 1
-    source    = var.VCN-CIDR2
-    stateless = true
-    icmp_options {
-      type = 3
-      code = 4
-    }
-  }
-}
-
 # Security List for SSH in VCN2
 resource "oci_core_security_list" "FoggyKitchenSSHSecurityList2" {
   provider       = oci.region2
