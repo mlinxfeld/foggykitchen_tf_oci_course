@@ -1,60 +1,60 @@
-# Web NSG (Requestor)
-resource "oci_core_network_security_group" "FoggyKitchenRequestorWebSecurityGroup" {
-  provider       = oci.requestor
+# Web NSG (Region1)
+resource "oci_core_network_security_group" "FoggyKitchenWebSecurityGroup" {
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
-  display_name   = "FoggyKitchenRequestorWebSecurityGroup"
+  display_name   = "FoggyKitchenWebSecurityGroup"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
 }
 
-# SSH NSG (Requestor)
-resource "oci_core_network_security_group" "FoggyKitchenRequestorSSHSecurityGroup" {
-  provider       = oci.requestor
+# SSH NSG (Region1)
+resource "oci_core_network_security_group" "FoggyKitchenSSHSecurityGroup" {
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
-  display_name   = "FoggyKitchenRequestorSSHSecurityGroup"
+  display_name   = "FoggyKitchenSSHSecurityGroup"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
 }
 
-# FSS NSG (Requestor)
-resource "oci_core_network_security_group" "FoggyKitchenRequestorFSSSecurityGroup" {
-  provider       = oci.requestor
+# FSS NSG (Region1)
+resource "oci_core_network_security_group" "FoggyKitchenFSSSecurityGroup" {
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
-  display_name   = "FoggyKitchenRequestorFSSSecurityGroup"
+  display_name   = "FoggyKitchenFSSSecurityGroup"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
 }
 
-# DB NSG (Requestor)
-resource "oci_core_network_security_group" "FoggyKitchenRequestorDBSystemSecurityGroup" {
-  provider       = oci.requestor
+# DB NSG (Region1)
+resource "oci_core_network_security_group" "FoggyKitchenDBSystemSecurityGroup" {
+  provider       = oci.region1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
-  display_name   = "FoggyKitchenRequestorDBSystemSecurityGroup"
+  display_name   = "FoggyKitchenDBSystemSecurityGroup"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
 }
 
-# SSH NSG (Acceptor)
-resource "oci_core_network_security_group" "FoggyKitchenAcceptorSSHSecurityGroup" {
-  provider       = oci.acceptor
+# SSH NSG (Region2)
+resource "oci_core_network_security_group" "FoggyKitchenSSHSecurityGroup2" {
+  provider       = oci.region2
   compartment_id = oci_identity_compartment.ExternalCompartment.id
-  display_name   = "FoggyKitchenAcceptorSSHSecurityGroup"
+  display_name   = "FoggyKitchenSSHSecurityGroup2"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
 }
 
-# DB NSG (Acceptor)
-resource "oci_core_network_security_group" "FoggyKitchenAcceptorDBSystemSecurityGroup" {
-  provider       = oci.acceptor
+# DB NSG (Region2)
+resource "oci_core_network_security_group" "FoggyKitchenDBSystemSecurityGroup2" {
+  provider       = oci.region2
   compartment_id = oci_identity_compartment.ExternalCompartment.id
-  display_name   = "FoggyKitchenAcceptorDBSystemSecurityGroup"
+  display_name   = "FoggyKitchenDBSystemSecurityGroup2"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
 }
 
-# FSS NSG Ingress TCP Rule (Requestor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorFSSSecurityIngressTCPGroupRules" {
-  provider = oci.requestor
+# FSS NSG Ingress TCP Rule (Region1)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurityIngressTCPGroupRules" {
+  provider = oci.region1
   for_each = toset(var.fss_ingress_tcp_ports)
 
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorFSSSecurityGroup.id
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenFSSSecurityGroup.id
   direction                 = "INGRESS"
   protocol                  = "6"
-  source                    = var.WebSubnet-CIDR
+  source                    = var.PrivateSubnet-CIDR
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
@@ -64,15 +64,15 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorF
   }
 }
 
-# FSS NSG Ingress UDP Rule (Requestor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorFSSSecurityIngressUDPGroupRules" {
-  provider = oci.requestor
+# FSS NSG Ingress UDP Rule (Region1)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurityIngressUDPGroupRules" {
+  provider = oci.region1
   for_each = toset(var.fss_ingress_udp_ports)
 
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorFSSSecurityGroup.id
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenFSSSecurityGroup.id
   direction                 = "INGRESS"
   protocol                  = "17"
-  source                    = var.WebSubnet-CIDR
+  source                    = var.PrivateSubnet-CIDR
   source_type               = "CIDR_BLOCK"
   udp_options {
     destination_port_range {
@@ -82,15 +82,15 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorF
   }
 }
 
-# FSS NSG Egress TCP Rule (Requestor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorFSSSecurityEgressTCPGroupRules" {
-  provider = oci.requestor
+# FSS NSG Egress TCP Rule (Region1)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurityEgressTCPGroupRules" {
+  provider = oci.region1
   for_each = toset(var.fss_egress_tcp_ports)
 
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorFSSSecurityGroup.id
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenFSSSecurityGroup.id
   direction                 = "EGRESS"
   protocol                  = "6"
-  destination               = var.WebSubnet-CIDR
+  destination               = var.PrivateSubnet-CIDR
   destination_type          = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
@@ -100,15 +100,15 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorF
   }
 }
 
-# FSS NSG Egress UDP Rule (Requestor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorFSSSecurityEgressUDPGroupRules" {
-  provider = oci.requestor
+# FSS NSG Egress UDP Rule (Region1)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenFSSSecurityEgressUDPGroupRules" {
+  provider = oci.region1
   for_each = toset(var.fss_egress_udp_ports)
 
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorFSSSecurityGroup.id
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenFSSSecurityGroup.id
   direction                 = "EGRESS"
   protocol                  = "17"
-  destination               = var.WebSubnet-CIDR
+  destination               = var.PrivateSubnet-CIDR
   destination_type          = "CIDR_BLOCK"
   udp_options {
     destination_port_range {
@@ -118,22 +118,22 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorF
   }
 }
 
-# Web NSG Ingress Rule (Requestor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorWebSecurityEgressGroupRule" {
-  provider                  = oci.requestor
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorWebSecurityGroup.id
+# Web NSG Ingress Rule (Region1)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenWebSecurityEgressGroupRule" {
+  provider                  = oci.region1
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
   direction                 = "EGRESS"
   protocol                  = "6"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
 }
 
-# Web NSG Egress Rule (Requestor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorWebSecurityIngressGroupRule" {
-  provider = oci.requestor
+# Web NSG Egress Rule (Region1)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenWebSecurityIngressGroupRule" {
+  provider = oci.region1
   for_each = toset(var.webservice_ports)
 
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorWebSecurityGroup.id
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup.id
   direction                 = "INGRESS"
   protocol                  = "6"
   source                    = "0.0.0.0/0"
@@ -146,22 +146,22 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorW
   }
 }
 
-# SSH NSG Egress Rule (Requestor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorSSHSecurityEgressGroupRule" {
-  provider                  = oci.requestor
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorSSHSecurityGroup.id
+# SSH NSG Egress Rule (Region1)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenSSHSecurityEgressGroupRule" {
+  provider                  = oci.region1
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenSSHSecurityGroup.id
   direction                 = "EGRESS"
   protocol                  = "6"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
 }
 
-# SSH NSG Ingress Rule (Requestor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorSSHSecurityIngressGroupRules" {
-  provider = oci.requestor
-  for_each = toset(var.bastion_ports)
+# SSH NSG Ingress Rule (Region1)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenSSHSecurityIngressGroupRules" {
+  provider = oci.region1
+  for_each = toset(var.ssh_ports)
 
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorSSHSecurityGroup.id
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenSSHSecurityGroup.id
   direction                 = "INGRESS"
   protocol                  = "6"
   source                    = "0.0.0.0/0"
@@ -174,22 +174,22 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorS
   }
 }
 
-# DB NSG Egress Rule (Requestor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorDBSystemSecurityEgressGroupRule" {
-  provider                  = oci.requestor
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorDBSystemSecurityGroup.id
+# DB NSG Egress Rule (Region1)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenDBSystemSecurityEgressGroupRule" {
+  provider                  = oci.region1
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenDBSystemSecurityGroup.id
   direction                 = "EGRESS"
   protocol                  = "6"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
 }
 
-# DB NSG Ingress Rule (Requestor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorDBSystemSecurityIngressGroupRules" {
-  provider = oci.requestor
+# DB NSG Ingress Rule (Region1)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenDBSystemSecurityIngressGroupRules" {
+  provider = oci.region1
   for_each = toset(var.sqlnet_ports)
 
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenRequestorDBSystemSecurityGroup.id
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenDBSystemSecurityGroup.id
   direction                 = "INGRESS"
   protocol                  = "6"
   source                    = "0.0.0.0/0"
@@ -203,22 +203,22 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenRequestorD
 }
 
 
-# SSH NSG Egress Rule (Acceptor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenAcceptorSSHSecurityEgressGroupRule" {
-  provider                  = oci.acceptor
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenAcceptorSSHSecurityGroup.id
+# SSH NSG Egress Rule (Region2)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenSSHSecurityEgressGroupRule2" {
+  provider                  = oci.region2
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenSSHSecurityGroup2.id
   direction                 = "EGRESS"
   protocol                  = "6"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
 }
 
-# SSH NSG Ingress Rule (Acceptor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenAcceptorSSHSecurityIngressGroupRules" {
-  provider = oci.acceptor
-  for_each = toset(var.bastion_ports)
+# SSH NSG Ingress Rule (Region2)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenSSHSecurityIngressGroupRules2" {
+  provider = oci.region2
+  for_each = toset(var.ssh_ports)
 
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenAcceptorSSHSecurityGroup.id
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenSSHSecurityGroup2.id
   direction                 = "INGRESS"
   protocol                  = "6"
   source                    = "0.0.0.0/0"
@@ -231,22 +231,22 @@ resource "oci_core_network_security_group_security_rule" "FoggyKitchenAcceptorSS
   }
 }
 
-# DB NSG Egress Rule (Acceptor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenAcceptorDBSystemSecurityEgressGroupRule" {
-  provider                  = oci.acceptor
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenAcceptorDBSystemSecurityGroup.id
+# DB NSG Egress Rule (Region2)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenDBSystemSecurityEgressGroupRule2" {
+  provider                  = oci.region2
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenDBSystemSecurityGroup2.id
   direction                 = "EGRESS"
   protocol                  = "6"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
 }
 
-# DB NSG Ingress Rule (Acceptor)
-resource "oci_core_network_security_group_security_rule" "FoggyKitchenAcceptorDBSystemSecurityIngressGroupRules" {
-  provider = oci.acceptor
+# DB NSG Ingress Rule (Region2)
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenDBSystemSecurityIngressGroupRules2" {
+  provider = oci.region2
   for_each = toset(var.sqlnet_ports)
 
-  network_security_group_id = oci_core_network_security_group.FoggyKitchenAcceptorDBSystemSecurityGroup.id
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenDBSystemSecurityGroup2.id
   direction                 = "INGRESS"
   protocol                  = "6"
   source                    = "0.0.0.0/0"
