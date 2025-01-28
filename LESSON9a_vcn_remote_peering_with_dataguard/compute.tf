@@ -66,7 +66,7 @@ resource "oci_core_instance" "FoggyKitchenBastionServer" {
 resource "oci_core_instance" "FoggyKitchenBackendserver1" {
   provider            = oci.region2
   availability_domain = var.availability_domain_name2 == "" ? lookup(data.oci_identity_availability_domains.R2-ADs.availability_domains[0], "name") : var.availability_domain_name2 
-  compartment_id      = oci_identity_compartment.ExternalCompartment.id
+  compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name        = "FoggyKitchenBackendServer1"
   shape               = var.BackendServerShape
   dynamic "shape_config" {

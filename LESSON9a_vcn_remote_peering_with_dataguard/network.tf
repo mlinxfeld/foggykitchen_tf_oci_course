@@ -12,7 +12,7 @@ resource "oci_core_virtual_network" "FoggyKitchenVCN2" {
   provider       = oci.region2
   cidr_block     = var.VCN-CIDR2
   dns_label      = "FoggyKitcheVCN2"
-  compartment_id = oci_identity_compartment.ExternalCompartment.id
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenVCN2"
 }
 
@@ -39,7 +39,7 @@ resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions1" {
 # DHCP Options for VCN2
 resource "oci_core_dhcp_options" "FoggyKitchenDhcpOptions2" {
   provider       = oci.region2
-  compartment_id = oci_identity_compartment.ExternalCompartment.id
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
   display_name   = "FoggyKitchenDHCPOptions1"
 
@@ -85,6 +85,26 @@ resource "oci_core_nat_gateway" "FoggyKitchenNATGateway" {
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
 }
 
+resource "oci_core_service_gateway" "FoggyKitchenServiceGateway" {
+  provider       = oci.region1
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  display_name   = "FoggyKitchenServiceGateway"
+  vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
+  services {
+    service_id = lookup(data.oci_core_services.AllOCIServicesR1.services[0], "id")
+  }
+}
+
+resource "oci_core_service_gateway" "FoggyKitchenServiceGateway2" {
+  provider       = oci.region2
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  display_name   = "FoggyKitchenServiceGateway2"
+  vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
+  services {
+    service_id = lookup(data.oci_core_services.AllOCIServicesR2.services[0], "id")
+  }
+}
+
 # Route Table for NAT and DRG1
 resource "oci_core_route_table" "FoggyKitchenRouteTableViaNATandDRG1" {
   provider       = oci.region1
@@ -103,12 +123,18 @@ resource "oci_core_route_table" "FoggyKitchenRouteTableViaNATandDRG1" {
     destination_type  = "CIDR_BLOCK"
     network_entity_id = oci_core_drg.FoggyKitchenDRG1.id
   }
+
+  route_rules {
+    destination       = lookup(data.oci_core_services.AllOCIServicesR1.services[0], "cidr_block")
+    destination_type  = "SERVICE_CIDR_BLOCK"
+    network_entity_id = oci_core_service_gateway.FoggyKitchenServiceGateway.id
+  }
 }
 
 # Route Table via DRG2
 resource "oci_core_route_table" "FoggyKitchenRouteTableViaDRG2" {
   provider       = oci.region2
-  compartment_id = oci_identity_compartment.ExternalCompartment.id
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
   display_name   = "FoggyKitchenRouteTableViaDRG2"
 
@@ -116,6 +142,12 @@ resource "oci_core_route_table" "FoggyKitchenRouteTableViaDRG2" {
     destination       = var.VCN-CIDR
     destination_type  = "CIDR_BLOCK"
     network_entity_id = oci_core_drg.FoggyKitchenDRG2.id
+  }
+
+  route_rules {
+    destination       = lookup(data.oci_core_services.AllOCIServicesR2.services[0], "cidr_block")
+    destination_type  = "SERVICE_CIDR_BLOCK"
+    network_entity_id = oci_core_service_gateway.FoggyKitchenServiceGateway2.id
   }
 }
 
@@ -212,7 +244,7 @@ resource "oci_core_security_list" "FoggyKitchenSQLNetSecurityList" {
 # Security List for SSH in VCN2
 resource "oci_core_security_list" "FoggyKitchenSSHSecurityList2" {
   provider       = oci.region2
-  compartment_id = oci_identity_compartment.ExternalCompartment.id
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenSSHSecurityList2"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
 
@@ -294,7 +326,7 @@ resource "oci_core_subnet" "FoggyKitchenBackendSubnet" {
   display_name               = "FoggyKitchenBackendSubnet"
   dns_label                  = "FoggyKitchenN5"
   prohibit_public_ip_on_vnic = true
-  compartment_id             = oci_identity_compartment.ExternalCompartment.id
+  compartment_id             = oci_identity_compartment.FoggyKitchenCompartment.id
   vcn_id                     = oci_core_virtual_network.FoggyKitchenVCN2.id
   route_table_id             = oci_core_route_table.FoggyKitchenRouteTableViaDRG2.id
   dhcp_options_id            = oci_core_dhcp_options.FoggyKitchenDhcpOptions2.id

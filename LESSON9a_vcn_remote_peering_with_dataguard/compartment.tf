@@ -8,6 +8,7 @@ resource "oci_identity_compartment" "FoggyKitchenCompartment" {
   }
 }
 
+/*
 resource "oci_identity_compartment" "ExternalCompartment" {
   provider = oci.homeregion
   name = "ExternalCompartment"
@@ -17,3 +18,4 @@ resource "oci_identity_compartment" "ExternalCompartment" {
     command = "sleep 60"
   }
 }
+*/

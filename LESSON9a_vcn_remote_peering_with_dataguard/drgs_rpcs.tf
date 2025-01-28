@@ -27,7 +27,7 @@ resource "oci_core_remote_peering_connection" "FoggyKitchenRPC1" {
 resource "oci_core_drg" "FoggyKitchenDRG2" {
   provider       = oci.region2
   display_name   = "FoggyKitchenDRG2"
-  compartment_id = oci_identity_compartment.ExternalCompartment.id
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
 }
 
 # DRG2 Attachment with VCN2
@@ -41,7 +41,7 @@ resource "oci_core_drg_attachment" "FoggyKitchenDRG2Attachment" {
 # RPC2 for DRG2
 resource "oci_core_remote_peering_connection" "FoggyKitchenRPC2" {
   provider       = oci.region2
-  compartment_id = oci_identity_compartment.ExternalCompartment.id
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   drg_id         = oci_core_drg.FoggyKitchenDRG2.id
   display_name   = "FoggyKitchenRPC2"
 }

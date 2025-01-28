@@ -33,7 +33,7 @@ resource "oci_core_network_security_group" "FoggyKitchenDBSystemSecurityGroup" {
 # SSH NSG (Region2)
 resource "oci_core_network_security_group" "FoggyKitchenSSHSecurityGroup2" {
   provider       = oci.region2
-  compartment_id = oci_identity_compartment.ExternalCompartment.id
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenSSHSecurityGroup2"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
 }
@@ -41,7 +41,7 @@ resource "oci_core_network_security_group" "FoggyKitchenSSHSecurityGroup2" {
 # DB NSG (Region2)
 resource "oci_core_network_security_group" "FoggyKitchenDBSystemSecurityGroup2" {
   provider       = oci.region2
-  compartment_id = oci_identity_compartment.ExternalCompartment.id
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenDBSystemSecurityGroup2"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN2.id
 }

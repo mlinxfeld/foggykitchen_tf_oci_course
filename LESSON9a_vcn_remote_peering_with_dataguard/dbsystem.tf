@@ -13,7 +13,10 @@ resource "oci_database_db_system" "FoggyKitchenDBSystem" {
       ncharacter_set = var.NCharacterSet
       db_workload    = var.DBWorkload
       pdb_name       = var.PDBName
-    }
+      db_backup_config {
+        auto_backup_enabled = true
+      }
+    }  
     db_version   = var.DBVersion
     display_name = var.DBDisplayName
   }
@@ -31,10 +34,12 @@ resource "oci_database_db_system" "FoggyKitchenDBSystem" {
   node_count              = var.DBNodeCount
 }
 
+
 # DBSystem DG Association (Standby DBSystem/Database)
 resource "oci_database_data_guard_association" "FoggyKitchenDBSystemStandby" {
-  provider                         = oci.region2
+  provider                         = oci.region1
   creation_type                    = "NewDbSystem"
+  cpu_core_count                   = var.CPUCoreCount
   database_admin_password          = var.DBAdminPassword
   database_id                      = oci_database_db_system.FoggyKitchenDBSystem.db_home[0].database[0].id
   protection_mode                  = "MAXIMUM_PERFORMANCE"

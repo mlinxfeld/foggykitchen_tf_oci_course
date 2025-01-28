@@ -85,7 +85,7 @@ data "oci_core_vnic" "FoggyKitchenWebserver_VNIC1" {
 data "oci_core_vnic_attachments" "FoggyKitchenBackendserver1_VNIC1_attach" {
   provider            = oci.region2
   availability_domain = var.availability_domain_name2 == "" ? lookup(data.oci_identity_availability_domains.R2-ADs.availability_domains[0], "name") : var.availability_domain_name2
-  compartment_id      = oci_identity_compartment.ExternalCompartment.id
+  compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
   instance_id         = oci_core_instance.FoggyKitchenBackendserver1.id
 }
 
@@ -126,4 +126,22 @@ data "oci_database_db_node" "DBNodeDetails" {
 data "oci_core_vnic" "FoggyKitchenDBSystem_VNIC1" {
   provider = oci.region1
   vnic_id  = data.oci_database_db_node.DBNodeDetails.vnic_id
+}
+
+data "oci_core_services" "AllOCIServicesR1" {
+  provider = oci.region1
+  filter {
+    name   = "name"
+    values = ["All .* Services In Oracle Services Network"]
+    regex  = true
+  }
+}
+
+data "oci_core_services" "AllOCIServicesR2" {
+  provider = oci.region2
+  filter {
+    name   = "name"
+    values = ["All .* Services In Oracle Services Network"]
+    regex  = true
+  }
 }
