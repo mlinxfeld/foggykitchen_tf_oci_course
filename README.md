@@ -1,8 +1,8 @@
-# FoggyKitchen Terraform OCI Course
+# FoggyKitchen Terraform/OpenTofu OCI Course
 
 ## Course description
 
-In this course, you can find 11 lessons (+ 5 extra lessons) with the Terraform's HCL version 1.0 code examples for the deployment of OCI resources. Our course starts with the simple example of one webserver in one regional public subnet, nested in one VCN in particular availability domain (AD). Incrementally next lessons will show you how to implement multiplied webservers, spread between ADs, located under load balancer umbrella. Further, we will make this setup even more secure by the introduction of private subnets and bastion-host to jump over. We will also explore storage options for the servers (local block volumes and shared filesystems). Besides the web tier, we will introduce VM based OCI DBSystem deployed in the fully separated private subnet. The last lesson will introduce VCN local peering for the integration of private DBSystem and external VCN with backend server (local VCN peering).  
+In this course, you can find 14 lessons with the Terraform's HCL version 1.0 code examples for the deployment of OCI resources. Our course starts with the simple example of one webserver in one regional public subnet, nested in one VCN in particular availability domain (AD). Incrementally next lessons will show you how to implement multiplied webservers, spread between ADs, located under load balancer umbrella. Further, we will make this setup even more secure by the introduction of private subnets and bastion-host to jump over. We will also explore storage options for the servers (local block volumes and shared filesystems). Besides the web tier, we will introduce VM based OCI DBSystem deployed in the fully separated private subnet. The last lesson will introduce VCN local peering for the integration of private DBSystem and external VCN with backend server (local VCN peering).  
 
 ## How to use code from the lessons
 
@@ -35,7 +35,6 @@ drwxr-xr-x  29 martinlinxfeld  staff    928 13 lut 23:23 LESSON7_dbsystem
 drwxr-xr-x  38 martinlinxfeld  staff   1216 13 lut 23:23 LESSON8_vcn_local_peering
 drwxr-xr-x  39 martinlinxfeld  staff   1248 13 lut 23:23 LESSON9_vcn_remote_peering
 drwxr-xr-x   3 martinlinxfeld  staff     96 13 lut 23:38 ..
-drwxr-xr-x  49 martinlinxfeld  staff   1568  6 mar 09:47 LESSON10_transit_vcn
 drwxr-xr-x  16 martinlinxfeld  staff    512  6 mar 09:47 .
 -rw-r--r--   1 martinlinxfeld  staff  21236  6 mar 09:47 README.md
 drwxr-xr-x  14 martinlinxfeld  staff    448 10 mar 16:23 .git
@@ -337,21 +336,6 @@ In this lesson I will move *FoggyKitchenVCN2* content, including subnet and Back
 This lesson is a mixture of lesson9 and lesson 7a. We are setting up cross-region DGAssociation. In this lesson I primary DBSystem will be in one datacenter (eu-frankfurt-1) and standby database will be deployed in another region (eu-amsterdam-1). DataGuard's SQLNet traffic will go via DRGs/RPC and OCI backbone network.
 
 ![](LESSON9a_vcn_remote_peering_with_dataguard/LESSON9a_vcn_remote_peering_with_dataguard.jpg)
-
-### LESSON 10 - Transit VCN
-
-This lesson will be based on Lesson9. VCN2 located in another region (eu-amsterdam-1) will be transformed into *Hub VCN*. Additionally we will create two *Spoke VCNs* in this region. *Spoke VCNs* will be interconnected with this *Hub VCN* with the usage of LPGs (local VCN peering). In the code we will also add two route tables: (1) on DRG attach and (2) on *Hub VCN* LPGs' side. As a consequence it will be possible to start connection from departamental servers located in a *Spoke VCNs / Spoke subnets* to the infrastructure in the first original region (eu-frankfurt-1). It means *Hub VCN* will play a role of Transit Routing VCN for *Spoke VCNs*.
-
-![](LESSON10_transit_vcn/LESSON10_transit_vcn.jpg) 
-
-
-### LESSON 11 - Transit DRG2
-
-This lesson is based on Lesson10, but instead of building *HubVCN*, we will use the latest functionally of Dynamic Routing Gateway (DRG). Nowadays, DRG, also called 2.0, supports multiplied attachments to VCNs. So there is no need to use the Hub-Spoke model anymore. Instead, you can directly attach all second region (eu-amsterdam-1) VCNs and subnets to DRG2. It reduces the complexity of the architecture.
-
-
-![](LESSON11_transit_drg2/LESSON11_transit_drg2.png) 
-
 
 ## Contributing
 This project is open source. Please submit your contributions by forking this repository and submitting a pull request! [FoggyKitchen.com](https://foggykitchen.com/) appreciates any contributions that are made by the open source community.
